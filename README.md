@@ -1,3 +1,6 @@
-🚧 Site en cours de développement pour Le Jardin de Lili & Sam 🚧
-
-[![Voir le site](https://img.shields.io/badge/Site%20web-En%20ligne-green)](https://rafikbenbourek.github.io/JLSBayonne/)
+<p align="center">
+  🚧 Site en cours de développement pour <strong>Le Jardin de Lili & Sam</strong><br><br>
+  <a href="https://rafikbenbourek.github.io/JLSBayonne/">
+    <img src="https://img.shields.io/badge/Site%20web-En%20ligne-green" />
+  </a>
+</p>
