@@ -1,5 +1,5 @@
 <h1 align="center">
-🚧 Site en cours de développement pour Le Jardin de Lili & Sam
+🚧 Site en cours de développement pour Le Jardin de Lili & Sam 🤍
 </h1>
 
 <p align="center">
