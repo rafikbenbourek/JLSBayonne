@@ -23,7 +23,7 @@ body {
     z-index: 0;
     pointer-events: none;
 }
-
+ 
 .philosophie-container {
     position: relative;
     z-index: 1;
@@ -44,7 +44,7 @@ body {
     position: sticky;
     top: 0;
     width: 100%;
-    background: #FEFCFD;
+    background: #fdfefc;
     z-index: 1000;
 }
 
@@ -69,7 +69,7 @@ body {
 
 .header.scrolled {
     backdrop-filter: blur(10px);
-    background: rgba(254,252,253,0.9);
+    background: rgba(254, 252, 253, 0.9);
 }
 
 /* LOGO */
@@ -300,7 +300,8 @@ body {
     content: "";
     position: absolute;
     left: 0;
-    bottom: 0; /* en bas de la section */
+    bottom: 0;
+    /* en bas de la section */
     width: 100%;
     height: 1.5px;
     background: linear-gradient(to right, #ae7c3a00, #ae7c3a, #ae7c3a00);
@@ -533,32 +534,32 @@ body {
 
 /* ICONS HOVER */
 
-.icon-wrapper{
-    position:relative;
-    display:flex;
-    align-items:center;
+.icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.icon-hover{
-    position:absolute;
-    top:0;
-    left:0;
-    opacity:0;
-    transition:opacity .2s ease;
+.icon-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity .2s ease;
 }
 
-.icon-default{
-    transition:opacity .2s ease;
+.icon-default {
+    transition: opacity .2s ease;
 }
 
 /* hover */
 
-.icon-wrapper:hover .icon-default{
-    opacity:0;
+.icon-wrapper:hover .icon-default {
+    opacity: 0;
 }
 
-.icon-wrapper:hover .icon-hover{
-    opacity:1;
+.icon-wrapper:hover .icon-hover {
+    opacity: 1;
 }
 
 /* PANIER COUNT */
@@ -899,7 +900,8 @@ body {
 }
 
 .welcome-baner .main-baner {
-    max-width: 30%; /* ajuste selon ta mise en page */
+    max-width: 30%;
+    /* ajuste selon ta mise en page */
     height: auto;
     display: block;
     z-index: 2;
@@ -910,17 +912,20 @@ body {
     position: absolute;
     top: 58%;
     transform: translateY(-50%);
-    max-height: auto; /* adapte la taille de la décoration */
+    max-height: auto;
+    /* adapte la taille de la décoration */
     opacity: 0.7;
     z-index: 1;
 }
 
 .welcome-baner .baner-deco.left {
-    left: 0px; /* espace à gauche de la bannière */
+    left: 0px;
+    /* espace à gauche de la bannière */
 }
 
 .welcome-baner .baner-deco.right {
-    right: 0px; /* espace à droite de la bannière */
+    right: 0px;
+    /* espace à droite de la bannière */
 }
 
 .concept-store-since-2013 {
@@ -933,7 +938,7 @@ body {
     max-width: 3500px;
     margin-bottom: -20px;
     margin-top: -22px
-}   
+}
 
 .concept-store-since-2013 img {
     width: 100%;
@@ -967,7 +972,7 @@ body {
 .philosophie p {
     font-family: "Open Sans", sans-serif;
     font-size: 18px;
-    color: #555;
+    color: #3b3b3b;
     line-height: 1.6;
     margin-bottom: 15px;
 }
@@ -1390,8 +1395,8 @@ footer {
     transform: translateY(30px) scale(.9);
     transition: all .35s cubic-bezier(.25, .8, .25, 1);
 
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25),
-                0 0 0 4px rgba(255,255,255,0.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25),
+        0 0 0 4px rgba(255, 255, 255, 0.05);
     z-index: 1000;
 }
 
