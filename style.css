@@ -331,18 +331,19 @@ body {
     max-width: 90%;
     /* responsive sur mobile */
     width: 450px;
-    font-size: 22px;
+    font-size: 21px;
     border: 1px solid #AE7B3A;
     /* Ajout d'un encadré */
-    border-radius: 8px;
+    border-radius: 4px;
     /* Coins arrondis */
     outline: none;
-    padding: 10px 15px 10px 45px;
+    padding: 10px 10px 10px 35px;
     background: #fff;
     box-shadow: 0 2px 8px rgba(174, 123, 58, 0.08);
     /* Légère ombre */
     transition: border-color 0.2s;
     animation: rainbow-border 5s linear infinite;
+    margin-left: 50px;
 }
 
 .header-search input:focus {
