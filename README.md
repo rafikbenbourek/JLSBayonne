@@ -4,6 +4,6 @@
 
 <p align="center">
   <a href="https://benbourekrafik.github.io/JLSBayonne/">
-    <img src="https://img.shields.io/badge/Site%20web-En%20ligne-green" />
+    <img src="https://img.shields.io/badge/SITE%20WEB-EN%20LIGNE-brightgreen?style=for-the-badge" />
   </a>
 </p>
