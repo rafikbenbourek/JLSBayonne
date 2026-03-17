@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="500" viewBox="2400 0 3392 630">
+  <defs>
+    <style>
+      .since { font-family: "Georgia","Times New Roman",serif; font-style: italic; font-size: 60px; fill: #111; }
+      .berbere { fill: none; stroke: #AE7B3A; stroke-width: 5; opacity: 0.8; }
+      .berbere-dark { fill: none; stroke: #111; stroke-width: 5; opacity: 0.5; }
+      .berbere-small { fill: none; stroke: #111; stroke-width: 5; opacity: 0.9; }
+    </style>
+
+    <!-- Petit cœur -->
+    <g id="heart" transform="scale(1.3)">
+      <path d="M20 8
+               C20 3, 16 0, 10 0
+               C7 0, 3 2, 2 5
+               C0 2, -2 0, -4 0
+               C-9 0, -13 3, -12 8
+               C-12 14, -6 18, 3 24
+               C12 18, 18 14, 20 8 Z"
+            fill="#AE7B3A">
+        <animateTransform attributeName="transform" type="scale" values="1;1.15;1;1.3;1" dur="0.8s" repeatCount="indefinite"/>
+      </path>
+    </g>
+
+    <!-- Motif berbère principal (tapis) -->
+    <g id="berbere-pattern">
+      <path class="berbere" d="M0,0 L45,45 L90,0 L45,-45 Z"/>
+      <path class="berbere" d="M45,0 L90,45 L135,0 L90,-45 Z"/>
+      <path class="berbere" d="M90,0 L135,45 L180,0 L135,-45 Z"/>
+      <path class="berbere" d="M135,0 L180,45 L225,0 L180,-45 Z"/>
+      <path class="berbere" d="M0,-25 L22.5,0 L45,-25 L67.5,0 L90,-25 L112.5,0 L135,-25"/>
+      <path class="berbere" d="M0,25 L22.5,0 L45,25 L67.5,0 L90,25 L112.5,0 L135,25"/>
+      <path class="berbere" d="M0,0 L22.5,30 L45,0 Z"/>
+      <path class="berbere" d="M45,0 L67.5,30 L90,0 Z"/>
+      <path class="berbere" d="M90,0 L112.5,30 L135,0 Z"/>
+      <path class="berbere-dark" d="M22.5,0 L67.5,45 L112.5,0 L67.5,-45 Z"/>
+      <path class="berbere-dark" d="M67.5,0 L112.5,45 L157.5,0 L112.5,-45 Z"/>
+    </g>
+
+    <!-- Petit motif berbère intermédiaire animé vertical + rotation, plus gros et épais -->
+    <g id="berbere-small">
+      <path class="berbere-small" d="M0,0 L40,40 L80,0 L40,-40 Z">
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,5;0,0" dur="1.5s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="rotate" values="0;5;0;-5;0" dur="3s" repeatCount="indefinite"/>
+      </path>
+    </g>
+  </defs>
+
+  <g text-anchor="middle">
+    <text x="4096" y="120" class="since">since 2013</text>
+
+    <!-- Cœurs à droite descendus et agrandis -->
+    <g transform="translate(5650,195) scale(1.3)">
+      <use href="#heart"/>
+    </g>
+    <g transform="translate(5720,220) scale(1.0)">
+      <use href="#heart"/>
+    </g>
+
+    <!-- Cœurs à gauche descendus et agrandis (le premier est étiré verticalement) -->
+    <g transform="translate(2532,195) scale(-1.3,1.4)"> <!-- scaleY augmenté pour étirement -->
+      <use href="#heart"/>
+    </g>
+    <g transform="translate(2462,220) scale(-1.0,1)">
+      <use href="#heart"/>
+    </g>
+
+    <!-- Petits motifs intermédiaires plus gros, centrés -->
+    <g transform="translate(3400, 440)">
+      <use href="#berbere-small"/>
+      <use href="#berbere-small" x="250"/>
+      <use href="#berbere-small" x="500"/>
+    </g>
+
+    <g transform="translate(4200, 440)">
+      <use href="#berbere-small"/>
+      <use href="#berbere-small" x="250"/>
+      <use href="#berbere-small" x="500"/>
+    </g>
+
+    <!-- Tapis berbère centré et ultra-large -->
+    <g transform="translate(3970, 570)">
+      <use href="#berbere-pattern" x="-810"/>
+      <use href="#berbere-pattern" x="-675"/>
+      <use href="#berbere-pattern" x="-540"/>
+      <use href="#berbere-pattern" x="-405"/>
+      <use href="#berbere-pattern" x="-270"/>
+      <use href="#berbere-pattern" x="-135"/>
+      <use href="#berbere-pattern"/>
+      <use href="#berbere-pattern" x="135"/>
+      <use href="#berbere-pattern" x="270"/>
+      <use href="#berbere-pattern" x="405"/>
+      <use href="#berbere-pattern" x="540"/>
+      <use href="#berbere-pattern" x="675"/>
+      <use href="#berbere-pattern" x="810"/>
+    </g>
+  </g>
+</svg>
