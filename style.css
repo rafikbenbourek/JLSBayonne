@@ -1330,11 +1330,11 @@ body {
 }
 
 .philosophie-side.left {
-    left: calc(50% - 950px);
+    left: calc(50% - 965px);
 }
 
 .philosophie-side.right {
-    right: calc(50% - 750px);
+    right: calc(50% - 865px);
 }
 
 .photo-stack {
@@ -1392,11 +1392,11 @@ body {
 }
 
 .philosophie-side.left {
-    left: calc(50% - 965px);
+    left: calc(50% - 900px);
 }
 
 .philosophie-side.right {
-    right: calc(50% - 765px);
+    right: calc(50% - 900px);
 }
 
 @keyframes photoScroll {
