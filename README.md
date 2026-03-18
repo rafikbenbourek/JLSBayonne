@@ -8,5 +8,6 @@
   </a>
 </p>
 
-https://jlsbayonne.fr/images/le-jardin-de-lili-sam-logo-180x180.jpg
-https://img.shields.io/badge/SITE%20WEB-EN%20LIGNE-brightgreen?style=for-the-badge]
+<p align="center">
+  <img src="https://img.shields.io/badge/SITE%20WEB-EN%20LIGNE-brightgreen?style=for-the-badge" alt="Site en ligne badge" />
+</p>
