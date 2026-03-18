@@ -1439,13 +1439,13 @@ body {
     color: #7a5c3e;
     align-items: center;
     gap: 0.5em;
+    user-select: none;
 }
 
 @keyframes scrollBrandsVertical {
     0% {
         transform: translateY(0);
     }
-
     100% {
         transform: translateY(-50%);
     }
@@ -1905,5 +1905,92 @@ footer {
 @media (max-width: 1200px) {
     .philosophie-side {
         display: none;
+    }
+}
+
+/* CATALOG PAGE */
+.catalog-page{
+    max-width: 1400px;
+    margin: 32px auto 48px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 28px;
+    align-items: start;
+}
+
+.catalog-content h1{
+    margin-bottom: 8px;
+}
+
+.catalog-grid{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.product-card{
+    min-height: 160px;
+    border: 1px solid #ece7df;
+    border-radius: 10px;
+    padding: 14px;
+    background: #fff;
+}
+
+.catalog-filters{
+    position: sticky;
+    top: 110px;
+    max-height: calc(100vh - 130px);
+    overflow: auto;
+    border: 1px solid #ece7df;
+    border-radius: 12px;
+    padding: 16px;
+    background: #fff;
+}
+
+.catalog-filters h2{
+    margin: 0 0 12px;
+    font-size: 1.1rem;
+}
+
+.filter-group{
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0ebe4;
+}
+
+.filter-group h3{
+    margin: 0 0 8px;
+    font-size: .95rem;
+}
+
+.filter-group a{
+    display: block;
+    padding: 4px 0;
+    text-decoration: none;
+    color: inherit;
+}
+
+.filter-group a:hover{
+    text-decoration: underline;
+}
+
+@media (max-width: 1024px){
+    .catalog-page{
+        grid-template-columns: 1fr;
+    }
+    .catalog-filters{
+        position: static;
+        max-height: none;
+    }
+    .catalog-grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px){
+    .catalog-grid{
+        grid-template-columns: 1fr;
     }
 }

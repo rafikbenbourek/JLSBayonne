@@ -51,7 +51,7 @@
 
             <nav class="menu">
                 <div class="submenu-container">
-                    <a href="nouveautes.html"
+                    <a href="/boutique/produits?CAT=nouveautes&parent=boutique"
                         class="has-submenu menu-link-nouveautes">Nouveautés</a>
                 </div>
                 <div class="submenu-container">
@@ -165,248 +165,91 @@
         </div>
     </header>
 
-    <!-- CAROUSEL -->
-    <section class="carousel">
-        <div class="carousel-container">
-            <div class="carousel-slide active">
-                <img src="img/slide1.webp" loading="eager" alt="Bienvenue chez le Jardin de Lili & Sam">
-                <div class="slide-content">
-                    <h2>Bienvenue chez le Jardin de Lili & Sam</h2>
-                    <p>Découvrez notre sélection de vêtements et accessoires uniques dans notre e-shop ou dans notre
-                        boutique à Bayonne.</p>
-                </div>
+    <main class="catalog-page">
+        <section class="catalog-content">
+            <h1>Nouveautés</h1>
+            <p>Retrouvez ici les derniers articles ajoutés à la boutique.</p>
+
+            <!-- Exemple : grille produits (à connecter à vos données) -->
+            <div class="catalog-grid">
+                <article class="product-card">Produit 1</article>
+                <article class="product-card">Produit 2</article>
+                <article class="product-card">Produit 3</article>
+                <article class="product-card">Produit 4</article>
             </div>
-            <div class="carousel-slide">
-                <img src="img/slide2.webp" loading="lazy" alt="Nouveautés boutique">
-                <div class="slide-content">
-                    <h2>Nouveautés boutique</h2>
-                    <p>Découvrez nos dernières acquisitions et nouveautés dans notre boutique.</p>
-                </div>
-            </div>
-            <div class="carousel-slide">
-                <img src="img/slide3.webp" loading="lazy" alt="Concept store à Bayonne">
-                <div class="slide-content">
-                    <h2>Concept store Bayonne</h2>
-                    <p>Notre concept store à Bayonne vous propose une sélection unique de vêtements et accessoires.</p>
-                </div>
-            </div>
-            <div class="carousel-slide">
-                <img src="img/slide4.webp" loading="lazy" alt="Idées cadeaux">
-                <div class="slide-content">
-                    <h2>Idées cadeaux</h2>
-                    <p>Découvrez nos idées cadeaux spécialement sélectionnées pour vous.</p>
-                </div>
-            </div>
-            <div class="carousel-slide">
-                <img src="img/slide5.webp" loading="lazy" alt="Vêtements et accessoires">
-                <div class="slide-content">
-                    <h2>Vêtements et accessoires</h2>
-                    <p>Découvrez notre sélection de vêtements et accessoires uniques dans notre boutique.</p>
-                </div>
+        </section>
+
+        <aside class="catalog-filters" aria-label="Filtres catégories">
+            <h2>Filtrer par catégorie</h2>
+
+            <div class="filter-group">
+                <h3>Catégories principales</h3>
+                <a href="/boutique/produits?CAT=Nouveautes&parent=boutique">Nouveautés</a>
+                <a href="/boutique/produits?CAT=vetements&parent=boutique">Vêtements</a>
+                <a href="/boutique/produits?CAT=chaussures&parent=boutique">Chaussures</a>
+                <a href="/boutique/produits?CAT=accessoires&parent=boutique">Accessoires</a>
+                <a href="/boutique/produits?CAT=soins_bien_etre&parent=boutique">Soins & Bien-être</a>
+                <a href="/boutique/produits?CAT=decoration&parent=boutique">Décoration</a>
+                <a href="/boutique/produits?CAT=Luxe&parent=boutique">Luxe</a>
+                <a href="/boutique/produits?CAT=Parfumerie&parent=boutique">Parfumerie</a>
+                <a href="/boutique/produits?CAT=Bijoux&parent=boutique">Bijoux | Fantaisie</a>
             </div>
 
-            <button class="prev" aria-label="Previous Slide">&#10094;</button>
-            <button class="next" aria-label="Next Slide">&#10095;</button>
-
-            <div class="carousel-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </div>
-            <div class="carousel-flash"></div>
-        </div>
-    </section>
-
-    <!-- BANNIERE -->
-    <section class="welcome-baner">
-        <img src="img/welcome-baner.png" alt="Bienvenue sur le Jardin de Lili & Sam" class="main-baner">
-        <img src="img/lauren-left.png" alt="" class="baner-deco left">
-        <img src="img/lauren-right.png" alt="" class="baner-deco right">
-    </section>
-    <!-- CONCEPT STORE SINCE 2013 -->
-    <section class="concept-store-since-2013">
-        <img src="img/concept-store.svg" alt="Concept Store Since 2013">
-    </section>
-
-    <!-- PHILOSOPHIE -->
-    <section class="philosophie">
-        <div class="philosophie-container">
-            <h2>Qui sommes-nous ?</h2>
-            <p>
-                <strong>Le Jardin de Lili & Sam</strong> est un <strong>concept store à Bayonne</strong> dédiés à la
-                mode et aux trouvailles tendances.
-                Nous y proposons une sélection soigneusement choisie <strong>de pièces neuves et de seconde
-                    main</strong>, mêlant
-                grandes marques, pépites stylées et nouveautés régulières.
-            </p>
-            <p>
-                Pensé comme un lieu d’inspiration et de découvertes, notre concept store vous invite à explorer une mode
-                <strong>accessible, responsable et pleine de caractère</strong>. Chaque article est sélectionné avec
-                attention pour offrir
-                style, qualité et originalité.
-            </p>
-
-            <p>
-                Que vous nous rendiez visite en boutique ou en ligne, <strong>Le Jardin de Lili & Sam</strong> est
-                l’endroit idéal pour
-                dénicher des pièces uniques, suivre les tendances et se faire plaisir sans compromis sur le budget.
-            </p>
-
-            <!-- CAROUSEL PHILOSOPHIE SIDE IMAGES -->
-            <div class="philosophie-side left">
-                <div class="photo-stack" data-fade-carousel>
-                    <img class="photo-slide is-active" src="img/shooting/shoot1.jpg" alt="Silhouette mode en boutique">
-                    <img class="photo-slide" src="img/shooting/shoot2.jpg" alt="Look lifestyle Le Jardin de Lili & Sam">
-                </div>
+            <div class="filter-group">
+                <h3>Vêtements</h3>
+                <a href="/boutique/produits?CAT=robes&parent=boutique">Robes</a>
+                <a href="/boutique/produits?CAT=jupes&parent=boutique">Jupes</a>
+                <a href="/boutique/produits?CAT=pantalons&parent=boutique">Pantalons</a>
+                <a href="/boutique/produits?CAT=vestes&parent=boutique">Vestes</a>
+                <a href="/boutique/produits?CAT=manteaux&parent=boutique">Manteaux</a>
+                <a href="/boutique/produits?CAT=pulls&parent=boutique">Pulls</a>
+                <a href="/boutique/produits?CAT=t-shirts&parent=boutique">T-shirts</a>
+                <a href="/boutique/produits?CAT=chemises&parent=boutique">Chemises</a>
+                <a href="/boutique/produits?CAT=combinaisons&parent=boutique">Combinaisons</a>
             </div>
 
-            <div class="philosophie-container">
-                <!-- TON CONTENU ACTUEL -->
+            <div class="filter-group">
+                <h3>Chaussures</h3>
+                <a href="/boutique/produits?CAT=basket&parent=boutique">Basket</a>
+                <a href="/boutique/produits?CAT=bottes&parent=boutique">Bottes</a>
+                <a href="/boutique/produits?CAT=sandales&parent=boutique">Sandales</a>
+                <a href="/boutique/produits?CAT=talons&parent=boutique">Talons</a>
+                <a href="/boutique/produits?CAT=chaussures_plates&parent=boutique">Chaussures plates</a>
+                <a href="/boutique/produits?CAT=chaussures_de_sport&parent=boutique">Chaussures de sport</a>
+                <a href="/boutique/produits?CAT=chaussures_de_ville&parent=boutique">Chaussures de ville</a>
             </div>
 
-            <div class="philosophie-side right">
-                <div class="photo-stack" data-fade-carousel>
-                    <img class="photo-slide is-active" src="img/shooting/shoot3.jpg"
-                        alt="Sélection prêt-à-porter en lumière naturelle">
-                    <img class="photo-slide" src="img/shooting/shoot4.jpg" alt="Détail mode et accessoires en boutique">
-                </div>
+            <div class="filter-group">
+                <h3>Accessoires</h3>
+                <a href="/boutique/produits?CAT=sacs_maroquinerie&parent=boutique">Sacs & Maroquinerie</a>
+                <a href="/boutique/produits?CAT=bijoux_fantaisie&parent=boutique">Bijoux & Fantaisie</a>
+                <a href="/boutique/produits?CAT=ceintures&parent=boutique">Ceintures</a>
+                <a href="/boutique/produits?CAT=chapeaux&parent=boutique">Chapeaux</a>
+                <a href="/boutique/produits?CAT=echarpes&parent=boutique">Écharpes</a>
+                <a href="/boutique/produits?CAT=gants&parent=boutique">Gants</a>
+                <a href="/boutique/produits?CAT=lunettes_de_soleil&parent=boutique">Lunettes de soleil</a>
             </div>
 
-            <!-- CAROUSEL DES MARQUES -->
-            <div class="brands-carousel-vertical">
-                <div class="brands-track-vertical">
-                    <span>A.P.C.</span>
-                    <span>Agnès b.</span>
-                    <span>American Vintage</span>
-                    <span>Ba&amp;sh</span>
-                    <span>Bel Air</span>
-                    <span>Bellerose</span>
-                    <span>Bérénice</span>
-                    <span>Claudie Pierlot</span>
-                    <span>Comptoir des Cotonniers</span>
-                    <span>Hartford</span>
-                    <span>IKKS</span>
-                    <span>Iro</span>
-                    <span>Isabel Marant</span>
-                    <span>Joseph</span>
-                    <span>Kenzo</span>
-                    <span>Kitsuné</span>
-                    <span>Les Petites</span>
-                    <span>Maje</span>
-                    <span>Paul &amp; Joe</span>
-                    <span>Sandro</span>
-                    <span>Sessùn</span>
-                    <span>Sud Express</span>
-                    <span>Surface to Air</span>
-                    <span>Tara Jarmon</span>
-                    <span>The Kooples</span>
-                    <span>Vanessa Bruno</span>
-                    <span>Zadig &amp; Voltaire</span>
-                    <span>Zapa…</span>
-                    <!-- LOOP -->
-                    <span>A.P.C.</span>
-                    <span>Agnès b.</span>
-                    <span>American Vintage</span>
-                    <span>Ba&amp;sh</span>
-                    <span>Bel Air</span>
-                    <span>Bellerose</span>
-                    <span>Bérénice</span>
-                    <span>Claudie Pierlot</span>
-                    <span>Comptoir des Cotonniers</span>
-                    <span>Hartford</span>
-                    <span>IKKS</span>
-                    <span>Iro</span>
-                    <span>Isabel Marant</span>
-                    <span>Joseph</span>
-                    <span>Kenzo</span>
-                    <span>Kitsuné</span>
-                    <span>Les Petites</span>
-                    <span>Maje</span>
-                    <span>Paul &amp; Joe</span>
-                    <span>Sandro</span>
-                    <span>Sessùn</span>
-                    <span>Sud Express</span>
-                    <span>Surface to Air</span>
-                    <span>Tara Jarmon</span>
-                    <span>The Kooples</span>
-                    <span>Vanessa Bruno</span>
-                    <span>Zadig &amp; Voltaire</span>
-                    <span>Zapa…</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- CATEGORIES -->
-    <section class="categories">
-        <div class="grid">
-            <a class="card" href="/boutique/produits?CAT=Nouveautés&parent=index.html">
-                <img src="img/NOUVEAUTES.webp" alt="Nouveautés boutique">
-                <h2>Nouveautés</h2>
-            </a>
-            <a class="card" href="/boutique/produits?CAT=Chaussures&parent=index.html">
-                <img src="img/chaussures.webp" alt="Chaussures boutique">
-                <h2>Chaussures</h2>
-            </a>
-            <a class="card" href="/boutique/produits?CAT=Bijoux&parent=index.html">
-                <img src="img/BIJOUX.webp" alt="Bijoux boutique">
-                <h2>Bijoux | Fantaisie</h2>
-            </a>
-            <a class="card" href="/boutique/produits?CAT=Luxe&parent=index.html">
-                <img src="img/LUXE.webp" alt="Luxe boutique">
-                <h2>Luxe</h2>
-            </a>
-            <a class="card" href="/boutique/produits?CAT=Décoration&parent=index.html">
-                <img src="img/DECORATION.webp" alt="Décoration boutique">
-                <h2>Décoration</h2>
-            </a>
-            <a class="card" href="/boutique/produits?CAT=Parfumerie&parent=index.html">
-                <img src="img/PARFUMERIE.webp" alt="Parfumerie boutique">
-                <h2>Parfumerie</h2>
-            </a>
-
-        </div>
-    </section>
-
-    <!-- NEWSLETTER -->
-    <section class="newsletter">
-        <div class="newsletter-container">
-            <h2>10% de réduction en s'inscrivant à notre newsletter</h2>
-            <form class="newsletter-box" id="newsletter-form">
-                <input type="email" placeholder="Votre adresse email" required>
-                <button class="newsletter-btn" type="submit">
-                    <svg viewBox="0 0 24 24" class="newsletter-arrow">
-                        <path d="M5 12h14M13 5l7 7-7 7" stroke="white" stroke-width="2" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-            </form>
-
-            <div class="newsletter-success" id="newsletter-success">
-                ✓ Merci pour votre inscription !
+            <div class="filter-group">
+                <h3>Soins & Bien-être</h3>
+                <a href="/boutique/produits?CAT=parfums&parent=boutique">Parfums</a>
+                <a href="/boutique/produits?CAT=savons_artisanaux&parent=boutique">Savons artisanaux</a>
+                <a href="/boutique/produits?CAT=soins_corps&parent=boutique">Soins du corps</a>
+                <a href="/boutique/produits?CAT=soins_visage&parent=boutique">Soins du visage</a>
+                <a href="/boutique/produits?CAT=bougies_senteurs&parent=boutique">Bougies & senteurs</a>
             </div>
 
-            <div class="flower-confetti" id="flower-confetti"></div>
-
-
-        </div>
-    </section>
-
-    <!-- INFO CAROUSEL -->
-    <section class="info-carousel">
-        <button class="info-carousel-prev" aria-label="Précédent">&#10094;</button>
-        <div class="info-carousel-track-wrapper">
-            <div class="info-carousel-track">
-                <span>Livraison offerte dès 49€ d'achat en France métropolitaine</span>
-                <span>Retrait gratuit en boutique à Bayonne</span>
-                <span>Paiement sécurisé via PayPal</span>
-                <span>Retours sous 14 jours</span>
-                <span>Service client réactif</span>
+            <div class="filter-group">
+                <h3>Décoration</h3>
+                <a href="/boutique/produits?CAT=tapis_berberes&parent=boutique">Tapis Berbères</a>
+                <a href="/boutique/produits?CAT=vases_artisanaux&parent=boutique">Vases artisanaux</a>
+                <a href="/boutique/produits?CAT=bougies_lanternes&parent=boutique">Bougies & lanternes</a>
+                <a href="/boutique/produits?CAT=plateaux_traditionnels&parent=boutique">Plateaux
+                    traditionnels</a>
+                <a href="/boutique/produits?CAT=decorations_autres&parent=boutique">Autres</a>
             </div>
-        </div>
-        <button class="info-carousel-next" aria-label="Suivant">&#10095;</button>
-    </section>
+        </aside>
+    </main>
 
     <footer>
         <div class="footer-left">
@@ -443,8 +286,8 @@
 
         <!-- flèche -->
         <svg class="arrow-up" viewBox="0 0 24 24">
-            <path d="M12 19V5M5 12l7-7 7 7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"
-                stroke-linejoin="round" />
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="white" stroke-width="2" fill="none"
+                stroke-linecap="round" stroke-linejoin="round" />
         </svg>
 
         <!-- fleur -->
