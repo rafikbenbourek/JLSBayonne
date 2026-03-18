@@ -113,21 +113,22 @@
             <div class="icons">
                 <img src="icons/search-outline.svg" class="search-toggle" alt="Recherche"> <!-- ICÔNE RECHERCHE -->
 
-                <a href="/boutique/produits/?CAT=Favoris&parent=index.html" class="icon-wrapper" title="Favoris">
+                <!-- FAVORIS -->
+                <a href="/boutique/produits/?CAT=Favoris&parent=index.html" class="icon-wrapper" data-panel-trigger="panel-favoris" title="Mes Favoris">
                     <img src="icons/favorites-outline.svg" class="icon-default" alt="Mes Favoris">
-                    <!-- ICÔNE FAVORIS -->
-                    <img src="icons/favorites-filled.svg" class="icon-hover" alt="Mes Favoris Hover">
-                    <!-- ICÔNE FAVORIS HOVER -->
+                    <img src="icons/favorites-filled.svg" class="icon-hover" alt="">
                 </a>
-                <a href="/boutique/compte.php" class="icon-wrapper" title="Mon compte">
-                    <img src="icons/login-outline.svg" class="icon-default" alt="Mon Compte"> <!-- ICÔNE COMPTE -->
-                    <img src="icons/login-filled.svg" class="icon-hover" alt="Mon Compte Hover">
-                    <!-- ICÔNE COMPTE HOVER -->
+
+                <!-- COMPTE -->
+                <a href="/boutique/compte.php" class="icon-wrapper" data-panel-trigger="panel-compte" title="Mon compte">
+                    <img src="icons/login-outline.svg" class="icon-default" alt="Mon Compte">
+                    <img src="icons/login-filled.svg" class="icon-hover" alt="">
                 </a>
-                <a href="/boutique/panier.php" class="icon-wrapper" title="Mon panier">
-                    <img src="icons/basket-outline.svg" class="icon-default" alt="Panier"> <!-- ICÔNE PANIER -->
-                    <img src="icons/basket-filled.svg" class="icon-hover" alt="Panier Hover">
-                    <!-- ICÔNE PANIER HOVER -->
+
+                <!-- PANIER -->
+                <a href="/boutique/panier.php" class="icon-wrapper" data-panel-trigger="panel-panier" title="Mon panier">
+                    <img src="icons/basket-outline.svg" class="icon-default" alt="Panier">
+                    <img src="icons/basket-filled.svg" class="icon-hover" alt="">
                     <span class="cart-count">0</span>
                 </a>
 
@@ -244,9 +245,9 @@
 
             <!-- CAROUSEL PHILOSOPHIE SIDE IMAGES -->
             <div class="philosophie-side left">
-                <div class="photo-stack">
-                    <img src="img/shooting/shoot1.jpg">
-                    <img src="img/shooting/shoot2.jpg">
+                <div class="photo-stack" data-fade-carousel>
+                    <img class="photo-slide is-active" src="img/shooting/shoot1.jpg" alt="Silhouette mode en boutique">
+                    <img class="photo-slide" src="img/shooting/shoot2.jpg" alt="Look lifestyle Le Jardin de Lili & Sam">
                 </div>
             </div>
 
@@ -255,9 +256,9 @@
             </div>
 
             <div class="philosophie-side right">
-                <div class="photo-stack">
-                    <img src="img/shooting/shoot3.jpg">
-                    <img src="img/shooting/shoot4.jpg">
+                <div class="photo-stack" data-fade-carousel>
+                    <img class="photo-slide is-active" src="img/shooting/shoot3.jpg" alt="Sélection prêt-à-porter en lumière naturelle">
+                    <img class="photo-slide" src="img/shooting/shoot4.jpg" alt="Détail mode et accessoires en boutique">
                 </div>
             </div>
 
@@ -444,6 +445,78 @@
         </svg>
 
     </button>
+
+    <!-- OVERLAY PANNEAUX -->
+    <div class="side-panel-overlay" id="side-panel-overlay"></div>
+
+    <!-- PANNEAU FAVORIS -->
+    <aside class="side-panel" id="panel-favoris" aria-label="Mes Favoris">
+        <div class="side-panel-head">
+            <span class="side-panel-title">Mes Favoris</span>
+            <button class="side-panel-close" aria-label="Fermer">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+        </div>
+        <div class="side-panel-body">
+            <div class="side-panel-empty-state">
+                <svg viewBox="0 0 24 24" width="52" height="52" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="#c8b49a" stroke-width="1.5"/></svg>
+                <p>Aucun article en favoris pour l'instant.</p>
+                <a href="/boutique/produits/" class="side-panel-btn">Découvrir la boutique</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- PANNEAU COMPTE -->
+    <aside class="side-panel" id="panel-compte" aria-label="Mon Compte">
+        <div class="side-panel-head">
+            <span class="side-panel-title">Mon Compte</span>
+            <button class="side-panel-close" aria-label="Fermer">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+        </div>
+        <div class="side-panel-body">
+            <form class="side-panel-form" action="/boutique/compte.php" method="post">
+                <label for="sp-email">Adresse e‑mail</label>
+                <input id="sp-email" type="email" name="email" placeholder="votre@email.fr" autocomplete="email" required>
+                <label for="sp-password">Mot de passe</label>
+                <input id="sp-password" type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+                <a href="/boutique/compte.php?action=forgot" class="side-panel-link-small">Mot de passe oublié ?</a>
+                <button type="submit" class="side-panel-btn">Se connecter</button>
+            </form>
+            <div class="side-panel-separator"><span>ou</span></div>
+            <a href="/boutique/compte.php?action=register" class="side-panel-btn side-panel-btn-outline">Créer un compte</a>
+            <div class="side-panel-links">
+                <a href="/boutique/compte.php?action=orders">Mes commandes</a>
+                <a href="/boutique/compte.php?action=profile">Mes informations</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- PANNEAU PANIER -->
+    <aside class="side-panel" id="panel-panier" aria-label="Mon Panier">
+        <div class="side-panel-head">
+            <span class="side-panel-title">Mon Panier</span>
+            <button class="side-panel-close" aria-label="Fermer">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+        </div>
+        <div class="side-panel-body" id="panel-panier-items">
+            <div class="side-panel-empty-state">
+                <svg viewBox="0 0 24 24" width="52" height="52" fill="none"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" stroke="#c8b49a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <p>Votre panier est vide.</p>
+                <a href="/boutique/produits/" class="side-panel-btn">Continuer mes achats</a>
+            </div>
+        </div>
+        <div class="side-panel-footer" id="panel-panier-footer" style="display:none">
+            <div class="side-panel-total">
+                <span>Sous-total</span>
+                <span class="side-panel-total-amount" id="panel-panier-total">0,00 €</span>
+            </div>
+            <a href="/boutique/panier.php?action=checkout" class="side-panel-btn">Finaliser ma commande</a>
+            <a href="/boutique/panier.php" class="side-panel-btn side-panel-btn-outline">Voir mon panier</a>
+        </div>
+    </aside>
+
 </body>
 
 </html>

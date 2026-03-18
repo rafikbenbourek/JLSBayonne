@@ -65,6 +65,128 @@ if (carousel && track) {
     carousel.addEventListener('mouseleave', () => tweenPlaybackRate(1, 500));
 }
 
+// CAROUSEL FONDU IMAGES PHILOSOPHIE
+document.addEventListener("DOMContentLoaded", function () {
+
+    const stacks = document.querySelectorAll(".photo-stack[data-fade-carousel]");
+
+    if (!stacks.length) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    stacks.forEach((stack, stackIndex) => {
+        const slides = stack.querySelectorAll(".photo-slide");
+
+        if (slides.length <= 1) return;
+
+        let currentIndex = 0;
+
+        const showSlide = (nextIndex) => {
+            slides[currentIndex].classList.remove("is-active");
+            slides[nextIndex].classList.add("is-active");
+            currentIndex = nextIndex;
+        };
+
+        if (reduceMotion) {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle("is-active", index === 0);
+            });
+            return;
+        }
+
+        setInterval(() => {
+            const nextIndex = (currentIndex + 1) % slides.length;
+            showSlide(nextIndex);
+        }, 3600 + stackIndex * 500);
+    });
+
+});
+
+// PANNEAUX LATÉRAUX (favoris, compte, panier)
+document.addEventListener("DOMContentLoaded", function () {
+
+    const overlay = document.getElementById("side-panel-overlay");
+    const panels = document.querySelectorAll(".side-panel");
+    const triggers = document.querySelectorAll("[data-panel-trigger]");
+
+    function openPanel(id) {
+        panels.forEach(p => p.classList.remove("active"));
+        const panel = document.getElementById(id);
+        if (!panel) return;
+        panel.classList.add("active");
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+        if (id === "panel-panier") renderCartPanel();
+    }
+
+    function closeAllPanels() {
+        panels.forEach(p => p.classList.remove("active"));
+        overlay.classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    triggers.forEach(trigger => {
+        trigger.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.dataset.panelTrigger;
+            const isOpen = document.getElementById(targetId)?.classList.contains("active");
+            isOpen ? closeAllPanels() : openPanel(targetId);
+        });
+    });
+
+    overlay.addEventListener("click", closeAllPanels);
+
+    document.querySelectorAll(".side-panel-close").forEach(btn => {
+        btn.addEventListener("click", closeAllPanels);
+    });
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeAllPanels();
+    });
+
+    function renderCartPanel() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const body = document.getElementById("panel-panier-items");
+        const footer = document.getElementById("panel-panier-footer");
+        if (!body || !footer) return;
+
+        if (cart.length === 0) {
+            body.innerHTML = `
+                <div class="side-panel-empty-state">
+                    <svg viewBox="0 0 24 24" width="52" height="52" fill="none"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" stroke="#c8b49a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <p>Votre panier est vide.</p>
+                    <a href="/boutique/produits/" class="side-panel-btn">Continuer mes achats</a>
+                </div>`;
+            footer.style.display = "none";
+            return;
+        }
+
+        let total = 0;
+        let html = "<ul class=\"side-panel-cart-list\">";
+        cart.forEach(item => {
+            const qty = item.quantity || 1;
+            const price = item.price || 0;
+            const itemTotal = price * qty;
+            total += itemTotal;
+            html += `
+                <li class="side-panel-cart-item">
+                    ${item.image ? `<img src="${item.image}" alt="">` : ""}
+                    <div class="side-panel-cart-info">
+                        <span class="side-panel-cart-name">${item.name}</span>
+                        <span class="side-panel-cart-qty">Qté : ${qty}</span>
+                        <span class="side-panel-cart-price">${itemTotal.toFixed(2).replace(".", ",")} €</span>
+                    </div>
+                </li>`;
+        });
+        html += "</ul>";
+        body.innerHTML = html;
+        const totalEl = document.getElementById("panel-panier-total");
+        if (totalEl) totalEl.textContent = total.toFixed(2).replace(".", ",") + " €";
+        footer.style.display = "block";
+    }
+
+});
+
 // NEWSLETTER VALIDATION INSCRIPTION (animation fleurs)
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -256,6 +378,19 @@ window.addEventListener("scroll", () => {
         header.classList.add("scrolled");
     } else {
         header.classList.remove("scrolled");
+    }
+
+});
+
+// BLUR SEARCH AU SCROLL
+window.addEventListener("scroll", () => {
+
+    const search = document.querySelector(".header-search");
+
+    if (window.scrollY > 50) {
+        search.classList.add("scrolled");
+    } else {
+        search.classList.remove("scrolled");
     }
 
 });
