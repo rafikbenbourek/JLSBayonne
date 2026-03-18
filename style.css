@@ -128,9 +128,9 @@ body {
     left: 0;
     bottom: 0;
     width: 0;
-    height: 3px;
     background: #AE7B3A;
     transition: width 0.3s ease;
+    height: 3px;
 }
 
 .menu a:hover::after {
@@ -152,62 +152,79 @@ body {
     }
 }
 
-/* SUBMENU - MEGA MENU STYLE ZALANDO */
+/* SUBMENU - DROPDOWN STYLE */
 .submenu-container {
-    position: static;
+    position: relative;
 }
 
 .submenu {
     display: none;
-    position: fixed;
-    top: auto;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    width: auto;
+    min-width: 180px;
+    padding: 12px 0;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-top: 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 999;
+    border-radius: 0 0 2px 2px;
+    overflow: hidden;
+}
+
+.submenu::before {
+    content: "";
+    position: absolute;
+    top: 0;
     left: 0;
     width: 100%;
-    padding: 32px 60px;
-    background: #ffffff;
-    border-top: 2px solid #AE7B3A;
-    border-bottom: 1px solid rgba(58, 58, 58, 0.08);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
-    z-index: 999;
-    display: none;
+    height: 3px;
+    background: #AE7B3A;
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+}
+
+.submenu-container:hover .submenu::before,
+.submenu-container:focus-within .submenu::before {
+    animation: submenu-border-reveal 0.35s ease forwards;
+}
+
+@keyframes submenu-border-reveal {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
 }
 
 .submenu-inner {
-    max-width: 1400px;
-    margin: 0 auto;
     display: flex;
-    gap: 48px;
-    align-items: flex-start;
+    flex-direction: column;
 }
 
 /* Colonne du mega menu */
 .submenu-col {
-    display: flex;
-    flex-direction: column;
-    min-width: 160px;
+    display: none;
 }
 
 .submenu-col-title {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #999;
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #f0ece7;
+    display: none;
 }
 
 .submenu a {
     display: block;
-    padding: 5px 0;
-    font-size: 14px;
+    padding: 8px 18px;
+    font-size: 13px;
     font-weight: 400;
     color: #3A3A3A;
     text-decoration: none;
     background: transparent;
-    transition: color 0.2s ease, padding-left 0.2s ease;
+    transition: all 0.2s ease;
     white-space: nowrap;
 }
 
@@ -217,8 +234,8 @@ body {
 
 .submenu a:hover {
     color: #AE7B3A;
-    padding-left: 6px;
-    background: transparent;
+    background: #f9f7f5;
+    padding-left: 24px;
     animation: none;
 }
 
@@ -227,7 +244,7 @@ body {
     font-weight: 700;
     font-size: 13px;
     color: #AE7B3A;
-    margin-top: 10px;
+    margin-top: 0;
 }
 
 .submenu a.voir-tout:hover {
@@ -236,31 +253,7 @@ body {
 
 /* Image promo dans le mega menu */
 .submenu-promo {
-    margin-left: auto;
-    flex-shrink: 0;
-    width: 220px;
-}
-
-.submenu-promo img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.submenu-promo img:hover {
-    transform: scale(1.03);
-}
-
-.submenu-promo span {
-    display: block;
-    margin-top: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #3A3A3A;
-    text-align: center;
+    display: none;
 }
 
 /* Ouverture */
