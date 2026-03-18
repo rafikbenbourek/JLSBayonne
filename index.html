@@ -40,7 +40,11 @@
                 <div class="header-search">
                     <input type="text" placeholder="Rechercher un article, une marque...">
                     <img src="icons/search-outline.svg" class="search-icon-input" alt="Recherche">
-                    <img src="icons/close.svg" class="search-close" alt="Fermer la barre de recherche">
+                    <button class="search-close" aria-label="Fermer la barre de recherche">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -111,7 +115,10 @@
             </nav>
             <!-- ICÔNES PRINCIPALES -->
             <div class="icons">
-                <img src="icons/search-outline.svg" class="search-toggle" alt="Recherche"> <!-- ICÔNE RECHERCHE -->
+                <span class="icon-wrapper search-toggle" role="button" tabindex="0" aria-label="Recherche"> <!-- ICÔNE RECHERCHE -->
+                    <img src="icons/search-outline.svg" class="icon-default" alt="Recherche">
+                    <img src="icons/search-filled.svg" class="icon-hover" alt="">
+                </span>
 
                 <!-- FAVORIS -->
                 <a href="/boutique/produits/?CAT=Favoris&parent=index.html" class="icon-wrapper" data-panel-trigger="panel-favoris" title="Mes Favoris">
