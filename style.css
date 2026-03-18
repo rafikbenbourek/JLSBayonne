@@ -158,7 +158,7 @@ body {
 }
 
 .submenu {
-    display: none;
+    display: block;
     position: absolute;
     top: calc(100% + 2px);
     left: 0;
@@ -172,6 +172,12 @@ body {
     z-index: 999;
     border-radius: 0 0 2px 2px;
     overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0);
+    transform-origin: top left;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
 }
 
 .submenu::before {
@@ -189,7 +195,7 @@ body {
 
 .submenu-container:hover .submenu::before,
 .submenu-container:focus-within .submenu::before {
-    animation: submenu-border-reveal 0.35s ease forwards;
+    animation: submenu-border-reveal 0.22s ease forwards, rainbow-text 5s linear infinite;
 }
 
 @keyframes submenu-border-reveal {
@@ -259,7 +265,11 @@ body {
 /* Ouverture */
 .submenu-container:hover .submenu,
 .submenu-container:focus-within .submenu {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scale(1);
+    transition-delay: 0s;
 }
 
 /* Séparateur vertical entre colonnes */
@@ -369,10 +379,37 @@ body {
 
 .search-icon-input {
     position: absolute;
-    left: calc(50% - -166px);
+    left: calc(50% + 166px);
     width: 30px;
-    pointer-events: none;
+    cursor: pointer;
+    pointer-events: auto;
     opacity: 0.75;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    transform-origin: center;
+}
+
+.search-icon-input:hover {
+    opacity: 0.9;
+    animation: search-icon-hover 0.45s ease;
+    transform: scale(1.05);
+}
+
+.search-icon-input:active {
+    transform: scale(0.96);
+}
+
+@keyframes search-icon-hover {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.12) rotate(-8deg);
+    }
+
+    100% {
+        transform: scale(1.05) rotate(0deg);
+    }
 }
 
 .search-close {

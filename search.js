@@ -4,6 +4,7 @@ const searchToggle = document.querySelector(".search-toggle");
 const searchOverlay = document.querySelector(".header-search-overlay");
 const searchBar = document.querySelector(".header-search");
 const searchClose = document.querySelector(".search-close");
+const searchIconInput = document.querySelector(".search-icon-input");
 const headerSearchInput = document.querySelector(".header-search input");
 
 /* ouverture */
@@ -38,5 +39,12 @@ if(searchOverlay) {
         if(!e.target.closest(".header-search")) {
             searchOverlay.classList.remove("active");
         }
+    });
+}
+
+/* clic sur icone dans l'input */
+if(searchIconInput && headerSearchInput) {
+    searchIconInput.addEventListener("click", () => {
+        headerSearchInput.focus();
     });
 }
