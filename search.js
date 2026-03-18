@@ -7,10 +7,21 @@ const searchClose = document.querySelector(".search-close");
 const searchIconInput = document.querySelector(".search-icon-input");
 const headerSearchInput = document.querySelector(".header-search input");
 
+function closeSearchOverlay() {
+    if (!searchOverlay) return;
+    searchOverlay.classList.remove("active");
+    if (typeof window.unlockBodyScroll === "function") {
+        window.unlockBodyScroll();
+    }
+}
+
 /* ouverture */
 if(searchToggle && searchOverlay && headerSearchInput) {
     searchToggle.addEventListener("click", () => {
         searchOverlay.classList.add("active");
+        if (typeof window.lockBodyScroll === "function") {
+            window.lockBodyScroll();
+        }
         setTimeout(() => {
             headerSearchInput.focus();
         }, 200);
@@ -20,7 +31,7 @@ if(searchToggle && searchOverlay && headerSearchInput) {
 /* fermeture avec croix */
 if(searchClose && searchOverlay) {
     searchClose.addEventListener("click", () => {
-        searchOverlay.classList.remove("active");
+        closeSearchOverlay();
     });
 }
 
@@ -28,7 +39,7 @@ if(searchClose && searchOverlay) {
 if(searchOverlay) {
     document.addEventListener("keydown", (e) => {
         if(e.key === "Escape") {
-            searchOverlay.classList.remove("active");
+            closeSearchOverlay();
         }
     });
 }
@@ -37,7 +48,7 @@ if(searchOverlay) {
 if(searchOverlay) {
     searchOverlay.addEventListener("click", (e) => {
         if(!e.target.closest(".header-search")) {
-            searchOverlay.classList.remove("active");
+            closeSearchOverlay();
         }
     });
 }

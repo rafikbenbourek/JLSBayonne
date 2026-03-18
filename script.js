@@ -2,6 +2,35 @@ document.addEventListener("dragstart", function (e) {
     e.preventDefault();
 });
 
+// VERROUILLAGE SCROLL SANS DEPLACEMENT DE MISE EN PAGE
+let bodyScrollLocks = 0;
+
+function lockBodyScroll() {
+    bodyScrollLocks += 1;
+    if (bodyScrollLocks > 1) return;
+
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const computedPaddingRight = window.getComputedStyle(document.body).paddingRight;
+    const basePaddingRight = parseFloat(computedPaddingRight) || 0;
+
+    document.body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${basePaddingRight + scrollbarWidth}px`;
+    }
+}
+
+function unlockBodyScroll() {
+    if (bodyScrollLocks === 0) return;
+    bodyScrollLocks -= 1;
+    if (bodyScrollLocks > 0) return;
+
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+}
+
+window.lockBodyScroll = lockBodyScroll;
+window.unlockBodyScroll = unlockBodyScroll;
+
 // COMPTEUR PANIER
 function updateCartCount(animated = false) {
 
@@ -115,14 +144,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!panel) return;
         panel.classList.add("active");
         overlay.classList.add("active");
-        document.body.style.overflow = "hidden";
+        lockBodyScroll();
         if (id === "panel-panier") renderCartPanel();
     }
 
     function closeAllPanels() {
         panels.forEach(p => p.classList.remove("active"));
         overlay.classList.remove("active");
-        document.body.style.overflow = "";
+        unlockBodyScroll();
     }
 
     triggers.forEach(trigger => {
@@ -226,6 +255,8 @@ document.addEventListener("DOMContentLoaded", function () {
             petal.style.animationDuration = (3 + Math.random() * 2) + "s";
 
             petal.style.animationDelay = (Math.random() * 0.5) + "s";
+            const dx = (Math.random() * 60 - 30).toFixed(1);
+            petal.style.setProperty('--dx', dx + 'px');
 
             flowerZone.appendChild(petal);
 
