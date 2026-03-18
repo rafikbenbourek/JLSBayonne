@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://rafikbenbourek.github.io/JLSBayonne/">
-    <img src="https://jlsbayonne.fr/images/le-jardin-de-lili-sam-logo-180x180.jpg]" />
+    <img src="https://jlsbayonne.fr/images/le-jardin-de-lili-sam-logo-180x180.jpg" alt="Logo Le Jardin de Lili & Sam" />
   </a>
 </p>
 
