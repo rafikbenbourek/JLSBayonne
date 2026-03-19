@@ -57,6 +57,21 @@ function updateCartCount(animated = false) {
 
 updateCartCount();
 
+// MICRO CTA SUR CLIC DES ICONES HEADER
+const headerIcons = document.querySelectorAll(".icon-wrapper");
+
+headerIcons.forEach((icon) => {
+    icon.addEventListener("click", () => {
+        icon.classList.remove("is-clicked");
+        void icon.offsetWidth;
+        icon.classList.add("is-clicked");
+
+        setTimeout(() => {
+            icon.classList.remove("is-clicked");
+        }, 320);
+    });
+});
+
 // PANNEAUX LATÉRAUX (favoris, compte, panier)
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -69,6 +84,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const panel = document.getElementById(id);
         if (!panel) return;
         panel.classList.add("active");
+        triggers.forEach(trigger => {
+            trigger.classList.toggle("is-active", trigger.dataset.panelTrigger === id);
+        });
         overlay.classList.add("active");
         lockBodyScroll();
         if (id === "panel-panier") renderCartPanel();
@@ -76,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function closeAllPanels() {
         panels.forEach(p => p.classList.remove("active"));
+        triggers.forEach(trigger => trigger.classList.remove("is-active"));
         overlay.classList.remove("active");
         unlockBodyScroll();
     }

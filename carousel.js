@@ -77,41 +77,95 @@ window.addEventListener("load", () => {
 
 });
 
-// CAROUSEL DE MARQUES (pause au survol)
+// CAROUSEL DE MARQUES (animation continue + pop-up)
 const carousel = document.querySelector('.brands-carousel-vertical');
 const track = document.querySelector('.brands-track-vertical');
 
 if (carousel && track) {
     const anim = track.getAnimations()[0];
-    let rafId;
 
-    const easeOut = t => 1 - Math.pow(1 - t, 3);
-
-    function tweenPlaybackRate(target, duration = 350) {
-        if (!anim) return;
-        cancelAnimationFrame(rafId);
-
-        const startRate = anim.playbackRate || 1;
-        const startTime = performance.now();
-
-        if (target > 0 && anim.playState === 'paused') anim.play();
-
-        const tick = (now) => {
-            const p = Math.min((now - startTime) / duration, 1);
-            anim.playbackRate = startRate + (target - startRate) * easeOut(p);
-
-            if (p < 1) {
-                rafId = requestAnimationFrame(tick);
-            } else if (target === 0) {
-                anim.pause();
-            }
-        };
-
-        rafId = requestAnimationFrame(tick);
+    if (anim) {
+        anim.playbackRate = 1;
+        anim.play();
     }
 
-    carousel.addEventListener('mouseenter', () => tweenPlaybackRate(0, 500));
-    carousel.addEventListener('mouseleave', () => tweenPlaybackRate(1, 500));
+    const brandsModal = document.querySelector('.brands-modal-overlay');
+    const brandsModalGrid = brandsModal?.querySelector('.brands-modal-grid');
+    const closeButton = brandsModal?.querySelector('.brands-modal-close');
+
+    const getBrands = () => {
+        const allBrands = Array.from(track.querySelectorAll('span'))
+            .map((item) => item.textContent.trim())
+            .filter(Boolean);
+
+        return [...new Set(allBrands)];
+    };
+
+    const lockScrollbar = () => {
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        if (scrollbarWidth > 0) {
+            const currentPadding = window.getComputedStyle(document.body).paddingRight;
+            const basePadding = parseFloat(currentPadding) || 0;
+            document.body.style.paddingRight = `${basePadding + scrollbarWidth}px`;
+        }
+    };
+
+    const unlockScrollbar = () => {
+        document.body.style.paddingRight = '';
+    };
+
+    const closeBrandsModal = () => {
+        if (!brandsModal || !brandsModal.classList.contains('is-open')) return;
+
+        brandsModal.classList.remove('is-open');
+        brandsModal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('brands-modal-open');
+        unlockScrollbar();
+        window.unlockBodyScroll?.();
+
+        if (anim) {
+            anim.playbackRate = 1;
+            anim.play();
+        }
+    };
+
+    const openBrandsModal = () => {
+        if (!brandsModal || !brandsModalGrid) return;
+
+        const brandItems = getBrands()
+            .map((brand) => `<li class="brands-modal-item">${brand}</li>`)
+            .join('');
+
+        brandsModalGrid.innerHTML = brandItems;
+
+        brandsModal.classList.add('is-open');
+        brandsModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('brands-modal-open');
+        lockScrollbar();
+        window.lockBodyScroll?.();
+
+        if (anim) {
+            anim.pause();
+        }
+    };
+
+    if (brandsModal) {
+        brandsModal.addEventListener('click', (event) => {
+            if (event.target === brandsModal) {
+                closeBrandsModal();
+            }
+        });
+    }
+
+    closeButton?.addEventListener('click', closeBrandsModal);
+
+    carousel.addEventListener('click', openBrandsModal);
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeBrandsModal();
+        }
+    });
 }
 
 // CAROUSEL FONDU IMAGES PHILOSOPHIE
@@ -121,32 +175,218 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!stacks.length) return;
 
+    let lightboxOverlay = document.querySelector(".photo-lightbox-overlay");
+    let lightboxDialog;
+    let lightboxImage;
+    let lightboxPrevButton;
+    let lightboxNextButton;
+    let lightboxCloseButton;
+    let activeLightboxContext = null;
+
+    const refreshLightboxImage = () => {
+        if (!activeLightboxContext || !lightboxImage) return;
+
+        const activeSlide = activeLightboxContext.getActiveSlide();
+
+        if (!activeSlide) return;
+
+        lightboxImage.src = activeSlide.src;
+        lightboxImage.alt = activeSlide.alt || "Photo agrandie";
+    };
+
+    const navigateLightbox = (direction) => {
+        if (!activeLightboxContext) return;
+
+        if (direction === "next") {
+            activeLightboxContext.goNext();
+        } else {
+            activeLightboxContext.goPrev();
+        }
+
+        refreshLightboxImage();
+    };
+
+    const closeLightbox = () => {
+        if (!lightboxOverlay || !lightboxOverlay.classList.contains("is-open")) return;
+
+        lightboxOverlay.classList.remove("is-open");
+        lightboxOverlay.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("photo-lightbox-open");
+
+        if (activeLightboxContext?.onClose) {
+            const callback = activeLightboxContext.onClose;
+            activeLightboxContext = null;
+            callback();
+            return;
+        }
+
+        activeLightboxContext = null;
+    };
+
+    if (!lightboxOverlay) {
+        lightboxOverlay = document.createElement("div");
+        lightboxOverlay.className = "photo-lightbox-overlay";
+        lightboxOverlay.setAttribute("aria-hidden", "true");
+        lightboxOverlay.innerHTML = `
+            <div class="photo-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Apercu image">
+                <button class="photo-lightbox-nav prev" type="button" aria-label="Image precedente">&#10094;</button>
+                <img class="photo-lightbox-image" src="" alt="">
+                <button class="photo-lightbox-nav next" type="button" aria-label="Image suivante">&#10095;</button>
+                <button class="photo-lightbox-close" type="button" aria-label="Fermer">&times;</button>
+            </div>
+        `;
+        document.body.appendChild(lightboxOverlay);
+    }
+
+    lightboxDialog = lightboxOverlay.querySelector(".photo-lightbox-dialog");
+    lightboxImage = lightboxOverlay.querySelector(".photo-lightbox-image");
+    lightboxPrevButton = lightboxOverlay.querySelector(".photo-lightbox-nav.prev");
+    lightboxNextButton = lightboxOverlay.querySelector(".photo-lightbox-nav.next");
+    lightboxCloseButton = lightboxOverlay.querySelector(".photo-lightbox-close");
+
+    lightboxOverlay.addEventListener("click", (event) => {
+        if (event.target === lightboxOverlay) {
+            closeLightbox();
+        }
+    });
+
+    lightboxDialog?.addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+
+    lightboxPrevButton?.addEventListener("click", () => {
+        navigateLightbox("prev");
+    });
+
+    lightboxNextButton?.addEventListener("click", () => {
+        navigateLightbox("next");
+    });
+
+    lightboxCloseButton?.addEventListener("click", () => {
+        closeLightbox();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (!lightboxOverlay.classList.contains("is-open")) return;
+
+        if (event.key === "Escape") {
+            closeLightbox();
+        } else if (event.key === "ArrowRight") {
+            navigateLightbox("next");
+        } else if (event.key === "ArrowLeft") {
+            navigateLightbox("prev");
+        }
+    });
+
+    const openLightbox = (context) => {
+        if (!lightboxImage) return;
+
+        activeLightboxContext = context;
+        refreshLightboxImage();
+
+        lightboxOverlay.classList.add("is-open");
+        lightboxOverlay.setAttribute("aria-hidden", "false");
+        document.body.classList.add("photo-lightbox-open");
+    };
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     stacks.forEach((stack, stackIndex) => {
         const slides = stack.querySelectorAll(".photo-slide");
+        const backButton = stack.querySelector(".photo-card-back");
+        const middleButton = stack.querySelector(".photo-card-middle");
+        const backCardImage = backButton?.querySelector("img");
+        const middleCardImage = middleButton?.querySelector("img");
 
         if (slides.length <= 1) return;
 
         let currentIndex = 0;
+        let intervalId;
+
+        const syncCards = (activeIndex) => {
+            const middleIndex = (activeIndex + 1) % slides.length;
+            const backIndex = (activeIndex + 2) % slides.length;
+
+            if (middleCardImage) {
+                middleCardImage.src = slides[middleIndex].src;
+                middleCardImage.alt = slides[middleIndex].alt;
+            }
+
+            if (backCardImage) {
+                backCardImage.src = slides[backIndex].src;
+                backCardImage.alt = slides[backIndex].alt;
+            }
+
+            if (middleButton) {
+                middleButton.dataset.targetIndex = String(middleIndex);
+                middleButton.setAttribute("aria-label", `Afficher ${slides[middleIndex].alt.toLowerCase()}`);
+            }
+
+            if (backButton) {
+                backButton.dataset.targetIndex = String(backIndex);
+                backButton.setAttribute("aria-label", `Afficher ${slides[backIndex].alt.toLowerCase()}`);
+            }
+        };
 
         const showSlide = (nextIndex) => {
+            if (nextIndex === currentIndex) return;
             slides[currentIndex].classList.remove("is-active");
             slides[nextIndex].classList.add("is-active");
             currentIndex = nextIndex;
+            syncCards(currentIndex);
         };
+
+        const startAutoPlay = () => {
+            if (reduceMotion) return;
+
+            clearInterval(intervalId);
+            intervalId = setInterval(() => {
+                const nextIndex = (currentIndex + 1) % slides.length;
+                showSlide(nextIndex);
+            }, 3600 + stackIndex * 500);
+        };
+
+        const handleCardClick = (event) => {
+            const targetIndex = Number(event.currentTarget.dataset.targetIndex);
+
+            if (Number.isNaN(targetIndex)) return;
+
+            showSlide(targetIndex);
+            startAutoPlay();
+        };
+
+        const handleFrontSlideClick = (event) => {
+            if (!event.currentTarget.classList.contains("is-active")) return;
+
+            clearInterval(intervalId);
+            openLightbox({
+                getActiveSlide: () => slides[currentIndex],
+                goNext: () => showSlide((currentIndex + 1) % slides.length),
+                goPrev: () => showSlide((currentIndex - 1 + slides.length) % slides.length),
+                onClose: startAutoPlay
+            });
+        };
+
+        syncCards(currentIndex);
+
+        [backButton, middleButton].forEach((button) => {
+            if (!button) return;
+            button.addEventListener("click", handleCardClick);
+        });
+
+        slides.forEach((slide) => {
+            slide.addEventListener("click", handleFrontSlideClick);
+        });
 
         if (reduceMotion) {
             slides.forEach((slide, index) => {
                 slide.classList.toggle("is-active", index === 0);
             });
+            syncCards(0);
             return;
         }
 
-        setInterval(() => {
-            const nextIndex = (currentIndex + 1) % slides.length;
-            showSlide(nextIndex);
-        }, 3600 + stackIndex * 500);
+        startAutoPlay();
     });
 
 });
