@@ -4,15 +4,28 @@ let dots = document.querySelectorAll(".dot");
 let index = 0;
 let duration = 8000; // 8s
 let timeoutId;
+let zoomInNext = true;
 
 function showSlide(i) {
-    slides.forEach(slide => slide.classList.remove("active"));
+    const previousSlide = slides[index];
+    if (previousSlide) {
+        const previousImg = previousSlide.querySelector("img");
+        if (previousImg) {
+            // Keep the current visual state while the old slide fades out.
+            const currentTransform = getComputedStyle(previousImg).transform;
+            previousImg.style.transform = currentTransform === "none" ? "scale(1.02)" : currentTransform;
+        }
+    }
+
+    slides.forEach(slide => slide.classList.remove("active", "zoom-in", "zoom-out"));
     dots.forEach(dot => dot.classList.remove("active"));
 
     slides[i].classList.add("active");
+    slides[i].classList.add(zoomInNext ? "zoom-in" : "zoom-out");
     dots[i].classList.add("active");
 
     index = i;
+    zoomInNext = !zoomInNext;
 
     // relancer l'autoplay proprement
     clearTimeout(timeoutId);
@@ -20,6 +33,19 @@ function showSlide(i) {
         showSlide((index + 1) % slides.length);
     }, duration);
 }
+
+slides.forEach((slide) => {
+    slide.addEventListener("transitionend", (event) => {
+        if (event.propertyName !== "opacity") return;
+        if (slide.classList.contains("active")) return;
+
+        const img = slide.querySelector("img");
+        if (img) {
+            // Reset once hidden so next activation starts from clean keyframes.
+            img.style.transform = "";
+        }
+    });
+});
 
 // boutons
 document.querySelector(".next").onclick = () => {

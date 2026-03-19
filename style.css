@@ -1000,7 +1000,7 @@ body {
 
     transform: translateZ(0);
     opacity: 0;
-    transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.5s ease;
+    transition: opacity 0.8s ease, box-shadow 0.5s ease;
 }
 
 .carousel-slide img {
@@ -1008,16 +1008,43 @@ body {
     height: 100%;
     object-fit: cover;
     transform: scale(1.02);
-    transition: transform 6s ease;
 }
 
 .carousel-slide.active {
     opacity: 1;
-    transform: rotateY(0deg);
+    transform: translateZ(0);
 }
 
-.carousel-slide.active img {
-    transform: scale(1.05) translateX(-1%);
+.carousel-slide.active.zoom-in img {
+    animation: carouselImageZoomIn 8s linear forwards;
+}
+
+.carousel-slide.active.zoom-out img {
+    animation: carouselImageZoomOut 8s linear forwards;
+}
+
+@keyframes carouselImageZoomIn {
+
+    from {
+        transform: scale(1.02);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+
+}
+
+@keyframes carouselImageZoomOut {
+
+    from {
+        transform: scale(1.05);
+    }
+
+    to {
+        transform: scale(1.02);
+    }
+
 }
 
 .carousel-slide.active .slide-content {
