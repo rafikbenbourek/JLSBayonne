@@ -1,4 +1,4 @@
-/* GLOBAL */
+/* ----------GLOBAL---------- */
 body {
     font-family: 'Open Sans', Arial, sans-serif;
     margin: 0;
@@ -7,7 +7,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ALL BACKGROUND DECORATION */
+/* ----------ALL BACKGROUND DECORATION---------- */
 .header-search::before {
     content: "";
     position: absolute;
@@ -38,7 +38,7 @@ body {
     padding: 0 40px;
 }
 
-/* HEADER */
+/* ----------HEADER---------- */
 .header {
     position: sticky;
     top: 0;
@@ -71,7 +71,7 @@ body {
     background: rgba(254, 252, 253, 0.9);
 }
 
-/* LOGO */
+/* ----------LOGO---------- */
 .logo {
     position: relative;
 }
@@ -87,7 +87,7 @@ body {
     cursor: pointer;
 }
 
-.logo .tooltip-img {
+.logo .tooltip-gif {
     display: none;
     position: absolute;
     top: 68%;
@@ -99,12 +99,12 @@ body {
     transition: opacity 0.4s ease;
 }
 
-.logo:hover .tooltip-img {
+.logo:hover .tooltip-gif {
     display: block;
     opacity: 1;
 }
 
-/* MENU */
+/* ----------MENU---------- */
 .menu {
     display: flex;
     align-items: center;
@@ -152,7 +152,7 @@ body {
     }
 }
 
-/* SUBMENU - DROPDOWN STYLE */
+/* ----------SUBMENU - DROPDOWN STYLE---------- */
 .submenu-container {
     position: relative;
 }
@@ -280,7 +280,7 @@ body {
     flex-shrink: 0;
 }
 
-/* SEARCH HEADER OVERLAY */
+/* ----------SEARCH HEADER OVERLAY---------- */
 .header-search {
     position: relative;
     top: 0;
@@ -491,7 +491,7 @@ body {
     opacity: 0.9;
 }
 
-/* BURGER MENU */
+/* ----------BURGER MENU---------- */
 .burger {
     display: none;
     /* caché par défaut */
@@ -560,17 +560,17 @@ body {
     }
 }
 
-/* ICONS HEADER */
+/* ----------ICONS HEADER---------- */
 .icons {
     display: flex;
-    align-items: center;
+    gap: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .icons img {
     width: 24px;
-    height: auto;
-    margin-left: 18px;
-    cursor: pointer;
     transition: transform 0.2s ease;
 }
 
@@ -608,7 +608,7 @@ body {
     opacity: 1;
 }
 
-/* PANNEAUX LATÉRAUX (FAVORIS, COMPTE, PANIER) */
+/* ----------PANNEAUX LATÉRAUX (FAVORIS, COMPTE, PANIER)---------- */
 .side-panel-overlay {
     position: fixed;
     inset: 0;
@@ -950,7 +950,7 @@ body {
     transform: scale(1.05);
 }
 
-/* CAROUSEL */
+/* ----------CAROUSEL---------- */
 .carousel {
     width: 100%;
     height: 70vh;
@@ -1201,7 +1201,7 @@ body {
 
 }
 
-/* BANNIERE BIENVENUE */
+/* ----------BANNIERE BIENVENUE---------- */
 
 .welcome-baner {
     max-height: calc(100vh - 70vh);
@@ -1318,7 +1318,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* CAROUSEL PHILOSOPHIE SIDE IMAGES  */
+/* ----------CAROUSEL PHILOSOPHIE SIDE IMAGES---------- */
 .philosophie-side {
     position: absolute;
     top: 50%;
@@ -1415,7 +1415,7 @@ body {
 
 }
 
-/* CAROUSEL DES MARQUES */
+/* ----------CAROUSEL DES MARQUES---------- */
 .brands-carousel-vertical {
     overflow: hidden;
     height: 3em;
@@ -1455,7 +1455,7 @@ body {
     white-space: nowrap;
 }
 
-/* CATEGORIES */
+/* ----------CATEGORIES---------- */
 .categories {
     padding: 20px 20px;
 }
@@ -1500,7 +1500,7 @@ body {
     transform: scale(1.05);
 }
 
-/* NEWSLETTER */
+/* ----------NEWSLETTER---------- */
 
 .newsletter {
     background: #FEFEFE;
