@@ -1685,6 +1685,7 @@ body {
 
 body.brands-modal-open {
     overflow: hidden;
+    padding-right: var(--scrollbar-width, 0px);
 }
 
 .brands-modal-overlay {
