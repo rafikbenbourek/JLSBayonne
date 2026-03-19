@@ -180,8 +180,45 @@ document.addEventListener("DOMContentLoaded", function () {
     let lightboxImage;
     let lightboxPrevButton;
     let lightboxNextButton;
-    let lightboxCloseButton;
+    let lightboxDotsContainer;
+    let lightboxDots = [];
     let activeLightboxContext = null;
+
+    const syncLightboxDots = (activeIndex) => {
+        lightboxDots.forEach((dot, index) => {
+            dot.classList.toggle("is-active", index === activeIndex);
+        });
+    };
+
+    const buildLightboxDots = (totalSlides) => {
+        if (!lightboxDotsContainer) return;
+
+        lightboxDotsContainer.innerHTML = "";
+        lightboxDots = [];
+
+        if (!Number.isInteger(totalSlides) || totalSlides <= 1) return;
+
+        for (let index = 0; index < totalSlides; index += 1) {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.className = "photo-lightbox-dot";
+            dot.setAttribute("aria-label", `Voir la photo ${index + 1}`);
+            dot.dataset.targetIndex = String(index);
+
+            dot.addEventListener("click", () => {
+                if (!activeLightboxContext?.goTo) return;
+
+                const targetIndex = Number(dot.dataset.targetIndex);
+                if (Number.isNaN(targetIndex)) return;
+
+                activeLightboxContext.goTo(targetIndex);
+                refreshLightboxImage();
+            });
+
+            lightboxDots.push(dot);
+            lightboxDotsContainer.appendChild(dot);
+        }
+    };
 
     const refreshLightboxImage = () => {
         if (!activeLightboxContext || !lightboxImage) return;
@@ -192,6 +229,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         lightboxImage.src = activeSlide.src;
         lightboxImage.alt = activeSlide.alt || "Photo agrandie";
+
+        if (activeLightboxContext.getIndex) {
+            syncLightboxDots(activeLightboxContext.getIndex());
+        }
+    };
+
+    const animateLightboxImage = (direction) => {
+        if (!lightboxImage) return;
+
+        const animationClass = direction === "next" ? "is-slide-next" : "is-slide-prev";
+
+        lightboxImage.classList.remove("is-slide-next", "is-slide-prev");
+        void lightboxImage.offsetWidth;
+        lightboxImage.classList.add(animationClass);
     };
 
     const navigateLightbox = (direction) => {
@@ -204,6 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         refreshLightboxImage();
+        animateLightboxImage(direction);
     };
 
     const closeLightbox = () => {
@@ -230,9 +282,9 @@ document.addEventListener("DOMContentLoaded", function () {
         lightboxOverlay.innerHTML = `
             <div class="photo-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Apercu image">
                 <button class="photo-lightbox-nav prev" type="button" aria-label="Image precedente">&#10094;</button>
-                <img class="photo-lightbox-image" src="" alt="">
+                <img class="photo-lightbox-image" src="" alt="" tabindex="0">
                 <button class="photo-lightbox-nav next" type="button" aria-label="Image suivante">&#10095;</button>
-                <button class="photo-lightbox-close" type="button" aria-label="Fermer">&times;</button>
+                <div class="photo-lightbox-dots" aria-label="Navigation photos"></div>
             </div>
         `;
         document.body.appendChild(lightboxOverlay);
@@ -242,7 +294,14 @@ document.addEventListener("DOMContentLoaded", function () {
     lightboxImage = lightboxOverlay.querySelector(".photo-lightbox-image");
     lightboxPrevButton = lightboxOverlay.querySelector(".photo-lightbox-nav.prev");
     lightboxNextButton = lightboxOverlay.querySelector(".photo-lightbox-nav.next");
-    lightboxCloseButton = lightboxOverlay.querySelector(".photo-lightbox-close");
+    lightboxDotsContainer = lightboxOverlay.querySelector(".photo-lightbox-dots");
+
+    if (!lightboxDotsContainer && lightboxDialog) {
+        lightboxDotsContainer = document.createElement("div");
+        lightboxDotsContainer.className = "photo-lightbox-dots";
+        lightboxDotsContainer.setAttribute("aria-label", "Navigation photos");
+        lightboxDialog.appendChild(lightboxDotsContainer);
+    }
 
     lightboxOverlay.addEventListener("click", (event) => {
         if (event.target === lightboxOverlay) {
@@ -254,16 +313,34 @@ document.addEventListener("DOMContentLoaded", function () {
         event.stopPropagation();
     });
 
+    lightboxImage?.addEventListener("animationend", () => {
+        lightboxImage.classList.remove("is-slide-next", "is-slide-prev");
+    });
+
+    const setLightboxImageFocusState = (isFocused) => {
+        if (!lightboxDialog || !lightboxOverlay) return;
+        lightboxDialog.classList.toggle("image-focus", isFocused);
+        lightboxOverlay.classList.toggle("image-focus", isFocused);
+    };
+
+    lightboxImage?.addEventListener("mouseenter", () => setLightboxImageFocusState(true));
+    lightboxImage?.addEventListener("mouseleave", () => setLightboxImageFocusState(false));
+    lightboxImage?.addEventListener("focus", () => setLightboxImageFocusState(true));
+    lightboxImage?.addEventListener("blur", () => setLightboxImageFocusState(false));
+    lightboxImage?.addEventListener("click", () => closeLightbox());
+    lightboxImage?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            closeLightbox();
+        }
+    });
+
     lightboxPrevButton?.addEventListener("click", () => {
         navigateLightbox("prev");
     });
 
     lightboxNextButton?.addEventListener("click", () => {
         navigateLightbox("next");
-    });
-
-    lightboxCloseButton?.addEventListener("click", () => {
-        closeLightbox();
     });
 
     document.addEventListener("keydown", (event) => {
@@ -282,11 +359,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!lightboxImage) return;
 
         activeLightboxContext = context;
+        buildLightboxDots(activeLightboxContext.getTotal?.() ?? 0);
         refreshLightboxImage();
 
         lightboxOverlay.classList.add("is-open");
         lightboxOverlay.setAttribute("aria-hidden", "false");
         document.body.classList.add("photo-lightbox-open");
+        lightboxOverlay.classList.remove("image-focus");
+        lightboxDialog?.classList.remove("image-focus");
     };
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -361,8 +441,11 @@ document.addEventListener("DOMContentLoaded", function () {
             clearInterval(intervalId);
             openLightbox({
                 getActiveSlide: () => slides[currentIndex],
+                getIndex: () => currentIndex,
+                getTotal: () => slides.length,
                 goNext: () => showSlide((currentIndex + 1) % slides.length),
                 goPrev: () => showSlide((currentIndex - 1 + slides.length) % slides.length),
+                goTo: (targetIndex) => showSlide(targetIndex),
                 onClose: startAutoPlay
             });
         };
