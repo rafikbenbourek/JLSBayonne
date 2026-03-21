@@ -58,6 +58,21 @@ function updateCartCount(animated = false) {
 updateCartCount();
 
 // MICRO CTA SUR CLIC DES ICONES HEADER
+
+// Masquer le bloc de filtres s'il n'y a aucun filtre affichable
+function updateCatalogFiltersVisibility() {
+    const filters = document.querySelector('.catalog-filters');
+    if (!filters) return;
+    // On considère qu'un filtre affichable n'a pas la classe .is-zero
+    const visibleFilters = filters.querySelectorAll('.filter-option:not(.is-zero)');
+    filters.classList.toggle('is-empty', visibleFilters.length === 0);
+}
+
+// Exécuter au chargement
+updateCatalogFiltersVisibility();
+
+// (Optionnel) Si les filtres peuvent changer dynamiquement, réexécuter après chaque mise à jour
+// Exemple : window.addEventListener('filtersUpdated', updateCatalogFiltersVisibility);
 const headerIcons = document.querySelectorAll(".icon-wrapper");
 
 headerIcons.forEach((icon) => {
@@ -370,3 +385,263 @@ window.addEventListener("scroll", () => {
     }
 
 });
+
+// FILTRES CATALOGUE (PAGE NOUVEAUTES)
+document.addEventListener("DOMContentLoaded", () => {
+    const catalogPage = document.querySelector(".catalog-page");
+    const filterInputs = Array.from(document.querySelectorAll(".catalog-filters input[data-filter]"));
+    const universInputs = filterInputs.filter((input) => input.dataset.group === "univers");
+    const categoryInputs = filterInputs.filter((input) => input.dataset.group === "categorie");
+    const countableInputs = filterInputs.filter((input) => input.dataset.group !== "categorie");
+    const categoriesTitle = document.querySelector("[data-categories-title]");
+    const categoryGroup = document.querySelector('[data-filter-group="categorie"]');
+    const cards = Array.from(document.querySelectorAll(".catalog-grid .product-card"));
+    const results = document.querySelector("[data-catalog-results]");
+    const emptyState = document.querySelector("[data-catalog-empty]");
+    const resetButton = document.querySelector("[data-catalog-reset]");
+
+    if (!catalogPage || filterInputs.length === 0 || cards.length === 0) return;
+
+    const getSelectedByGroup = () => {
+        const selected = new Map();
+
+        filterInputs.forEach((input) => {
+            if (!input.checked) return;
+
+            const group = input.dataset.group;
+            const value = input.value;
+            if (!group || !value) return;
+
+            if (!selected.has(group)) selected.set(group, new Set());
+            selected.get(group).add(value);
+        });
+
+        return selected;
+    };
+
+    const getCardTags = (card) => {
+        return new Set(
+            (card.dataset.tags || "")
+                .split(",")
+                .map((tag) => tag.trim())
+                .filter(Boolean)
+        );
+    };
+
+    const cardMatchesSelectedGroups = (card, selectedByGroup, excludedGroup) => {
+        const tags = getCardTags(card);
+
+        return Array.from(selectedByGroup.entries()).every(([group, selectedValues]) => {
+            if (group === excludedGroup || selectedValues.size === 0) return true;
+            return Array.from(selectedValues).some((value) => tags.has(value));
+        });
+    };
+
+    const syncOptionCount = (input, count, attributeName = "data-filter-count") => {
+        const option = input.closest(".filter-option");
+        if (!option) return;
+
+        let countBadge = option.querySelector(`[${attributeName}]`);
+        if (!countBadge) {
+            countBadge = document.createElement("span");
+            countBadge.setAttribute(attributeName, "true");
+            option.appendChild(countBadge);
+        }
+
+        countBadge.textContent = `(${count})`;
+        option.classList.toggle("is-zero", count === 0);
+    };
+
+    const getOptionLabel = (input) => {
+        const option = input.closest(".filter-option");
+        if (!option) return input.value;
+
+        return option.textContent.replace(/\(.*?\)/g, "").trim();
+    };
+
+    const sortGroupOptions = (groupName, entries) => {
+        const group = document.querySelector(`[data-filter-group="${groupName}"]`);
+        if (!group) return;
+
+        entries
+            .sort((first, second) => {
+                const firstAvailable = first.count > 0 ? 1 : 0;
+                const secondAvailable = second.count > 0 ? 1 : 0;
+                if (secondAvailable !== firstAvailable) return secondAvailable - firstAvailable;
+
+                const firstChecked = first.input.checked ? 1 : 0;
+                const secondChecked = second.input.checked ? 1 : 0;
+                if (secondChecked !== firstChecked) return secondChecked - firstChecked;
+
+                if (second.count !== first.count) return second.count - first.count;
+
+                return getOptionLabel(first.input).localeCompare(getOptionLabel(second.input), "fr");
+            })
+            .forEach(({ option }) => {
+                if (option) {
+                    group.appendChild(option);
+                }
+            });
+    };
+
+    const updateFilterCounts = (inputs, selectedByGroup, excludedGroup) => {
+        const groupedEntries = new Map();
+
+        inputs.forEach((input) => {
+            const count = cards.reduce((total, card) => {
+                const tags = getCardTags(card);
+                if (!tags.has(input.value)) return total;
+                if (!cardMatchesSelectedGroups(card, selectedByGroup, excludedGroup)) return total;
+                return total + 1;
+            }, 0);
+
+            syncOptionCount(input, count);
+
+            const groupName = input.dataset.group;
+            const option = input.closest(".filter-option");
+            if (groupName) {
+                if (!groupedEntries.has(groupName)) groupedEntries.set(groupName, []);
+                groupedEntries.get(groupName).push({ input, option, count });
+            }
+
+            if (count === 0 && !input.checked) {
+                input.disabled = true;
+            } else {
+                input.disabled = false;
+            }
+        });
+
+        groupedEntries.forEach((entries, groupName) => {
+            sortGroupOptions(groupName, entries);
+        });
+    };
+
+    const updateCategoryCountsAndOrder = (selectedByGroup) => {
+        if (!categoryGroup || categoryInputs.length === 0) return;
+
+        const categoryData = categoryInputs.map((input) => {
+            const option = input.closest(".filter-option");
+            const count = cards.reduce((total, card) => {
+                const tags = getCardTags(card);
+                if (!tags.has(input.value)) return total;
+                if (!cardMatchesSelectedGroups(card, selectedByGroup, "categorie")) return total;
+                return total + 1;
+            }, 0);
+
+            syncOptionCount(input, count, "data-category-count");
+
+            if (count === 0 && !input.checked) {
+                input.disabled = true;
+            } else {
+                input.disabled = false;
+            }
+
+            return { input, option, count };
+        });
+
+        categoryData
+            .sort((first, second) => second.count - first.count || first.input.value.localeCompare(second.input.value))
+            .forEach(({ option }) => {
+                if (option) {
+                    categoryGroup.appendChild(option);
+                }
+            });
+    };
+
+    const syncCategoryOptionsFromUnivers = () => {
+        if (universInputs.length === 0 || categoryInputs.length === 0) return;
+
+        const selectedUnivers = new Set(
+            universInputs
+                .filter((input) => input.checked)
+                .map((input) => input.value)
+        );
+
+        const getUniversLabel = (input) => {
+            const option = input.closest(".filter-option");
+            if (!option) return input.value;
+            return option.textContent.replace(/\(.*?\)/g, "").trim();
+        };
+
+        if (categoriesTitle) {
+            if (selectedUnivers.size === 1) {
+                const selected = universInputs.find((input) => input.checked);
+                categoriesTitle.textContent = `Catégories - ${selected ? getUniversLabel(selected) : ""}`;
+            } else if (selectedUnivers.size > 1) {
+                categoriesTitle.textContent = "Catégories - sélection mixte";
+            } else {
+                categoriesTitle.textContent = "Catégories";
+            }
+        }
+
+        categoryInputs.forEach((input) => {
+            const option = input.closest(".filter-option");
+            const universes = new Set(
+                (option?.dataset.universes || "")
+                    .split(",")
+                    .map((value) => value.trim())
+                    .filter(Boolean)
+            );
+
+            const isAllowed = selectedUnivers.size === 0
+                ? true
+                : Array.from(selectedUnivers).some((univers) => universes.has(univers));
+
+            if (!isAllowed) {
+                input.checked = false;
+            }
+
+            input.disabled = !isAllowed;
+            if (option) {
+                option.hidden = !isAllowed;
+            }
+        });
+    };
+
+    const applyCatalogFilters = () => {
+        syncCategoryOptionsFromUnivers();
+        const selectedByGroup = getSelectedByGroup();
+        updateFilterCounts(countableInputs, selectedByGroup);
+        updateCategoryCountsAndOrder(selectedByGroup);
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+            const isVisible = cardMatchesSelectedGroups(card, selectedByGroup);
+
+            card.hidden = !isVisible;
+            if (isVisible) visibleCount += 1;
+        });
+
+        if (results) {
+            results.textContent = `${visibleCount} article${visibleCount > 1 ? "s" : ""} affiché${visibleCount > 1 ? "s" : ""}`;
+        }
+
+        if (emptyState) {
+            emptyState.hidden = visibleCount !== 0;
+        }
+    };
+
+    filterInputs.forEach((input) => {
+        input.addEventListener("change", applyCatalogFilters);
+    });
+
+    if (resetButton) {
+        resetButton.addEventListener("click", () => {
+            filterInputs.forEach((input) => {
+                input.checked = false;
+                input.disabled = false;
+                const option = input.closest(".filter-option");
+                if (option) option.hidden = false;
+            });
+            applyCatalogFilters();
+        });
+    }
+
+    applyCatalogFilters();
+});
+
+const filters = document.querySelector('.catalog-filters');
+if (filters) {
+  const hasFilters = filters.querySelectorAll('.filter-option:not(.is-zero)').length > 0;
+  filters.classList.toggle('is-empty', !hasFilters);
+}

@@ -6,10 +6,18 @@ const searchBar = document.querySelector(".header-search");
 const searchClose = document.querySelector(".search-close");
 const searchIconInput = document.querySelector(".search-icon-input");
 const headerSearchInput = document.querySelector(".header-search input");
+const header = searchOverlay ? searchOverlay.closest(".header") : null;
 
 function closeSearchOverlay() {
     if (!searchOverlay) return;
     searchOverlay.classList.remove("active");
+    if (header) {
+        header.classList.remove("search-overlay-open");
+    }
+    if (headerSearchInput) {
+        headerSearchInput.value = "";
+        headerSearchInput.blur();
+    }
     if (typeof window.unlockBodyScroll === "function") {
         window.unlockBodyScroll();
     }
@@ -19,6 +27,9 @@ function closeSearchOverlay() {
 if(searchToggle && searchOverlay && headerSearchInput) {
     searchToggle.addEventListener("click", () => {
         searchOverlay.classList.add("active");
+        if (header) {
+            header.classList.add("search-overlay-open");
+        }
         if (typeof window.lockBodyScroll === "function") {
             window.lockBodyScroll();
         }

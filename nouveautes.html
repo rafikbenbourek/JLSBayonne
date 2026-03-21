@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-    <!-- META -->
+    <!-- METADONNÉES -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
@@ -14,7 +14,7 @@
     <!-- LINK -->
     <link rel="stylesheet" href="style.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600&family=Cormorant+Garamond:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600&family=Cormorant+Garamond:wght@500;600;700&family=Open+Sans:wght@400;600&family=Source+Sans+3:wght@600;700;800&display=swap"
         rel="stylesheet">
     <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
 
@@ -32,8 +32,38 @@
             <div class="logo">
                 <a href="/index.html">
                     <img src="img/logo.png" draggable="false" alt="logoJLS">
-                    <img class="tooltip-gif" src="img/tooltip-logo.gif" alt="Retour à l'accueil">
                 </a>
+                <div class="logo-words" aria-hidden="true">
+                    <span>Signature</span>
+                    <span>Elégance</span>
+                    <span>Féminine</span>
+                </div>
+                <div class="logo-hover-hint" aria-hidden="true">
+                    <span class="logo-hover-arrow">↖</span>
+                    <span class="logo-hover-text">
+                        <span class="logo-hover-letter" style="--i:1">R</span>
+                        <span class="logo-hover-letter" style="--i:2">E</span>
+                        <span class="logo-hover-letter" style="--i:3">T</span>
+                        <span class="logo-hover-letter" style="--i:4">O</span>
+                        <span class="logo-hover-letter" style="--i:5">U</span>
+                        <span class="logo-hover-letter" style="--i:6">R</span>
+                        <span class="logo-hover-space"></span>
+                        <span class="logo-hover-letter" style="--i:7">V</span>
+                        <span class="logo-hover-letter" style="--i:8">E</span>
+                        <span class="logo-hover-letter" style="--i:9">R</span>
+                        <span class="logo-hover-letter" style="--i:10">S</span>
+                        <span class="logo-hover-space"></span>
+                        <span class="logo-hover-letter" style="--i:11">L</span>
+                        <span class="logo-hover-letter" style="--i:12">'</span>
+                        <span class="logo-hover-letter" style="--i:13">A</span>
+                        <span class="logo-hover-letter" style="--i:14">C</span>
+                        <span class="logo-hover-letter" style="--i:15">C</span>
+                        <span class="logo-hover-letter" style="--i:16">U</span>
+                        <span class="logo-hover-letter" style="--i:17">E</span>
+                        <span class="logo-hover-letter" style="--i:18">I</span>
+                        <span class="logo-hover-letter" style="--i:19">L</span>
+                    </span>
+                </div>
             </div>
 
             <div class="header-search-overlay">
@@ -51,8 +81,7 @@
 
             <nav class="menu">
                 <div class="submenu-container">
-                    <a href="/boutique/produits?CAT=nouveautes&parent=boutique"
-                        class="has-submenu menu-link-nouveautes">Nouveautés</a>
+                    <a href="nouveautes.html" class="has-submenu menu-link-nouveautes">Nouveautés</a>
                 </div>
                 <div class="submenu-container">
                     <a href="/boutique/produits?CAT=vetements&parent=boutique" class="has-submenu">Vêtements</a>
@@ -146,11 +175,11 @@
                 <div class="social-icons" aria-label="Réseaux sociaux">
                     <a href="https://www.instagram.com/jls_bayonne_" target="_blank" rel="noopener noreferrer"
                         title="Instagram" aria-label="Instagram">
-                        <img src="icons/instagram.svg" alt="Instagram">
+                        <img src="icons/instagram-outline.svg" alt="Instagram">
                     </a>
                     <a href="https://www.facebook.com/JLSBayonne" target="_blank" rel="noopener noreferrer"
                         title="Facebook" aria-label="Facebook">
-                        <img src="icons/facebook.svg" alt="Facebook">
+                        <img src="icons/facebook-outline.svg" alt="Facebook">
                     </a>
                 </div>
 
@@ -166,92 +195,188 @@
         </div>
     </header>
 
+    <!---------- CATALOGUE ---------->
     <main class="catalog-page">
         <section class="catalog-content">
             <h1>Nouveautés</h1>
             <p>Retrouvez ici les derniers articles ajoutés à la boutique.</p>
+            <p class="catalog-results" data-catalog-results>8 articles affichés</p>
 
-            <!-- Exemple : grille produits (à connecter à vos données) -->
             <div class="catalog-grid">
-                <article class="product-card">Produit 1</article>
-                <article class="product-card">Produit 2</article>
-                <article class="product-card">Produit 3</article>
-                <article class="product-card">Produit 4</article>
+                <article class="product-card"
+                    data-tags="nouveautes,vetements,robes,boheme,prix-50-100,marque-la-petite-etoile">
+                    <strong>Robe fluide imprimée</strong><br>
+                    <span>Vêtements • Bohème • La Petite Etoile • 89 EUR</span>
+                </article>
+                <article class="product-card" data-tags="nouveautes,vetements,vestes,casual,prix-100-plus,marque-bash">
+                    <strong>Veste oversize sable</strong><br>
+                    <span>Vêtements • Casual • Ba&amp;sh • 129 EUR</span>
+                </article>
+                <article class="product-card" data-tags="nouveautes,chaussures,basket,urbain,prix-50-100,marque-veja">
+                    <strong>Baskets blanches retro</strong><br>
+                    <span>Chaussures • Urbain • Veja • 95 EUR</span>
+                </article>
+                <article class="product-card"
+                    data-tags="nouveautes,accessoires,sacs_maroquinerie,elegant,prix-100-plus,marque-mila-louise">
+                    <strong>Sac cuir camel</strong><br>
+                    <span>Accessoires • Elegant • Mila Louise • 149 EUR</span>
+                </article>
+                <article class="product-card"
+                    data-tags="nouveautes,soins_bien_etre,parfums,minimal,prix-0-50,marque-kerzon">
+                    <strong>Parfum fleur d'ambre</strong><br>
+                    <span>Soins • Minimal • Kerzon • 42 EUR</span>
+                </article>
+                <article class="product-card"
+                    data-tags="nouveautes,decoration,vases_artisanaux,boheme,prix-50-100,marque-bloomingville">
+                    <strong>Vase artisanal terracotta</strong><br>
+                    <span>Deco • Bohème • Bloomingville • 59 EUR</span>
+                </article>
+                <article class="product-card"
+                    data-tags="nouveautes,vetements,pantalons,minimal,prix-50-100,marque-grace-mila">
+                    <strong>Pantalon droit ecru</strong><br>
+                    <span>Vêtements • Minimal • Grace &amp; Mila • 79 EUR</span>
+                </article>
+                <article class="product-card"
+                    data-tags="nouveautes,chaussures,bottines-boots,elegant,prix-100-plus,marque-ash">
+                    <strong>Bottines cuir noir</strong><br>
+                    <span>Chaussures • Elegant • Ash • 139 EUR</span>
+                </article>
             </div>
+            <p class="catalog-empty" data-catalog-empty hidden>Aucun article ne correspond a ces filtres.</p>
         </section>
 
         <aside class="catalog-filters" aria-label="Filtres catégories">
-            <h2>Filtrer par catégorie</h2>
+            <h2>Filtrer</h2>
+            <button class="catalog-reset" type="button" data-catalog-reset>Reinitialiser</button>
 
-            <div class="filter-group">
-                <h3>Catégories principales</h3>
-                <a href="/boutique/produits?CAT=Nouveautes&parent=boutique">Nouveautés</a>
-                <a href="/boutique/produits?CAT=vetements&parent=boutique">Vêtements</a>
-                <a href="/boutique/produits?CAT=chaussures&parent=boutique">Chaussures</a>
-                <a href="/boutique/produits?CAT=accessoires&parent=boutique">Accessoires</a>
-                <a href="/boutique/produits?CAT=soins_bien_etre&parent=boutique">Soins & Bien-être</a>
-                <a href="/boutique/produits?CAT=decoration&parent=boutique">Décoration</a>
-                <a href="/boutique/produits?CAT=Luxe&parent=boutique">Luxe</a>
-                <a href="/boutique/produits?CAT=Parfumerie&parent=boutique">Parfumerie</a>
-                <a href="/boutique/produits?CAT=Bijoux&parent=boutique">Bijoux | Fantaisie</a>
+            <div class="filter-group" data-filter-group="univers">
+                <h3>Collection</h3>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="univers" value="vetements">
+                    Vêtements <span data-filter-count>(3)</span></label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="univers" value="chaussures">
+                    Chaussures <span data-filter-count>(2)</span></label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="univers"
+                        value="accessoires"> Accessoires <span data-filter-count>(1)</span></label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="univers"
+                        value="soins_bien_etre"> Soins & Bien-etre <span data-filter-count>(1)</span></label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="univers" value="decoration">
+                    Décoration <span data-filter-count>(1)</span></label>
             </div>
 
-            <div class="filter-group">
-                <h3>Vêtements</h3>
-                <a href="/boutique/produits?CAT=robes&parent=boutique">Robes</a>
-                <a href="/boutique/produits?CAT=jupes&parent=boutique">Jupes</a>
-                <a href="/boutique/produits?CAT=pantalons&parent=boutique">Pantalons</a>
-                <a href="/boutique/produits?CAT=vestes&parent=boutique">Vestes</a>
-                <a href="/boutique/produits?CAT=manteaux&parent=boutique">Manteaux</a>
-                <a href="/boutique/produits?CAT=pulls&parent=boutique">Pulls</a>
-                <a href="/boutique/produits?CAT=t-shirts&parent=boutique">T-shirts</a>
-                <a href="/boutique/produits?CAT=chemises&parent=boutique">Chemises</a>
-                <a href="/boutique/produits?CAT=combinaisons&parent=boutique">Combinaisons</a>
+            <div class="filter-group" data-filter-group="categorie">
+                <h3 data-categories-title>Catégories</h3>
+                <label class="filter-option" data-universes="vetements"><input type="checkbox" data-filter
+                        data-group="categorie" value="robes"> Robes</label>
+                <label class="filter-option" data-universes="vetements"><input type="checkbox" data-filter
+                        data-group="categorie" value="vestes"> Vestes</label>
+                <label class="filter-option" data-universes="vetements"><input type="checkbox" data-filter
+                        data-group="categorie" value="pantalons"> Pantalons</label>
+                <label class="filter-option" data-universes="chaussures"><input type="checkbox" data-filter
+                        data-group="categorie" value="basket"> Baskets</label>
+                <label class="filter-option" data-universes="chaussures"><input type="checkbox" data-filter
+                        data-group="categorie" value="bottines-boots"> Bottines / Boots</label>
+                <label class="filter-option" data-universes="accessoires"><input type="checkbox" data-filter
+                        data-group="categorie" value="sacs_maroquinerie"> Sacs</label>
+                <label class="filter-option" data-universes="soins_bien_etre"><input type="checkbox" data-filter
+                        data-group="categorie" value="parfums"> Parfums</label>
+                <label class="filter-option" data-universes="decoration"><input type="checkbox" data-filter
+                        data-group="categorie" value="vases_artisanaux"> Vases</label>
             </div>
 
-            <div class="filter-group">
-                <h3>Chaussures</h3>
-                <a href="/boutique/produits?CAT=basket&parent=boutique">Basket</a>
-                <a href="/boutique/produits?CAT=bottes&parent=boutique">Bottes</a>
-                <a href="/boutique/produits?CAT=sandales&parent=boutique">Sandales</a>
-                <a href="/boutique/produits?CAT=talons&parent=boutique">Talons</a>
-                <a href="/boutique/produits?CAT=chaussures_plates&parent=boutique">Chaussures plates</a>
-                <a href="/boutique/produits?CAT=chaussures_de_sport&parent=boutique">Chaussures de sport</a>
-                <a href="/boutique/produits?CAT=chaussures_de_ville&parent=boutique">Chaussures de ville</a>
+            <div class="filter-group" data-filter-group="style">
+                <h3>Style</h3>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="boheme">
+                    Bohème</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="casual">
+                    Casual</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="urbain">
+                    Urbain</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="elegant">
+                    Elegant</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="minimal">
+                    Minimal</label>
             </div>
 
-            <div class="filter-group">
-                <h3>Accessoires</h3>
-                <a href="/boutique/produits?CAT=sacs_maroquinerie&parent=boutique">Sacs & Maroquinerie</a>
-                <a href="/boutique/produits?CAT=bijoux_fantaisie&parent=boutique">Bijoux & Fantaisie</a>
-                <a href="/boutique/produits?CAT=ceintures&parent=boutique">Ceintures</a>
-                <a href="/boutique/produits?CAT=chapeaux&parent=boutique">Chapeaux</a>
-                <a href="/boutique/produits?CAT=echarpes&parent=boutique">Écharpes</a>
-                <a href="/boutique/produits?CAT=gants&parent=boutique">Gants</a>
-                <a href="/boutique/produits?CAT=lunettes_de_soleil&parent=boutique">Lunettes de soleil</a>
+            <div class="filter-group" data-filter-group="marque">
+                <h3>Marques</h3>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-apc">
+                    A.P.C.</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-agnes-b"> Agnès b.</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-american-vintage"> American Vintage</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-bash">
+                    Ba&amp;sh</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-bel-air"> Bel Air</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-bellerose"> Bellerose</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-berenice"> Bérénice</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-claudie-pierlot"> Claudie Pierlot</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-comptoir-des-cotonniers"> Comptoir des Cotonniers</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-hartford"> Hartford</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-ikks">
+                    IKKS</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-iro">
+                    Iro</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-isabel-marant"> Isabel Marant</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-joseph"> Joseph</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-kenzo"> Kenzo</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-kitsune"> Kitsuné</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-les-petites"> Les Petites</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-maje">
+                    Maje</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-paul-and-joe"> Paul &amp; Joe</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-sandro"> Sandro</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-sessun"> Sessùn</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-sud-express"> Sud Express</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-surface-to-air"> Surface to Air</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-tara-jarmon"> Tara Jarmon</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-the-kooples"> The Kooples</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-veja">
+                    Veja</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-ash">
+                    Ash</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-grace-mila"> Grace &amp; Mila</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-la-petite-etoile"> La Petite Etoile</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-mila-louise"> Mila Louise</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-kerzon"> Kerzon</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
+                        value="marque-bloomingville"> Bloomingville</label>
             </div>
 
-            <div class="filter-group">
-                <h3>Soins & Bien-être</h3>
-                <a href="/boutique/produits?CAT=parfums&parent=boutique">Parfums</a>
-                <a href="/boutique/produits?CAT=savons_artisanaux&parent=boutique">Savons artisanaux</a>
-                <a href="/boutique/produits?CAT=soins_corps&parent=boutique">Soins du corps</a>
-                <a href="/boutique/produits?CAT=soins_visage&parent=boutique">Soins du visage</a>
-                <a href="/boutique/produits?CAT=bougies_senteurs&parent=boutique">Bougies & senteurs</a>
-            </div>
-
-            <div class="filter-group">
-                <h3>Décoration</h3>
-                <a href="/boutique/produits?CAT=tapis_berberes&parent=boutique">Tapis Berbères</a>
-                <a href="/boutique/produits?CAT=vases_artisanaux&parent=boutique">Vases artisanaux</a>
-                <a href="/boutique/produits?CAT=bougies_lanternes&parent=boutique">Bougies & lanternes</a>
-                <a href="/boutique/produits?CAT=plateaux_traditionnels&parent=boutique">Plateaux
-                    traditionnels</a>
-                <a href="/boutique/produits?CAT=decorations_autres&parent=boutique">Autres</a>
+            <div class="filter-group" data-filter-group="prix">
+                <h3>Prix</h3>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="prix" value="prix-0-50">
+                    Moins de 50 EUR</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="prix" value="prix-50-100">
+                    50 EUR a 100 EUR</label>
+                <label class="filter-option"><input type="checkbox" data-filter data-group="prix" value="prix-100-plus">
+                    Plus de 100 EUR</label>
             </div>
         </aside>
     </main>
-
+    <!----------FOOTER---------- -->
     <footer>
         <div class="footer-left">
             <strong>Nous contacter</strong><br>
@@ -287,8 +412,8 @@
 
         <!-- flèche -->
         <svg class="arrow-up" viewBox="0 0 24 24">
-            <path d="M12 19V5M5 12l7-7 7 7" stroke="white" stroke-width="2" fill="none"
-                stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"
+                stroke-linejoin="round" />
         </svg>
 
         <!-- fleur -->

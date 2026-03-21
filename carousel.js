@@ -91,7 +91,22 @@ if (carousel && track) {
 
     const brandsModal = document.querySelector('.brands-modal-overlay');
     const brandsModalGrid = brandsModal?.querySelector('.brands-modal-grid');
+    const brandsModalBody = brandsModal?.querySelector('.brands-modal-body');
+    const scrollUpBtn = brandsModal?.querySelector('.brands-modal-scroll-btn.up');
+    const scrollDownBtn = brandsModal?.querySelector('.brands-modal-scroll-btn.down');
     const closeButton = brandsModal?.querySelector('.brands-modal-close');
+
+    const updateScrollBtns = () => {
+        if (!brandsModalBody) return;
+        const atTop = brandsModalBody.scrollTop <= 2;
+        const atBottom = brandsModalBody.scrollTop + brandsModalBody.clientHeight >= brandsModalBody.scrollHeight - 2;
+        scrollUpBtn?.classList.toggle('is-hidden', atTop);
+        scrollDownBtn?.classList.toggle('is-hidden', atBottom);
+    };
+
+    brandsModalBody?.addEventListener('scroll', updateScrollBtns, { passive: true });
+    scrollUpBtn?.addEventListener('click', () => brandsModalBody.scrollBy({ top: -150, behavior: 'smooth' }));
+    scrollDownBtn?.addEventListener('click', () => brandsModalBody.scrollBy({ top: 150, behavior: 'smooth' }));
 
     const getBrands = () => {
         const allBrands = Array.from(track.querySelectorAll('span'))
@@ -138,6 +153,9 @@ if (carousel && track) {
 
         brandsModalGrid.innerHTML = brandItems;
 
+        if (brandsModalBody) brandsModalBody.scrollTop = 0;
+        updateScrollBtns();
+
         brandsModal.classList.add('is-open');
         brandsModal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('brands-modal-open');
@@ -180,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let lightboxImage;
     let lightboxPrevButton;
     let lightboxNextButton;
+    let lightboxCloseButton;
     let lightboxDotsContainer;
     let lightboxDots = [];
     let activeLightboxContext = null;
@@ -281,6 +300,11 @@ document.addEventListener("DOMContentLoaded", function () {
         lightboxOverlay.setAttribute("aria-hidden", "true");
         lightboxOverlay.innerHTML = `
             <div class="photo-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Apercu image">
+                <button class="photo-lightbox-close side-panel-close" type="button" aria-label="Fermer la lightbox">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
                 <button class="photo-lightbox-nav prev" type="button" aria-label="Image precedente">&#10094;</button>
                 <img class="photo-lightbox-image" src="" alt="" tabindex="0">
                 <button class="photo-lightbox-nav next" type="button" aria-label="Image suivante">&#10095;</button>
@@ -294,7 +318,21 @@ document.addEventListener("DOMContentLoaded", function () {
     lightboxImage = lightboxOverlay.querySelector(".photo-lightbox-image");
     lightboxPrevButton = lightboxOverlay.querySelector(".photo-lightbox-nav.prev");
     lightboxNextButton = lightboxOverlay.querySelector(".photo-lightbox-nav.next");
+    lightboxCloseButton = lightboxOverlay.querySelector(".photo-lightbox-close");
     lightboxDotsContainer = lightboxOverlay.querySelector(".photo-lightbox-dots");
+
+    if (!lightboxCloseButton && lightboxDialog) {
+        lightboxCloseButton = document.createElement("button");
+        lightboxCloseButton.className = "photo-lightbox-close side-panel-close";
+        lightboxCloseButton.type = "button";
+        lightboxCloseButton.setAttribute("aria-label", "Fermer la lightbox");
+        lightboxCloseButton.innerHTML = `
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        `;
+        lightboxDialog.appendChild(lightboxCloseButton);
+    }
 
     if (!lightboxDotsContainer && lightboxDialog) {
         lightboxDotsContainer = document.createElement("div");
@@ -341,6 +379,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     lightboxNextButton?.addEventListener("click", () => {
         navigateLightbox("next");
+    });
+
+    lightboxCloseButton?.addEventListener("click", () => {
+        closeLightbox();
     });
 
     document.addEventListener("keydown", (event) => {
