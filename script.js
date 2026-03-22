@@ -87,6 +87,39 @@ headerIcons.forEach((icon) => {
     });
 });
 
+// WIDGET CONTACT VERTICAL
+document.addEventListener("DOMContentLoaded", function () {
+    const widget = document.getElementById("contact-widget");
+    if (!widget) return;
+
+    const toggle = widget.querySelector(".contact-widget-toggle");
+    const panel = widget.querySelector(".contact-widget-panel");
+    if (!toggle || !panel) return;
+
+    function setWidgetState(isOpen) {
+        widget.classList.toggle("is-open", isOpen);
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        panel.setAttribute("aria-hidden", String(!isOpen));
+    }
+
+    toggle.addEventListener("click", function () {
+        const currentlyOpen = widget.classList.contains("is-open");
+        setWidgetState(!currentlyOpen);
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!widget.contains(e.target)) {
+            setWidgetState(false);
+        }
+    });
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            setWidgetState(false);
+        }
+    });
+});
+
 // PANNEAUX LATÉRAUX (favoris, compte, panier)
 document.addEventListener("DOMContentLoaded", function () {
 
