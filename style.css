@@ -21,23 +21,7 @@ body {
     font-weight: 700;
     letter-spacing: 0.08em;
 }
-/* Libellé social dans le footer */
-.footer-social-label {
-    font-family: "Halo Handletter", "Cormorant Garamond", serif;
-    font-size: 30px;
-    color: #6f5338;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    margin-bottom: 0;
-    text-shadow: 0 2px 8px rgba(174,123,58,0.08);
-    user-select: none;
-}
 
-@media (max-width: 1024px) {
-    .footer-social-label {
-        font-size: 1.3rem;
-    }
-}
 .filter-group-nouveautes .filter-option.is-zero {
     display: none !important;
 }
@@ -810,6 +794,8 @@ body {
     border: none;
     cursor: pointer;
     padding: 0;
+    border-radius: 6px;
+    transition: transform 0.24s ease, background-color 0.24s ease;
     z-index: 1001;
     /* devant le menu */
 }
@@ -820,12 +806,25 @@ body {
     width: 100%;
     background-color: #454545;
     border-radius: 2px;
-    transition: all 0.3s ease;
+    transform-origin: center;
+    transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.burger:hover {
+    background-color: rgba(174, 123, 58, 0.08);
+}
+
+.burger:hover span {
+    background-color: #ae7b3a;
+}
+
+.burger:active {
+    transform: scale(0.94);
 }
 
 /* Menu mobile */
 .menu.mobile {
-    display: none;
+    display: flex;
     position: absolute;
     top: 100%;
     left: 0;
@@ -844,15 +843,23 @@ body {
 
 /* burger actif => menu ouvert */
 .burger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: translateY(9.5px) rotate(45deg);
 }
 
 .burger.active span:nth-child(2) {
     opacity: 0;
+    transform: scaleX(0.2);
 }
 
 .burger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+    transform: translateY(-9.5px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .burger,
+    .burger span {
+        transition: none;
+    }
 }
 
 /* RESPONSIVE */
@@ -877,6 +884,56 @@ body {
 
     .burger {
         display: flex;
+    }
+
+    .menu.mobile .submenu-container {
+        width: 100%;
+    }
+
+    .menu.mobile .submenu {
+        position: static;
+        transform: none;
+        min-width: 0;
+        max-height: 0;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        overflow: hidden;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+        transition: max-height 0.25s ease, padding 0.25s ease;
+    }
+
+    .menu.mobile .submenu::before {
+        display: none;
+    }
+
+    .menu.mobile .submenu-mega {
+        display: block;
+        max-width: 100%;
+        padding: 0;
+        border-radius: 0;
+    }
+
+    .menu.mobile .submenu-mega-col {
+        min-width: 0;
+        gap: 0;
+    }
+
+    .menu.mobile .submenu-mega-title {
+        margin: 10px 0 6px;
+        font-size: 0.95rem;
+    }
+
+    .menu.mobile .submenu-divider {
+        display: none;
+    }
+
+    .menu.mobile .submenu-container.is-open .submenu {
+        max-height: 70vh;
+        padding: 8px 0 2px;
+        overflow-y: auto;
     }
 }
 
@@ -1432,11 +1489,45 @@ body {
     align-items: center;
     justify-content: center;
     gap: 6px;
+    position: relative;
     margin-left: 22px;
     padding: 5px 10px;
     border: 1px solid rgba(122, 92, 62, 0.4);
     border-radius: 999px;
     background: rgba(255, 252, 247, 0.68);
+}
+
+.social-icons::after {
+    content: "";
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translate(-50%, -6px);
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 4;
+    font-family: "Halo Handletter", "Cormorant Garamond", serif;
+    font-size: 23px;
+    color: #6f5338;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 8px rgba(174,123,58,0.08);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.social-icons:has(a[aria-label="Instagram"]:hover)::after,
+.social-icons:has(a[aria-label="Instagram"]:focus-visible)::after {
+    content: "Suivez-nous sur Instagram";
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.social-icons:has(a[aria-label="Facebook"]:hover)::after,
+.social-icons:has(a[aria-label="Facebook"]:focus-visible)::after {
+    content: "Suivez-nous sur Facebook";
+    opacity: 1;
+    transform: translate(-50%, 0);
 }
 
 .social-follow-text {
@@ -1512,6 +1603,14 @@ body {
     .social-icons a {
         width: 30px;
         height: 30px;
+    }
+
+    .social-icons::after {
+        font-size: 1.3rem;
+    }
+
+    .social-icons a::after {
+        font-size: 1.3rem;
     }
 }
 
@@ -3221,6 +3320,24 @@ footer {
     gap: 12px;
 }
 
+/* Libellé social dans le footer */
+.footer-social-label {
+    font-family: "Halo Handletter", "Cormorant Garamond", serif;
+    font-size: 30px;
+    color: #6f5338;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 0;
+    text-shadow: 0 2px 8px rgba(174,123,58,0.08);
+    user-select: none;
+}
+
+@media (max-width: 1024px) {
+    .footer-social-label {
+        font-size: 1.3rem;
+    }
+}
+
 .footer-right.social-icons-footer {
     justify-content: flex-end;
 }
@@ -3605,7 +3722,13 @@ body.photo-lightbox-open {
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
     transform: scale(0.96);
     transition: transform 0.3s ease;
-    cursor: zoom-out;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+.photo-lightbox-image.is-dragging {
+    cursor: grabbing;
 }
 
 .photo-lightbox-image:focus-visible {
@@ -3664,6 +3787,7 @@ body.photo-lightbox-open {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     z-index: 2;
 }
 

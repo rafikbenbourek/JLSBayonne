@@ -201,6 +201,14 @@ document.addEventListener("DOMContentLoaded", function () {
     let lightboxDotsContainer;
     let lightboxDots = [];
     let activeLightboxContext = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let trackingSwipe = false;
+    let mouseDragStartX = 0;
+    let mouseDragStartY = 0;
+    let mouseDragActive = false;
+    let suppressImageClickOnce = false;
+    const lightboxSwipeThreshold = 44;
 
     const syncLightboxDots = (activeIndex) => {
         lightboxDots.forEach((dot, index) => {
@@ -313,6 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
     lightboxPrevButton = lightboxOverlay.querySelector(".photo-lightbox-nav.prev");
     lightboxNextButton = lightboxOverlay.querySelector(".photo-lightbox-nav.next");
     lightboxDotsContainer = lightboxOverlay.querySelector(".photo-lightbox-dots");
+    lightboxImage?.setAttribute("draggable", "false");
 
     const legacyLightboxCloseButton = lightboxOverlay.querySelector(".photo-lightbox-close");
     if (legacyLightboxCloseButton) {
@@ -350,12 +359,75 @@ document.addEventListener("DOMContentLoaded", function () {
     lightboxImage?.addEventListener("mouseleave", () => setLightboxImageFocusState(false));
     lightboxImage?.addEventListener("focus", () => setLightboxImageFocusState(true));
     lightboxImage?.addEventListener("blur", () => setLightboxImageFocusState(false));
-    lightboxImage?.addEventListener("click", () => closeLightbox());
+    lightboxImage?.addEventListener("click", () => {
+        if (suppressImageClickOnce) {
+            suppressImageClickOnce = false;
+            return;
+        }
+    });
     lightboxImage?.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
             closeLightbox();
         }
+    });
+
+    lightboxImage?.addEventListener("touchstart", (event) => {
+        if (!event.touches || event.touches.length !== 1) return;
+
+        const touch = event.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        trackingSwipe = true;
+    }, { passive: true });
+
+    lightboxImage?.addEventListener("touchend", (event) => {
+        if (!trackingSwipe || !event.changedTouches || event.changedTouches.length !== 1) {
+            trackingSwipe = false;
+            return;
+        }
+
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        trackingSwipe = false;
+
+        if (Math.abs(deltaX) < lightboxSwipeThreshold || Math.abs(deltaX) <= Math.abs(deltaY)) {
+            return;
+        }
+
+        suppressImageClickOnce = true;
+        navigateLightbox(deltaX < 0 ? "next" : "prev");
+    }, { passive: true });
+
+    const endMouseSwipe = (event) => {
+        if (!mouseDragActive) return false;
+
+        const deltaX = event.clientX - mouseDragStartX;
+        const deltaY = event.clientY - mouseDragStartY;
+        mouseDragActive = false;
+        lightboxImage?.classList.remove("is-dragging");
+
+        if (Math.abs(deltaX) < lightboxSwipeThreshold || Math.abs(deltaX) <= Math.abs(deltaY)) {
+            return false;
+        }
+
+        suppressImageClickOnce = true;
+        navigateLightbox(deltaX < 0 ? "next" : "prev");
+        return true;
+    };
+
+    lightboxImage?.addEventListener("mousedown", (event) => {
+        if (event.button !== 0) return;
+
+        mouseDragStartX = event.clientX;
+        mouseDragStartY = event.clientY;
+        mouseDragActive = true;
+        lightboxImage.classList.add("is-dragging");
+    });
+
+    document.addEventListener("mouseup", (event) => {
+        endMouseSwipe(event);
     });
 
     lightboxPrevButton?.addEventListener("click", () => {
@@ -382,6 +454,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!lightboxImage) return;
 
         activeLightboxContext = context;
+        suppressImageClickOnce = false;
+        trackingSwipe = false;
+        mouseDragActive = false;
+        lightboxImage.classList.remove("is-dragging");
         buildLightboxDots(activeLightboxContext.getTotal?.() ?? 0);
         refreshLightboxImage();
 
