@@ -3322,9 +3322,11 @@ footer {
 
 /* Libellé social dans le footer */
 .footer-social-label {
+    position: relative;
+    left: -7px;
     font-family: "Halo Handletter", "Cormorant Garamond", serif;
     font-size: 30px;
-    color: #6f5338;
+    color: #FEFEFE;
     font-weight: 400;
     letter-spacing: 0.5px;
     margin-bottom: 0;
