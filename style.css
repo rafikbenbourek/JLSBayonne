@@ -1,47 +1,3 @@
-/* Titres principaux du menu header en majuscule */
-.menu > ul > li.submenu-container > a {
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-}
-/* Signature Suivez-nous indépendante */
-.social-signature {
-    position: absolute;
-    top: 41%;
-    right: 475px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    z-index: 1200;
-    pointer-events: none;
-}
-
-.social-signature-text {
-    font-family: "Halo Handletter", "Cormorant Garamond", serif;
-    font-size: 24px;
-    color: #6f5338;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    margin-bottom: 0;
-    text-shadow: 0 2px 8px rgba(174,123,58,0.08);
-    pointer-events: auto;
-    user-select: none;
-}
-
-@media (max-width: 1024px) {
-    .social-signature {
-        top: 18px;
-        right: 80px;
-        gap: 4px;
-    }
-    .social-signature-text {
-        font-size: 1.3rem;
-    }
-}
-.filter-group-nouveautes .filter-option.is-zero {
-    display: none !important;
-}
 /* ----------GLOBAL---------- */
 body {
     font-family: 'Open Sans', Arial, sans-serif;
@@ -58,6 +14,34 @@ body {
     font-style: normal;
     font-display: swap;
 }
+
+/* Titres principaux du menu header en majuscule */
+.menu > ul > li.submenu-container > a {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+/* Libellé social dans le footer */
+.footer-social-label {
+    font-family: "Halo Handletter", "Cormorant Garamond", serif;
+    font-size: 30px;
+    color: #6f5338;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 0;
+    text-shadow: 0 2px 8px rgba(174,123,58,0.08);
+    user-select: none;
+}
+
+@media (max-width: 1024px) {
+    .footer-social-label {
+        font-size: 1.3rem;
+    }
+}
+.filter-group-nouveautes .filter-option.is-zero {
+    display: none !important;
+}
+
 
 /* ----------ALL BACKGROUND DECORATION---------- */
 .header-search::before {
@@ -129,7 +113,7 @@ body {
 
 .header.scrolled {
     backdrop-filter: blur(10px);
-    background: rgba(254, 252, 253, 0.9);
+    background: rgba(254, 252, 253, 0.6);
 }
 
 .header.search-overlay-open.scrolled {
@@ -140,7 +124,7 @@ body {
 /* ----------LOGO---------- */
 .logo {
     position: relative;
-    transform: translateX(48px);
+    transform: translateX(clamp(0px, 3vw, 48px));
 }
 
 .logo a {
@@ -150,7 +134,7 @@ body {
 }
 
 .logo img:first-child {
-    height: 140px;
+    height: 130px;
     width: auto;
     transition: transform 0.3s ease;
 }
@@ -163,7 +147,7 @@ body {
 .logo-words {
     position: absolute;
     top: 50%;
-    left: calc(40% + 12px);
+    left: calc(40% + 2px);
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
@@ -213,8 +197,8 @@ body {
 
 .logo-hover-hint {
     position: absolute;
-    top: calc(50% + 62px);
-    left: calc(36% + 0px);
+    top: calc(50% + 59.4px);
+    left: calc(34% + 5px);
     transform: translateY(-50%) translateX(-4px);
     display: inline-flex;
     align-items: center;
@@ -235,7 +219,7 @@ body {
 }
 
 .logo-hover-arrow {
-    font-size: 20px;
+    font-size: 23px;
     color: #3A3A3A;
     display: inline-block;
     transform: rotate(-15deg) translateY(-7px);
@@ -249,6 +233,9 @@ body {
     font-weight: 600;
     letter-spacing: 0.1em;
     color: #3A3A3A;
+    background: linear-gradient(to right, rgba(174, 124, 58, 0.22) 0%, rgba(174, 124, 58, 0.12) 45%, rgba(174, 124, 58, 0) 100%);
+    border-radius: 8px 0 0 8px;
+    padding-left: 7px;
     text-transform: uppercase;
 }
 
@@ -523,7 +510,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 146.5px;
+    height: 136.5px;
     background: #FDFEFC;
     display: flex;
     align-items: center;
@@ -550,6 +537,85 @@ body {
     width: 100%;
     height: 1.5px;
     background: linear-gradient(to right, #ae7c3a00, #ae7c3a, #ae7c3a00);
+}
+
+/* ===== DÉCORATIONS BERBÈRES — CÔTÉS GAUCHE & DROITE ===== */
+
+.search-berber-left,
+.search-berber-right {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 40%;
+    max-width: 420px;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.search-berber-left {
+    left: 0;
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 40%, rgba(0,0,0,0.28) 72%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 40%, rgba(0,0,0,0.28) 72%, rgba(0,0,0,0) 100%);
+}
+
+.search-berber-right {
+    right: 0;
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 40%, rgba(0,0,0,0.28) 72%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to left, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 40%, rgba(0,0,0,0.28) 72%, rgba(0,0,0,0) 100%);
+}
+
+/* Motif géométrique amazigh — double couche pour effet textile */
+.search-berber-left::before,
+.search-berber-right::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpolygon points='40,6 74,40 40,74 6,40' fill='none' stroke='%23AE7B3A' stroke-width='1.5' opacity='0.44'/%3E%3Cpolygon points='40,22 58,40 40,58 22,40' fill='none' stroke='%23AE7B3A' stroke-width='0.9' opacity='0.28'/%3E%3Cline x1='40' y1='22' x2='40' y2='58' stroke='%23AE7B3A' stroke-width='0.7' opacity='0.22'/%3E%3Cline x1='22' y1='40' x2='58' y2='40' stroke='%23AE7B3A' stroke-width='0.7' opacity='0.22'/%3E%3Cpolygon points='40,31 49,40 40,49 31,40' fill='%23AE7B3A' opacity='0.18'/%3E%3Ccircle cx='40' cy='6' r='2.5' fill='%23AE7B3A' opacity='0.52'/%3E%3Ccircle cx='74' cy='40' r='2.5' fill='%23AE7B3A' opacity='0.52'/%3E%3Ccircle cx='40' cy='74' r='2.5' fill='%23AE7B3A' opacity='0.52'/%3E%3Ccircle cx='6' cy='40' r='2.5' fill='%23AE7B3A' opacity='0.52'/%3E%3Cpolygon points='0,0 18,0 0,18' fill='%23AE7B3A' opacity='0.1'/%3E%3Cpolygon points='80,0 62,0 80,18' fill='%23AE7B3A' opacity='0.1'/%3E%3Cpolygon points='0,80 18,80 0,62' fill='%23AE7B3A' opacity='0.1'/%3E%3Cpolygon points='80,80 62,80 80,62' fill='%23AE7B3A' opacity='0.1'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpolygon points='20,3 37,20 20,37 3,20' fill='none' stroke='%23C4934A' stroke-width='0.8' opacity='0.3'/%3E%3Cpolygon points='20,12 28,20 20,28 12,20' fill='%23AE7B3A' opacity='0.13'/%3E%3C/svg%3E");
+    background-size: 80px 80px, 40px 40px;
+    background-repeat: repeat, repeat;
+}
+
+/* Frange triangulaire extérieure — liseré textile amazigh */
+.search-berber-left::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='24'%3E%3Cpolygon points='0,0 12,12 0,24' fill='%23AE7B3A' opacity='0.62'/%3E%3Cpolygon points='2,4 9,12 2,20' fill='%23FDFEFC' opacity='0.58'/%3E%3C/svg%3E");
+    background-size: 12px 24px;
+    background-repeat: repeat-y;
+    animation: berberFringeShimmer 4s ease-in-out infinite;
+}
+
+.search-berber-right::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='24'%3E%3Cpolygon points='12,0 0,12 12,24' fill='%23AE7B3A' opacity='0.62'/%3E%3Cpolygon points='10,4 3,12 10,20' fill='%23FDFEFC' opacity='0.58'/%3E%3C/svg%3E");
+    background-size: 12px 24px;
+    background-repeat: repeat-y;
+    animation: berberFringeShimmer 4s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+@keyframes berberFringeShimmer {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+}
+
+@media (max-width: 900px) {
+    .search-berber-left,
+    .search-berber-right {
+        display: none;
+    }
 }
 
 .header-search.active {
@@ -795,6 +861,11 @@ body {
         grid-template-columns: 1fr auto;
     }
 
+    .logo {
+        justify-self: start;
+        transform: none;
+    }
+
     .menu {
         display: none;
         /* cache menu desktop */
@@ -842,11 +913,13 @@ body {
     transition: transform 0.2s ease;
 }
 
-.icon-wrapper:focus-visible img {
+.icon-wrapper:focus-visible img,
+.icon-wrapper:focus-visible .radial-icon {
     transform: scale(1.05);
 }
 
-.icon-wrapper.is-clicked img {
+.icon-wrapper.is-clicked img,
+.icon-wrapper.is-clicked .radial-icon {
     transform: scale(1.05);
     animation: iconCtaShake 0.28s ease;
 }
@@ -883,6 +956,66 @@ body {
 .icon-wrapper:hover .icon-default,
 .icon-wrapper:focus .icon-default {
     opacity: 0;
+}
+
+.radial-icon {
+    width: 25px;
+    height: 25px;
+    display: block;
+}
+
+.radial-icon-cart {
+    width: 28px;
+    height: 28px;
+    margin-top: 2px;
+}
+
+.radial-icon-account {
+    width: 27px;
+    height: 27px;
+}
+
+.radial-icon-outline {
+    fill: none;
+    stroke: #3a3a3a;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.22s ease;
+}
+
+.radial-icon-fill {
+    fill: #3a3a3a;
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.icon-wrapper:hover .radial-icon-fill,
+.icon-wrapper:focus-visible .radial-icon-fill,
+.icon-wrapper.is-active .radial-icon-fill,
+.icon-wrapper.is-clicked .radial-icon-fill {
+    transform: scale(1);
+}
+
+.icon-wrapper:hover .radial-icon-outline,
+.icon-wrapper:focus-visible .radial-icon-outline,
+.icon-wrapper.is-active .radial-icon-outline,
+.icon-wrapper.is-clicked .radial-icon-outline {
+    stroke: #3a3a3a;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* FOCUS PROPRE (clavier / télécommande) */
@@ -1127,6 +1260,7 @@ body {
 
 .side-panel-form input:focus {
     border-color: #AE7B3A;
+    box-shadow: 0 0 0 2px rgba(174, 123, 58, 0.15);
 }
 
 .side-panel-link-small {
@@ -2432,26 +2566,26 @@ body.brands-modal-open {
 .contact-widget {
     position: fixed;
     left: 0;
-    top: 50%;
+    top: 54%;
     transform: translateY(-50%);
     z-index: 95;
 }
 
 .contact-widget-toggle {
-    writing-mode: vertical-rl;
+    writing-mode: vertical-lr;
     text-orientation: mixed;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 1px solid #3A3A3A;
     border-left: 0;
-    border-radius: 0 6px 6px 0;
-    background: #FEFEFE;
+    border-radius: 0 5px 5px 0;
+    background: #F5E9DA;
     color: #3A3A3A;
-    padding: 12px 6px;
+    padding: 11px 5px;
     cursor: pointer;
     font: inherit;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.18em;
     transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
@@ -2490,10 +2624,10 @@ body.brands-modal-open {
 }
 
 .contact-widget-icon {
-    width: 30px;
-    height: 30px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    border: 1px solid rgba(58, 58, 58, 0.28);
+    border: 1.5px solid rgba(58, 58, 58, 0.858);
     color: #3A3A3A;
     display: inline-flex;
     align-items: center;
@@ -2504,8 +2638,8 @@ body.brands-modal-open {
 }
 
 .contact-widget-icon img {
-    width: 15px;
-    height: 15px;
+    width: 35px;
+    height: 35px;
 }
 
 .contact-widget-icon:hover {
@@ -2547,7 +2681,15 @@ body.brands-modal-open {
 }
 
 .contact-widget-label {
+    display: inline-block;
+    transform: rotate(180deg);
     white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+    .contact-widget-label {
+        transform: none;
+    }
 }
 
 /* ----------GOOGLE REVIEWS---------- */
@@ -3079,6 +3221,10 @@ footer {
     gap: 12px;
 }
 
+.footer-right.social-icons-footer {
+    justify-content: flex-end;
+}
+
 .footer-right img {
     width: 30px;
     height: 30px;
@@ -3527,21 +3673,6 @@ body.photo-lightbox-open {
 
 .photo-lightbox-nav.next {
     right: 82px;
-}
-
-.photo-lightbox-close {
-    position: fixed;
-    top: 14px;
-    right: 14px;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    background: rgba(18, 18, 18, 0.82);
-    color: #bbb;
-    z-index: 5200;
 }
 
 .photo-lightbox-dots {

@@ -46,6 +46,7 @@
 
             <div class="header-search-overlay">
                 <div class="header-search">
+                    <div class="search-berber-left" aria-hidden="true"></div>
                     <input type="text" placeholder="Rechercher un article, une marque...">
                     <img src="icons/search-outline.svg" class="search-icon-input" alt="Recherche">
                     <button class="search-close" aria-label="Fermer la barre de recherche">
@@ -54,6 +55,7 @@
                                 stroke-linecap="round" />
                         </svg>
                     </button>
+                    <div class="search-berber-right" aria-hidden="true"></div>
                 </div>
             </div>
             <!-- MENU -->
@@ -102,7 +104,7 @@
                         </div>
                     </li>
                     <li class="submenu-container">
-                        <a href="/boutique/produits?CAT=soins_bien_etre&parent=boutique" class="has-submenu">Soins &
+                        <a href="soins-bien-etre.html" class="has-submenu">Soins &
                             Bien-être</a>
                         <div class="submenu">
                             <a href="/boutique/produits?CAT=parfums&parent=boutique">Parfums</a>
@@ -114,7 +116,7 @@
                         </div>
                     </li>
                     <li class="submenu-container">
-                        <a href="/boutique/produits?CAT=decoration&parent=boutique" class="has-submenu">Décoration</a>
+                        <a href="decoration.html" class="has-submenu">Décoration</a>
                         <div class="submenu">
                             <a href="/boutique/produits?CAT=tapis_berberes&parent=boutique">Tapis Berbères</a>
                             <a href="/boutique/produits?CAT=vases_artisanaux&parent=boutique">Vases artisanaux</a>
@@ -125,7 +127,7 @@
                         </div>
                     </li>
                     <li class="submenu-container">
-                        <a href="/evenements.html">Événements</a>
+                        <a href="evenements.html">Événements</a>
                     </li>
                 </ul>
             </nav>
@@ -133,27 +135,47 @@
             <div class="icons">
                 <!-- RECHERCHE -->
                 <button class="icon-wrapper search-toggle" aria-label="Recherche">
-                    <img src="icons/search-outline.svg" class="icon-default" alt="">
-                    <img src="icons/search-filled.svg" class="icon-hover" alt="">
+                    <svg class="radial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle class="radial-icon-fill" cx="11" cy="11" r="6.5" />
+                        <path class="radial-icon-fill" d="M15.55 16.26L16.26 15.55L21.2 20.49L20.49 21.2Z" />
+                        <circle class="radial-icon-outline" cx="11" cy="11" r="6.5" />
+                        <path class="radial-icon-outline" d="M15.5 15.5L21 21" />
+                    </svg>
                 </button>
 
                 <!-- FAVORIS -->
                 <a href="/boutique/produits/?CAT=Favoris&parent=index.html" class="icon-wrapper"
                     data-panel-trigger="panel-favoris" title="Favoris">
-                    <img src="icons/favorites-outline.svg" class="icon-default" alt="Mes Favoris">
-                    <img src="icons/favorites-filled.svg" class="icon-hover" alt="">
+                    <svg class="radial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <defs>
+                            <clipPath id="favorite-heart-clip">
+                                <path d="M12 21s-6.7-4.35-9.2-8.1C.7 9.8 2.1 5.7 5.8 4.6c2.2-.65 4.4.1 5.7 1.9 1.3-1.8 3.5-2.55 5.7-1.9 3.7 1.1 5.1 5.2 3 8.3C18.7 16.65 12 21 12 21z" />
+                            </clipPath>
+                        </defs>
+                        <circle class="radial-icon-fill" cx="12" cy="12" r="12" clip-path="url(#favorite-heart-clip)" />
+                        <path class="radial-icon-outline" d="M12 21s-6.7-4.35-9.2-8.1C.7 9.8 2.1 5.7 5.8 4.6c2.2-.65 4.4.1 5.7 1.9 1.3-1.8 3.5-2.55 5.7-1.9 3.7 1.1 5.1 5.2 3 8.3C18.7 16.65 12 21 12 21z" />
+                    </svg>
+                    <span class="sr-only">Mes Favoris</span>
                 </a>
 
                 <!-- COMPTE -->
-                <a href="/boutique/compte.php" class="icon-wrapper" data-panel-trigger="panel-compte" title="Compte">
-                    <img src="icons/login-outline.svg" class="icon-default" alt="Mon Compte">
-                    <img src="icons/login-filled.svg" class="icon-hover" alt="">
+                <a href="/boutique/compte.php" class="icon-wrapper" data-panel-trigger="panel-compte" title="Compte" aria-label="Mon Compte">
+                    <svg class="radial-icon radial-icon-account" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path class="radial-icon-fill" d="M12 11.3a3.3 3.3 0 1 0 0-6.6a3.3 3.3 0 0 0 0 6.6Z" />
+                        <path class="radial-icon-fill" d="M5 20.1a7 7 0 0 1 14 0Z" />
+                        <circle class="radial-icon-outline" cx="12" cy="8" r="3.3" />
+                        <path class="radial-icon-outline" d="M5 20.1a7 7 0 0 1 14 0" />
+                    </svg>
                 </a>
 
                 <!-- PANIER -->
-                <a href="/boutique/panier.php" class="icon-wrapper" data-panel-trigger="panel-panier" title="Panier">
-                    <img src="icons/basket-outline.svg" class="icon-default" alt="Panier">
-                    <img src="icons/basket-filled.svg" class="icon-hover" alt="">
+                <a href="/boutique/panier.php" class="icon-wrapper" data-panel-trigger="panel-panier" title="Panier" aria-label="Panier">
+                    <svg class="radial-icon radial-icon-cart" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path class="radial-icon-fill" d="M6.2 9.2h11.6l-1 9.1a1 1 0 0 1-1 .9H8.2a1 1 0 0 1-1-.9Z" />
+                        <path class="radial-icon-fill" d="M9 9.2V7a3 3 0 0 1 6 0v2.2" />
+                        <path class="radial-icon-outline" d="M6.2 9.2h11.6l-1 9.1a1 1 0 0 1-1 .9H8.2a1 1 0 0 1-1-.9Z" />
+                        <path class="radial-icon-outline" d="M9 9.2V7a3 3 0 0 1 6 0v2.2" />
+                    </svg>
                     <span class="cart-count">0</span>
                 </a>
                 <!-- RÉSEAUX SOCIAUX -->
@@ -171,11 +193,6 @@
                     </a>
                     </div>
                 </div>
-        <!-- Signature Suivez-nous indépendante -->
-        <div class="social-signature">
-            <span class="social-signature-text">Suivez-nous</span>
-        </div>
-
                 <!-- BURGER MENU -->
                 <button class="burger">
                     <span></span>
@@ -419,15 +436,14 @@
         <div class="google-reviews-container">
             <div class="google-reviews-head">
                 <p class="google-reviews-kicker">Avis Google</p>
-                <h2 id="google-reviews-title">Ce que nos clientes disent de JLS Bayonne</h2>
-                <p class="google-reviews-intro">Une boutique chaleureuse, des pieces choisies avec gout et des conseils sur-mesure en plein coeur de Bayonne.</p>
             </div>
 
             <div class="google-rating-strip" aria-label="Note moyenne Google">
-                <span class="google-rating-score">4.9</span>
+                <span class="google-rating-score">4,6</span>
                 <span class="google-rating-stars" aria-hidden="true">★★★★★</span>
-                <span class="google-rating-count">Basé sur 120+ avis</span>
-                <a class="google-rating-link" href="https://www.google.com/maps/search/?api=1&query=Le+Jardin+de+Lili+%26+Sam+Bayonne" target="_blank" rel="noopener noreferrer">Voir tous les avis</a>
+                <span class="google-rating-count">Basé sur 22 avis</span>
+                
+                <a class="google-rating-link" href="https://www.google.com/search?sca_esv=991e2bedf2703c6a&sxsrf=ANbL-n4b9o6tHcXpJ19BkXrT6cthK5wEeQ:1774232213598&q=avis+jls+bayonne&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qORo_o-lJ5Kzo92yvJydwYvJxxnHASWaaPofnpNgq8gZD5XathQDJInLiI1AsaRlFHVB0z-w%3D&uds=ALYpb_k6otuSYDT1zFYqBpNGDSzKcbzTnXiSLc1W4pZmL13RO3_2BxE4k4dMKUN1WbOLV1_mlojuKSyXnctr2x-SNmUKkfoXU79wv6yKwYlTCc4v8FH2ODE&sa=X&ved=2ahUKEwiqvtyG-rSTAxV-T6QEHTOeL4UQ3PALegQIRhAF&biw=2560&bih=1279&dpr=1.5" target="_blank" rel="noopener noreferrer">Voir tous les avis</a>
             </div>
 
             <div class="google-reviews-grid">
@@ -513,6 +529,7 @@
         </div>
 
         <div class="footer-right social-icons-footer">
+            <span class="footer-social-label">Suivez-nous</span>
             <a href="https://www.instagram.com/jls_bayonne_" target="_blank" title="Instagram">
                 <img src="icons/instagram-outline.svg" alt="Instagram">
             </a>
@@ -529,16 +546,19 @@
             <span class="contact-widget-label">CONTACT</span>
         </button>
         <div class="contact-widget-panel" id="contact-widget-panel" aria-hidden="true">
-            <a href="https://maps.app.goo.gl/K8HkVCwXNaB93dVm9" class="contact-widget-icon" aria-label="Nous contacter" target="_blank" rel="noopener noreferrer">
-                <img src="icons/localisation.svg" alt="">
+            <a href="https://maps.app.goo.gl/K8HkVCwXNaB93dVm9" class="contact-widget-icon" aria-label="Nous contacter" target="_blank" rel="noopener noreferrer" title="Boutique">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="29" height="29" fill="none" aria-hidden="true">
+                    <path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="10" r="2.7" stroke="currentColor" stroke-width="1.8"/>
+                </svg>
             </a>
-            <a href="tel:0610080278" class="contact-widget-icon" aria-label="Appeler">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+            <a href="tel:0610080278" class="contact-widget-icon" aria-label="Appeler" title="Téléphone">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.19 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.62a2 2 0 0 1-.45 2.11L8 9.68a16 16 0 0 0 6.32 6.32l1.23-1.23a2 2 0 0 1 2.11-.45c.84.29 1.72.5 2.62.62A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </a>
-            <a href="mailto:contact@jlsbayonne.fr" class="contact-widget-icon" aria-label="Envoyer un email">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+            <a href="mailto:contact@jlsbayonne.fr" class="contact-widget-icon" aria-label="Envoyer un email" title="Mail">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true">
                     <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/>
                     <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
