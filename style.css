@@ -326,7 +326,7 @@ body {
     display: flex;
     gap: 48px;
     background: #fff;
-    border-radius: 0 0 12px 12px;
+    border-radius: 0 0 2px 2px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.13);
     border: 1px solid #e7e3de;
     border-top: none;
@@ -3020,9 +3020,21 @@ body.brands-modal-open {
     display: block;
 }
 
-.produit-card-fav path {
-    fill: transparent;
-    transition: fill 0.22s ease, stroke 0.22s ease;
+.produit-card-fav .radial-icon-outline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.22s ease;
+}
+
+.produit-card-fav .radial-icon-fill {
+    fill: currentColor;
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .produit-card-fav:hover {
@@ -3031,10 +3043,9 @@ body.brands-modal-open {
     border-color: #AE7B3A;
 }
 
-.produit-card-fav:hover path,
-.produit-card-fav:focus-visible path {
-    fill: currentColor;
-    stroke: currentColor;
+.produit-card-fav:hover .radial-icon-fill,
+.produit-card-fav:focus-visible .radial-icon-fill {
+    transform: scale(1);
 }
 
 /* CORPS TEXTE */
@@ -4154,8 +4165,8 @@ footer::after {
 /* BOUTON RETOUR EN HAUT */
 #scrollTopBtn {
     position: fixed;
-    bottom: 40px;
-    right: 40px;
+    bottom: 200px;
+    right: 25px;
     width: 60px;
     height: 60px;
     border: none;

@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// PANNEAUX LATÉRAUX (favoris, compte, panier)
+// PANNEAUX LATÉRAUX (Favoris, Compte, Panier)
 document.addEventListener("DOMContentLoaded", function () {
 
     const overlay = document.getElementById("side-panel-overlay");
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// NEWSLETTER VALIDATION INSCRIPTION (animation fleurs)
+// NEWSLETTER VALIDATION INSCRIPTION (animation des fleurs)
 document.addEventListener("DOMContentLoaded", function () {
 
     const newsletterForm = document.getElementById("newsletter-form");
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// BOUTON RETOUR EN HAUT
+// BOUTON RETOUR EN HAUT ↑
 const scrollBtn = document.getElementById("scrollTopBtn");
 const circle = document.querySelector(".progress-ring-circle");
 
@@ -295,7 +295,7 @@ window.addEventListener("scroll", () => {
     lastScroll = scrollTop;
 
 });
-// BOUTON RETOUR VERS LE HAUT (durée lors du clique)
+// BOUTON RETOUR VERS LE HAUT ↑ (durée lors du clique)
 scrollBtn.addEventListener("click", () => {
 
     const start = window.scrollY;
@@ -321,7 +321,7 @@ scrollBtn.addEventListener("click", () => {
 
 });
 
-// BOUTON RETOUR VERS LE HAUT (effet lors du clique)
+// BOUTON RETOUR VERS LE HAUT ↑ (effet lors du clique)
 scrollBtn.addEventListener("click", () => {
 
     scrollBtn.classList.add("flower-active");
