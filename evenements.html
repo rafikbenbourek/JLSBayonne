@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Concept store à Bayonne proposant vêtements, accessoires et idées cadeaux au Pays Basque.">
+        content="Événements au Jardin de Lili & Sam à Bayonne : défilés, ateliers maquillage et onglerie avec Samakeup, fête de la musique, repas organisés, braderies et autres rendez-vous.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://jlsbayonne.fr/">
-    <title>Le Jardin de Lili &amp; Sam | Concept Store | Bayonne</title>
+    <link rel="canonical" href="https://jlsbayonne.fr/evenements.html">
+    <title>Événements | Le Jardin de Lili &amp; Sam | Bayonne</title>
 
     <!-- LINK -->
     <link rel="stylesheet" href="style.css">
@@ -228,186 +228,99 @@
         </div>
     </header>
 
-    <!---------- CATALOGUE ---------->
-    <main class="catalog-page">
-        <section class="catalog-content">
-            <h1>Nouveautés</h1>
-            <p>Retrouvez ici les derniers articles ajoutés à la boutique.</p>
-            <p class="catalog-results" data-catalog-results>8 articles affichés</p>
-
-            <div class="catalog-grid">
-                <article class="product-card"
-                    data-tags="nouveautes,vetements,robes,boheme,prix-50-100,marque-la-petite-etoile">
-                    <strong>Robe fluide imprimée</strong><br>
-                    <span>Vêtements • Bohème • La Petite Etoile • 89 EUR</span>
-                </article>
-                <article class="product-card" data-tags="nouveautes,vetements,vestes,casual,prix-100-plus,marque-bash">
-                    <strong>Veste oversize sable</strong><br>
-                    <span>Vêtements • Casual • Ba&amp;sh • 129 EUR</span>
-                </article>
-                <article class="product-card" data-tags="nouveautes,chaussures,basket,urbain,prix-50-100,marque-veja">
-                    <strong>Baskets blanches retro</strong><br>
-                    <span>Chaussures • Urbain • Veja • 95 EUR</span>
-                </article>
-                <article class="product-card"
-                    data-tags="nouveautes,accessoires,sacs_maroquinerie,elegant,prix-100-plus,marque-mila-louise">
-                    <strong>Sac cuir camel</strong><br>
-                    <span>Accessoires • Elegant • Mila Louise • 149 EUR</span>
-                </article>
-                <article class="product-card"
-                    data-tags="nouveautes,soins_bien_etre,parfums,minimal,prix-0-50,marque-kerzon">
-                    <strong>Parfum fleur d'ambre</strong><br>
-                    <span>Soins • Minimal • Kerzon • 42 EUR</span>
-                </article>
-                <article class="product-card"
-                    data-tags="nouveautes,decoration,vases_artisanaux,boheme,prix-50-100,marque-bloomingville">
-                    <strong>Vase artisanal terracotta</strong><br>
-                    <span>Deco • Bohème • Bloomingville • 59 EUR</span>
-                </article>
-                <article class="product-card"
-                    data-tags="nouveautes,vetements,pantalons,minimal,prix-50-100,marque-grace-mila">
-                    <strong>Pantalon droit ecru</strong><br>
-                    <span>Vêtements • Minimal • Grace &amp; Mila • 79 EUR</span>
-                </article>
-                <article class="product-card"
-                    data-tags="nouveautes,chaussures,bottines-boots,elegant,prix-100-plus,marque-ash">
-                    <strong>Bottines cuir noir</strong><br>
-                    <span>Chaussures • Elegant • Ash • 139 EUR</span>
-                </article>
+    <!---------- ÉVÉNEMENTS ---------->
+    <main class="events-page">
+        <section class="events-hero" aria-labelledby="events-title">
+            <p class="events-kicker">Agenda JLS Bayonne</p>
+            <h1 id="events-title">Les Événements du Jardin de Lili &amp; Sam</h1>
+            <p class="events-intro">
+                Toute l'année, la boutique vit au rythme de rendez-vous mode, beauté et conviviaux.
+                Retrouvez ici nos défilés, ateliers maquillage et onglerie avec Samakeup,
+                fêtes de la musique, repas organisés, braderies et autres surprises.
+            </p>
+            <div class="events-tags" aria-label="Catégories d'événements">
+                <span>Défilés</span>
+                <span>Ateliers Samakeup</span>
+                <span>Fête de la musique</span>
+                <span>Repas organisés</span>
+                <span>Braderies</span>
+                <span>Et autres</span>
             </div>
-            <p class="catalog-empty" data-catalog-empty hidden>Aucun article ne correspond a ces filtres.</p>
         </section>
 
-        <aside class="catalog-filters" aria-label="Filtres catégories">
-            <h2>Filtrer</h2>
-            <button class="catalog-reset" type="button" data-catalog-reset>Reinitialiser</button>
+        <section class="events-grid" aria-label="Programmation événementielle">
+            <article class="event-card event-card-featured">
+                <p class="event-meta">Trimestre mode</p>
+                <h2>Défilés Signature</h2>
+                <p>
+                    Des défilés en boutique pour découvrir les nouvelles silhouettes, les pièces coup de coeur
+                    et les associations de style imaginées par l'équipe.
+                </p>
+                <ul>
+                    <li>Looks jour et soirée</li>
+                    <li>Sélection multi-marques</li>
+                    <li>Conseils personnalisés</li>
+                </ul>
+            </article>
 
-            <div class="filter-group" data-filter-group="univers">
-                <h3>Collection</h3>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="univers" value="vetements">
-                    Vêtements <span data-filter-count>(3)</span></label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="univers" value="chaussures">
-                    Chaussures <span data-filter-count>(2)</span></label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="univers"
-                        value="accessoires"> Accessoires <span data-filter-count>(1)</span></label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="univers"
-                        value="soins_bien_etre"> Soins & Bien-etre <span data-filter-count>(1)</span></label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="univers" value="decoration">
-                    Décoration <span data-filter-count>(1)</span></label>
-            </div>
+            <article class="event-card">
+                <p class="event-meta">Beauté</p>
+                <h2>Ateliers maquillage et onglerie avec Samakeup</h2>
+                <p>
+                    Sessions en petit comité pour apprendre les bons gestes, tester les couleurs et repartir
+                    avec une routine adaptée à votre style.
+                </p>
+            </article>
 
-            <div class="filter-group" data-filter-group="categorie">
-                <h3 data-categories-title>Catégories</h3>
-                <label class="filter-option" data-universes="vetements"><input type="checkbox" data-filter
-                        data-group="categorie" value="robes"> Robes</label>
-                <label class="filter-option" data-universes="vetements"><input type="checkbox" data-filter
-                        data-group="categorie" value="vestes"> Vestes</label>
-                <label class="filter-option" data-universes="vetements"><input type="checkbox" data-filter
-                        data-group="categorie" value="pantalons"> Pantalons</label>
-                <label class="filter-option" data-universes="chaussures"><input type="checkbox" data-filter
-                        data-group="categorie" value="basket"> Baskets</label>
-                <label class="filter-option" data-universes="chaussures"><input type="checkbox" data-filter
-                        data-group="categorie" value="bottines-boots"> Bottines / Boots</label>
-                <label class="filter-option" data-universes="accessoires"><input type="checkbox" data-filter
-                        data-group="categorie" value="sacs_maroquinerie"> Sacs</label>
-                <label class="filter-option" data-universes="soins_bien_etre"><input type="checkbox" data-filter
-                        data-group="categorie" value="parfums"> Parfums</label>
-                <label class="filter-option" data-universes="decoration"><input type="checkbox" data-filter
-                        data-group="categorie" value="vases_artisanaux"> Vases</label>
-            </div>
+            <article class="event-card">
+                <p class="event-meta">Été à Bayonne</p>
+                <h2>Fête de la musique</h2>
+                <p>
+                    Une ambiance festive devant et dans la boutique: live, set acoustique, shopping tardif
+                    et découvertes de saison.
+                </p>
+            </article>
 
-            <div class="filter-group" data-filter-group="style">
-                <h3>Style</h3>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="boheme">
-                    Bohème</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="casual">
-                    Casual</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="urbain">
-                    Urbain</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="elegant">
-                    Elegant</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="style" value="minimal">
-                    Minimal</label>
-            </div>
+            <article class="event-card">
+                <p class="event-meta">Moments partagés</p>
+                <h2>Repas organisés</h2>
+                <p>
+                    Des repas conviviaux autour de collaborations locales pour réunir la communauté JLS,
+                    clientes fidèles et nouvelles rencontres.
+                </p>
+            </article>
 
-            <div class="filter-group" data-filter-group="marque">
-                <h3>Marques</h3>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-apc">
-                    A.P.C.</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-agnes-b"> Agnès b.</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-american-vintage"> American Vintage</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-bash">
-                    Ba&amp;sh</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-bel-air"> Bel Air</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-bellerose"> Bellerose</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-berenice"> Bérénice</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-claudie-pierlot"> Claudie Pierlot</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-comptoir-des-cotonniers"> Comptoir des Cotonniers</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-hartford"> Hartford</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-ikks">
-                    IKKS</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-iro">
-                    Iro</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-isabel-marant"> Isabel Marant</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-joseph"> Joseph</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-kenzo"> Kenzo</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-kitsune"> Kitsuné</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-les-petites"> Les Petites</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-maje">
-                    Maje</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-paul-and-joe"> Paul &amp; Joe</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-sandro"> Sandro</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-sessun"> Sessùn</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-sud-express"> Sud Express</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-surface-to-air"> Surface to Air</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-tara-jarmon"> Tara Jarmon</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-the-kooples"> The Kooples</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-veja">
-                    Veja</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque" value="marque-ash">
-                    Ash</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-grace-mila"> Grace &amp; Mila</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-la-petite-etoile"> La Petite Etoile</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-mila-louise"> Mila Louise</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-kerzon"> Kerzon</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="marque"
-                        value="marque-bloomingville"> Bloomingville</label>
-            </div>
+            <article class="event-card">
+                <p class="event-meta">Bons plans</p>
+                <h2>Braderies exclusives</h2>
+                <p>
+                    Des journées spéciales avec remises sélectionnées sur vêtements, accessoires et pièces
+                    uniques, en quantités limitées.
+                </p>
+            </article>
 
-            <div class="filter-group" data-filter-group="prix">
-                <h3>Prix</h3>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="prix" value="prix-0-50">
-                    Moins de 50 EUR</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="prix" value="prix-50-100">
-                    50 EUR a 100 EUR</label>
-                <label class="filter-option"><input type="checkbox" data-filter data-group="prix" value="prix-100-plus">
-                    Plus de 100 EUR</label>
+            <article class="event-card event-card-outline">
+                <p class="event-meta">Et autres rendez-vous</p>
+                <h2>Pop-up, collaborations et surprises</h2>
+                <p>
+                    Rencontres créateurs, animations ponctuelles, vitrines thématiques et expériences inédites
+                    pensées tout au long de l'année.
+                </p>
+            </article>
+        </section>
+
+        <section class="events-cta" aria-label="Informations pratiques">
+            <div>
+                <h2>Envie de participer ?</h2>
+                <p>
+                    Suivez-nous sur Instagram et Facebook pour les dates, inscriptions et annonces en avant-première.
+                </p>
             </div>
-        </aside>
+            <div class="events-cta-actions">
+                <a href="https://www.instagram.com/jls_bayonne_" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.facebook.com/JLSBayonne" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+        </section>
     </main>
     <!----------FOOTER---------- -->
     <footer id="footer">
