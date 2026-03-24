@@ -317,9 +317,8 @@ body {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: scale(0);
-    transform-origin: top left;
-    transition: opacity 0.13s ease, transform 0.13s ease, visibility 0s linear 0.13s;
+    transform: translateY(-15px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 }
 
 /* MEGA MENU MODE FEMME */
@@ -400,8 +399,23 @@ body {
     pointer-events: none;
 }
 
+.submenu::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #AE7B3A;
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+}
+
 .submenu-container:hover .submenu::before,
-.submenu-container:focus-within .submenu::before {
+.submenu-container:focus-within .submenu::before,
+.submenu-container:hover .submenu::after,
+.submenu-container:focus-within .submenu::after {
     animation: submenu-border-reveal 0.13s ease forwards, rainbow-text 5s linear infinite;
 }
 
@@ -478,7 +492,7 @@ body {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: scale(1);
+    transform: translateY(0);
     transition-delay: 0s;
 }
 
