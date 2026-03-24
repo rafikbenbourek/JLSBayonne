@@ -864,13 +864,31 @@ body {
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
+    .header {
+        min-height: 92px;
+    }
+
     .header-container {
         grid-template-columns: 1fr auto;
+        padding: 0 14px;
+        min-height: 92px;
     }
 
     .logo {
         justify-self: start;
         transform: none;
+    }
+
+    .logo img:first-child {
+        height: 96px;
+    }
+
+    .logo-words {
+        left: calc(40% + 1px);
+    }
+
+    .logo-words span {
+        font-size: 19px;
     }
 
     .menu {
@@ -882,8 +900,35 @@ body {
         display: none;
     }
 
+    .icons {
+        gap: 4px;
+    }
+
+    .icon-wrapper {
+        width: 34px;
+        height: 34px;
+    }
+
+    .radial-icon {
+        width: 23px;
+        height: 23px;
+    }
+
+    .radial-icon-cart {
+        width: 25px;
+        height: 25px;
+    }
+
+    .radial-icon-account {
+        width: 24px;
+        height: 24px;
+    }
+
     .burger {
         display: flex;
+        width: 25px;
+        height: 20px;
+        margin-left: 2px;
     }
 
     .menu.mobile .submenu-container {
@@ -934,6 +979,108 @@ body {
         max-height: 70vh;
         padding: 8px 0 2px;
         overflow-y: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        min-height: 78px;
+    }
+
+    .header-container {
+        padding: 0 10px;
+        min-height: 78px;
+    }
+
+    .header::after {
+        height: 1px;
+    }
+
+    .logo img:first-child {
+        height: 76px;
+    }
+
+    .logo-words,
+    .logo-hover-hint {
+        display: none;
+    }
+
+    .icons {
+        gap: 2px;
+    }
+
+    .icon-wrapper {
+        width: 31px;
+        height: 31px;
+    }
+
+    .radial-icon {
+        width: 21px;
+        height: 21px;
+    }
+
+    .radial-icon-cart {
+        width: 23px;
+        height: 23px;
+        margin-top: 0;
+    }
+
+    .radial-icon-account {
+        width: 22px;
+        height: 22px;
+    }
+
+    .cart-count {
+        top: -4px;
+        right: -4px;
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+    }
+
+    .burger {
+        width: 23px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        min-height: 68px;
+    }
+
+    .header-container {
+        padding: 0 8px;
+        min-height: 68px;
+    }
+
+    .logo img:first-child {
+        height: 64px;
+    }
+
+    .icons {
+        gap: 1px;
+    }
+
+    .icon-wrapper {
+        width: 29px;
+        height: 29px;
+    }
+
+    .radial-icon {
+        width: 19px;
+        height: 19px;
+    }
+
+    .radial-icon-cart,
+    .radial-icon-account {
+        width: 20px;
+        height: 20px;
+    }
+
+    .burger {
+        width: 21px;
+        height: 16px;
     }
 }
 
@@ -2622,18 +2769,87 @@ body.brands-modal-open {
     position: relative;
     padding: clamp(48px, 7vw, 80px) 20px clamp(52px, 8vw, 88px);
     background-color: #1F3A5F;
+    background-image:
+        repeating-linear-gradient(45deg, rgba(174, 123, 58, 0.06) 0px, rgba(174, 123, 58, 0.06) 1px, transparent 1px, transparent 18px),
+        repeating-linear-gradient(-45deg, rgba(174, 123, 58, 0.06) 0px, rgba(174, 123, 58, 0.06) 1px, transparent 1px, transparent 18px);
     overflow: hidden;
 }
 
-/* Motif géométrique amazigh en arrière-plan */
+/* Séparateur berbère bas (couleur alternative) */
 .produits-une::before {
     content: "";
     position: absolute;
-    inset: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 22px;
+    transform: translateY(50%);
     background-image:
-        repeating-linear-gradient(45deg, rgba(174, 123, 58, 0.07) 0px, rgba(174, 123, 58, 0.07) 1px, transparent 1px, transparent 18px),
-        repeating-linear-gradient(-45deg, rgba(174, 123, 58, 0.07) 0px, rgba(174, 123, 58, 0.07) 1px, transparent 1px, transparent 18px);
+        linear-gradient(180deg, rgba(247, 229, 198, 0.56), rgba(167, 73, 45, 0.5)),
+        repeating-linear-gradient(90deg,
+            rgba(20, 43, 68, 0.98) 0 56px,
+            rgba(26, 56, 84, 0.98) 56px 112px),
+        repeating-linear-gradient(90deg,
+            transparent 0 17px,
+            rgba(234, 183, 104, 0.95) 17px 20px,
+            transparent 20px 35px,
+            rgba(234, 183, 104, 0.95) 35px 38px,
+            transparent 38px 56px),
+        repeating-linear-gradient(45deg,
+            transparent 0 10px,
+            rgba(249, 236, 214, 0.9) 10px 13px,
+            transparent 13px 28px),
+        repeating-linear-gradient(-45deg,
+            transparent 0 10px,
+            rgba(249, 236, 214, 0.9) 10px 13px,
+            transparent 13px 28px),
+        repeating-linear-gradient(90deg,
+            transparent 0 50px,
+            rgba(182, 78, 47, 0.88) 50px 56px,
+            transparent 56px 106px);
+    background-blend-mode: screen, normal, normal, normal, normal, normal;
+    border-bottom: 1px solid rgba(244, 217, 180, 0.58);
+    box-shadow: 0 -6px 12px rgba(36, 16, 10, 0.22);
     pointer-events: none;
+    z-index: 2;
+}
+
+.produits-une::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 22px;
+    transform: translateY(-50%);
+    background:
+        linear-gradient(180deg, rgba(255, 241, 214, 0.55), rgba(154, 107, 49, 0.45)),
+        repeating-linear-gradient(90deg,
+            rgba(15, 35, 58, 0.98) 0 56px,
+            rgba(25, 53, 84, 0.98) 56px 112px),
+        repeating-linear-gradient(90deg,
+            transparent 0 17px,
+            rgba(232, 196, 134, 0.96) 17px 20px,
+            transparent 20px 35px,
+            rgba(232, 196, 134, 0.96) 35px 38px,
+            transparent 38px 56px),
+        repeating-linear-gradient(45deg,
+            transparent 0 10px,
+            rgba(247, 229, 194, 0.92) 10px 13px,
+            transparent 13px 28px),
+        repeating-linear-gradient(-45deg,
+            transparent 0 10px,
+            rgba(247, 229, 194, 0.92) 10px 13px,
+            transparent 13px 28px),
+        repeating-linear-gradient(90deg,
+            transparent 0 50px,
+            rgba(171, 120, 59, 0.85) 50px 56px,
+            transparent 56px 106px);
+    background-blend-mode: screen, normal, normal, normal, normal, normal;
+    border-top: 1px solid rgba(255, 241, 214, 0.48);
+    box-shadow: 0 6px 12px rgba(9, 24, 43, 0.2);
+    pointer-events: none;
+    z-index: 2;
 }
 
 .produits-une-container {
@@ -2914,6 +3130,60 @@ body.brands-modal-open {
 }
 
 @media (max-width: 540px) {
+    .produits-une::before {
+        height: 16px;
+        background-image:
+            linear-gradient(180deg, rgba(247, 229, 198, 0.54), rgba(167, 73, 45, 0.48)),
+            repeating-linear-gradient(90deg,
+                rgba(20, 43, 68, 0.98) 0 38px,
+                rgba(26, 56, 84, 0.98) 38px 76px),
+            repeating-linear-gradient(90deg,
+                transparent 0 12px,
+                rgba(234, 183, 104, 0.93) 12px 14px,
+                transparent 14px 24px,
+                rgba(234, 183, 104, 0.93) 24px 26px,
+                transparent 26px 38px),
+            repeating-linear-gradient(45deg,
+                transparent 0 7px,
+                rgba(249, 236, 214, 0.86) 7px 9px,
+                transparent 9px 19px),
+            repeating-linear-gradient(-45deg,
+                transparent 0 7px,
+                rgba(249, 236, 214, 0.86) 7px 9px,
+                transparent 9px 19px),
+            repeating-linear-gradient(90deg,
+                transparent 0 34px,
+                rgba(182, 78, 47, 0.82) 34px 38px,
+                transparent 38px 72px);
+    }
+
+    .produits-une::after {
+        height: 16px;
+        background:
+            linear-gradient(180deg, rgba(255, 241, 214, 0.52), rgba(154, 107, 49, 0.42)),
+            repeating-linear-gradient(90deg,
+                rgba(15, 35, 58, 0.98) 0 38px,
+                rgba(25, 53, 84, 0.98) 38px 76px),
+            repeating-linear-gradient(90deg,
+                transparent 0 12px,
+                rgba(232, 196, 134, 0.94) 12px 14px,
+                transparent 14px 24px,
+                rgba(232, 196, 134, 0.94) 24px 26px,
+                transparent 26px 38px),
+            repeating-linear-gradient(45deg,
+                transparent 0 7px,
+                rgba(247, 229, 194, 0.88) 7px 9px,
+                transparent 9px 19px),
+            repeating-linear-gradient(-45deg,
+                transparent 0 7px,
+                rgba(247, 229, 194, 0.88) 7px 9px,
+                transparent 9px 19px),
+            repeating-linear-gradient(90deg,
+                transparent 0 34px,
+                rgba(171, 120, 59, 0.82) 34px 38px,
+                transparent 38px 72px);
+    }
+
     .produits-une-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -3651,7 +3921,7 @@ footer::after {
 .footer-container {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: center;
+    align-items: start;
     gap: 60px;
     max-width: 1400px;
     margin: auto;
@@ -3663,8 +3933,8 @@ footer::after {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    justify-content: center;
-    align-self: center;
+    justify-content: flex-start;
+    align-self: start;
     justify-self: start;
     margin-left: clamp(72px, 2vw, 34px);
 }
@@ -3696,6 +3966,18 @@ footer::after {
     text-decoration: underline;
 }
 
+.horaires {
+    display: grid;
+    grid-template-columns: 45px auto;
+    row-gap: 6px;
+    color: #555;
+}
+
+.horaires .jour {
+    color: #888;
+    font-weight: 600;
+}
+
 .footer-center {
     display: flex;
     flex-direction: column;
@@ -3706,6 +3988,7 @@ footer::after {
     padding: 0 20px;
     position: relative;
     justify-self: center;
+    align-self: center;
 }
 
 .footer-center::before,
@@ -3727,6 +4010,7 @@ footer::after {
 .footer-center::after {
     bottom: -60px;
     left: 50%;
+    right: auto;
     transform: translateX(-50%);
 }
 
@@ -3754,8 +4038,8 @@ footer::after {
     width: min(300px, 100%);
     align-items: center;
     text-align: center;
-    justify-content: center;
-    align-self: center;
+    justify-content: flex-start;
+    align-self: start;
     justify-self: end;
     margin-right: clamp(12px, 2.4vw, 40px);
 }
