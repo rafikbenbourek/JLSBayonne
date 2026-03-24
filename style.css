@@ -105,6 +105,10 @@ body {
     backdrop-filter: none;
 }
 
+.header.scrolled .social-icons {
+    background: rgba(255, 252, 247, 0.2);
+}
+
 /* ----------LOGO---------- */
 .logo {
     position: relative;
