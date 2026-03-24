@@ -2768,45 +2768,12 @@ body.brands-modal-open {
     padding: clamp(48px, 7vw, 80px) 20px clamp(52px, 8vw, 88px);
     background-color: #1F3A5F;
     background-image:
-        repeating-linear-gradient(45deg, rgba(174, 123, 58, 0.06) 0px, rgba(174, 123, 58, 0.06) 1px, transparent 1px, transparent 18px),
-        repeating-linear-gradient(-45deg, rgba(174, 123, 58, 0.06) 0px, rgba(174, 123, 58, 0.06) 1px, transparent 1px, transparent 18px);
+        repeating-linear-gradient(45deg, rgba(174, 123, 58, 0.04) 0px, rgba(174, 123, 58, 0.04) 1px, transparent 1px, transparent 18px),
+        repeating-linear-gradient(-45deg, rgba(174, 123, 58, 0.04) 0px, rgba(174, 123, 58, 0.04) 1px, transparent 1px, transparent 18px);
     overflow: hidden;
 }
-
-/* Séparateur berbère bas (couleur alternative) */
+/* Séparateur berbère haut */
 .produits-une::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 22px;
-    transform: translateY(50%);
-    background-image:
-        linear-gradient(180deg, rgba(255, 244, 223, 0.42), rgba(154, 107, 49, 0.32)),
-        repeating-linear-gradient(90deg,
-            rgba(18, 42, 67, 0.96) 0 54px,
-            rgba(24, 53, 82, 0.96) 54px 108px),
-        repeating-linear-gradient(45deg,
-            transparent 0 17px,
-            rgba(245, 227, 193, 0.86) 17px 19px,
-            transparent 19px 36px),
-        repeating-linear-gradient(-45deg,
-            transparent 0 17px,
-            rgba(245, 227, 193, 0.86) 17px 19px,
-            transparent 19px 36px),
-        repeating-linear-gradient(90deg,
-            transparent 0 24px,
-            rgba(232, 196, 134, 0.92) 24px 28px,
-            transparent 28px 54px);
-    background-blend-mode: screen, normal, normal, normal, normal;
-    border-bottom: 1px solid rgba(245, 227, 193, 0.42);
-    box-shadow: 0 -4px 10px rgba(15, 29, 44, 0.14);
-    pointer-events: none;
-    z-index: 2;
-}
-
-.produits-une::after {
     content: "";
     position: absolute;
     top: 0;
@@ -2838,9 +2805,42 @@ body.brands-modal-open {
     z-index: 2;
 }
 
+/* Séparateur berbère bas (couleur alternative) */
+.produits-une::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 22px;
+    transform: translateY(50%);
+    background-image:
+        linear-gradient(180deg, rgba(255, 244, 223, 0.42), rgba(154, 107, 49, 0.32)),
+        repeating-linear-gradient(90deg,
+            rgba(18, 42, 67, 0.96) 0 54px,
+            rgba(24, 53, 82, 0.96) 54px 108px),
+        repeating-linear-gradient(45deg,
+            transparent 0 17px,
+            rgba(245, 227, 193, 0.86) 17px 19px,
+            transparent 19px 36px),
+        repeating-linear-gradient(-45deg,
+            transparent 0 17px,
+            rgba(245, 227, 193, 0.86) 17px 19px,
+            transparent 19px 36px),
+        repeating-linear-gradient(90deg,
+            transparent 0 24px,
+            rgba(232, 196, 134, 0.92) 24px 28px,
+            transparent 28px 54px);
+    background-blend-mode: screen, normal, normal, normal, normal;
+    border-bottom: 1px solid rgba(245, 227, 193, 0.42);
+    box-shadow: 0 -4px 10px rgba(15, 29, 44, 0.14);
+    pointer-events: none;
+    z-index: 2;
+}
+
 .produits-une-container {
     position: relative;
-    max-width: 1240px;
+    max-width: 2080px;
     margin: 0 auto;
     z-index: 1;
 }
@@ -2889,10 +2889,10 @@ body.brands-modal-open {
     letter-spacing: 0.02em;
 }
 
-/* GRILLE 4 COLONNES */
+/* GRILLE 6 COLONNES */
 .produits-une-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 20px;
 }
 
@@ -2901,7 +2901,6 @@ body.brands-modal-open {
     position: relative;
     background: #161616;
     border: 1px solid rgba(174, 123, 58, 0.14);
-    border-radius: 4px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -2935,7 +2934,7 @@ body.brands-modal-open {
 }
 
 .produit-card:hover .produit-card-img {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
 
 /* OVERLAY HOVER */
@@ -3017,10 +3016,25 @@ body.brands-modal-open {
     backdrop-filter: blur(4px);
 }
 
+.produit-card-fav svg {
+    display: block;
+}
+
+.produit-card-fav path {
+    fill: transparent;
+    transition: fill 0.22s ease, stroke 0.22s ease;
+}
+
 .produit-card-fav:hover {
     background: #AE7B3A;
     color: #fff;
     border-color: #AE7B3A;
+}
+
+.produit-card-fav:hover path,
+.produit-card-fav:focus-visible path {
+    fill: currentColor;
+    stroke: currentColor;
 }
 
 /* CORPS TEXTE */
