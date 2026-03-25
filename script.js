@@ -2,6 +2,114 @@ document.addEventListener("dragstart", function (e) {
     e.preventDefault();
 });
 
+// MEGA MENU MODE FEMME: titres cliquables vers la page catalogue avec filtre preselectionne
+document.addEventListener("DOMContentLoaded", () => {
+    const universByTitle = {
+        vetements: "vetements",
+        chaussures: "chaussures",
+        accessoires: "accessoires",
+    };
+
+    const categoryAliasMap = {
+        robes: "robes",
+        jupes: "jupes",
+        pantalons: "pantalons",
+        vestes: "vestes",
+        basket: "basket",
+        "bottines-boots": "bottines-boots",
+        bottines_boots: "bottines-boots",
+        sacs_maroquinerie: "sacs_maroquinerie",
+        bijoux_fantaisie: "bijoux_fantaisie",
+    };
+
+    const pageUniversConfig = {
+        "mode-femme.html": new Set(["vetements", "chaussures", "accessoires"]),
+        "soins-bien-etre.html": new Set(["parfums", "savons_artisanaux", "soins_corps", "soins_visage", "bougies_senteurs"]),
+        "decoration.html": new Set(["tapis_berberes", "vases_artisanaux", "bougies_lanternes", "plateaux_traditionnels", "decorations_autres"]),
+    };
+
+    const normalizeText = (value) =>
+        (value || "")
+            .trim()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
+    document.querySelectorAll(".submenu-mega-title").forEach((title) => {
+        const normalizedTitle = normalizeText(title.textContent);
+        const univers = universByTitle[normalizedTitle];
+        if (!univers) return;
+
+        const targetUrl = `mode-femme.html?univers=${encodeURIComponent(univers)}`;
+
+        const navigateToModeFemme = () => {
+            window.location.href = targetUrl;
+        };
+
+        title.classList.add("submenu-mega-title--link");
+        title.setAttribute("role", "link");
+        title.setAttribute("tabindex", "0");
+
+        title.addEventListener("click", navigateToModeFemme);
+        title.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                navigateToModeFemme();
+            }
+        });
+    });
+
+    // Liens de sous-categories: redirection vers mode-femme + univers + categorie
+    document.querySelectorAll(".submenu-mega-col").forEach((column) => {
+        const title = column.querySelector(".submenu-mega-title");
+        if (!title) return;
+
+        const univers = universByTitle[normalizeText(title.textContent)];
+        if (!univers) return;
+
+        column.querySelectorAll("a[href]").forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+
+                const rawHref = link.getAttribute("href") || "";
+                const sourceUrl = new URL(rawHref, window.location.origin);
+                const rawCategory = sourceUrl.searchParams.get("CAT") || "";
+                const mappedCategory = categoryAliasMap[rawCategory] || null;
+
+                const targetUrl = new URL("mode-femme.html", window.location.origin);
+                targetUrl.searchParams.set("univers", univers);
+                if (mappedCategory) {
+                    targetUrl.searchParams.set("categorie", mappedCategory);
+                }
+
+                window.location.href = `${targetUrl.pathname}${targetUrl.search}`;
+            });
+        });
+    });
+
+    // Sous-menus classiques (Soins & Bien-etre, Decoration): redirection avec filtre famille preselectionne
+    document.querySelectorAll(".submenu:not(.submenu-mega) a[href*='CAT=']").forEach((link) => {
+        link.addEventListener("click", (event) => {
+            const container = link.closest(".submenu-container");
+            const parentMenuLink = container?.querySelector("a.has-submenu");
+            const pageHref = parentMenuLink?.getAttribute("href") || "";
+            const pageName = pageHref.split("?")[0].trim();
+            const allowedUniverses = pageUniversConfig[pageName];
+            if (!allowedUniverses) return;
+
+            const sourceUrl = new URL(link.getAttribute("href") || "", window.location.origin);
+            const univers = sourceUrl.searchParams.get("CAT") || "";
+            if (!allowedUniverses.has(univers)) return;
+
+            event.preventDefault();
+
+            const targetUrl = new URL(pageName, window.location.origin);
+            targetUrl.searchParams.set("univers", univers);
+            window.location.href = `${targetUrl.pathname}${targetUrl.search}`;
+        });
+    });
+});
+
 // VERROUILLAGE SCROLL SANS DEPLACEMENT DE MISE EN PAGE
 let bodyScrollLocks = 0;
 
@@ -434,6 +542,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetButton = document.querySelector("[data-catalog-reset]");
 
     if (!catalogPage || filterInputs.length === 0 || cards.length === 0) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const presetUnivers = urlParams.get("univers");
+    const presetCategory = urlParams.get("categorie");
+    if (presetUnivers) {
+        const hasMatchingUnivers = universInputs.some((input) => input.value === presetUnivers);
+        if (hasMatchingUnivers) {
+            universInputs.forEach((input) => {
+                input.checked = input.value === presetUnivers;
+            });
+        }
+    }
+    if (presetCategory) {
+        const hasMatchingCategory = categoryInputs.some((input) => input.value === presetCategory);
+        if (hasMatchingCategory) {
+            categoryInputs.forEach((input) => {
+                input.checked = input.value === presetCategory;
+            });
+        }
+    }
 
     const getSelectedByGroup = () => {
         const selected = new Map();
