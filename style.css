@@ -1955,6 +1955,14 @@ body {
     text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7);
 }
 
+.slide-content img {
+      filter: 
+    drop-shadow(3px 0 0 black)
+    drop-shadow(-1px 0 0 black)
+    drop-shadow(0 1px 0 black)
+    drop-shadow(0 -1px 0 black);
+}
+
 .slide-content h2 {
     font-family: "Cormorant Garamond", serif;
     font-size: 74px;
@@ -4724,7 +4732,7 @@ footer::after {
 .product-modal-thumb {
     width: 74px;
     height: 90px;
-    border: 1px solid #d0d0d0;
+    border: 2px solid #f3f3f3;
     background: #fff;
     padding: 0;
     cursor: pointer;
@@ -4740,7 +4748,6 @@ footer::after {
 }
 
 .product-modal-thumb.is-active {
-    border-width: 2px;
     border-color: #212121;
 }
 
@@ -4761,7 +4768,6 @@ footer::after {
     height: 100%;
     object-fit: cover;
     display: block;
-
 }
 
 .product-modal-main-image-wrap.is-zooming {
