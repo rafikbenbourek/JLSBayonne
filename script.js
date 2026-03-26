@@ -560,6 +560,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const qtyMinus = modal.querySelector("[data-product-modal-qty-minus]");
     const qtyPlus = modal.querySelector("[data-product-modal-qty-plus]");
     const addToCartBtn = modal.querySelector("[data-product-modal-add]");
+    const addToFavBtn = modal.querySelector("[data-product-modal-fav]");
     const closeTargets = Array.from(modal.querySelectorAll("[data-product-modal-close]"));
     let currentGallerySources = [];
 
@@ -582,8 +583,18 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(lightbox);
 
     const lightboxImage = lightbox.querySelector("[data-product-lightbox-image]");
+    const lightboxMain = lightbox.querySelector(".product-lightbox-main");
     const lightboxThumbs = lightbox.querySelector("[data-product-lightbox-thumbs]");
     const lightboxCloseTargets = Array.from(lightbox.querySelectorAll("[data-product-lightbox-close]"));
+    let isLightboxZoomed = false;
+
+    const resetLightboxZoom = () => {
+        if (!lightboxImage || !lightboxMain) return;
+        isLightboxZoomed = false;
+        lightboxMain.classList.remove("is-zooming");
+        lightboxImage.style.transform = "scale(1)";
+        lightboxImage.style.transformOrigin = "50% 50%";
+    };
 
     const setMainModalImage = (imgData, activeButton = null) => {
         if (!imgData || !modalImage) return;
@@ -599,6 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const showLightboxImage = (imgData, thumb) => {
         if (!imgData || !lightboxImage) return;
+        resetLightboxZoom();
         lightboxImage.src = imgData.src;
         lightboxImage.alt = imgData.alt;
         lightboxThumbs.querySelectorAll(".product-lightbox-thumb").forEach((el) => {
@@ -628,6 +640,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const closeLightbox = () => {
+        resetLightboxZoom();
         lightbox.classList.remove("is-open");
         window.setTimeout(() => {
             lightbox.hidden = true;
@@ -638,6 +651,30 @@ document.addEventListener("DOMContentLoaded", () => {
         const n = Number.parseInt(value, 10);
         if (Number.isNaN(n) || n < 1) return 1;
         return n;
+    };
+
+    const euroFormatter = new Intl.NumberFormat("fr-FR", {
+        style: "currency",
+        currency: "EUR"
+    });
+
+    const parseNumericPrice = (rawPrice) => {
+        if (!rawPrice) return null;
+        const normalized = String(rawPrice)
+            .replace(/\s/g, "")
+            .replace(/€/g, "")
+            .replace(/,/g, ".");
+        const match = normalized.match(/-?\d+(?:\.\d+)?/);
+        if (!match) return null;
+
+        const value = Number.parseFloat(match[0]);
+        return Number.isFinite(value) ? value : null;
+    };
+
+    const formatPriceAsEuro = (rawPrice) => {
+        const value = parseNumericPrice(rawPrice);
+        if (value === null) return "Prix sur demande";
+        return euroFormatter.format(value);
     };
 
     const openModal = (card) => {
@@ -653,7 +690,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const category = details[0] || "Collection";
         const style = details[1] || "Style signature";
         const brand = details[2] || "Maison";
-        const price = details[3] || "Prix sur demande";
+        const price = formatPriceAsEuro(details[3]);
         const sku = `SKU-${productName.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8)}`;
 
         modalTitle.textContent = productName;
@@ -712,6 +749,7 @@ document.addEventListener("DOMContentLoaded", () => {
         qtyInput.value = "1";
         addToCartBtn.textContent = "Ajouter au panier";
         addToCartBtn.classList.remove("is-added");
+        addToFavBtn?.setAttribute("aria-pressed", "false");
 
         modal.hidden = false;
         modal.setAttribute("aria-hidden", "false");
@@ -757,6 +795,29 @@ document.addEventListener("DOMContentLoaded", () => {
         target.addEventListener("click", closeLightbox);
     });
 
+    lightboxMain?.addEventListener("click", (event) => {
+        if (!lightboxImage || event.target.closest(".product-lightbox-thumb")) return;
+
+        if (isLightboxZoomed) {
+            resetLightboxZoom();
+            return;
+        }
+
+        isLightboxZoomed = true;
+        lightboxMain.classList.add("is-zooming");
+        lightboxImage.style.transform = "scale(2.4)";
+    });
+
+    lightboxMain?.addEventListener("mousemove", (event) => {
+        if (!isLightboxZoomed || !lightboxImage) return;
+
+        const rect = lightboxMain.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+        lightboxImage.style.transformOrigin = `${x}% ${y}%`;
+    });
+
     modalMainImageWrap?.addEventListener("mousemove", (event) => {
         if (!modalImage || modal.hidden) return;
         const rect = modalMainImageWrap.getBoundingClientRect();
@@ -764,7 +825,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const y = ((event.clientY - rect.top) / rect.height) * 100;
         modalMainImageWrap.classList.add("is-zooming");
         modalImage.style.transformOrigin = `${x}% ${y}%`;
-        modalImage.style.transform = "scale(1.72)";
+        modalImage.style.transform = "scale(3)";
     });
 
     modalMainImageWrap?.addEventListener("mouseleave", () => {
@@ -804,6 +865,11 @@ document.addEventListener("DOMContentLoaded", () => {
     addToCartBtn?.addEventListener("click", () => {
         addToCartBtn.classList.add("is-added");
         addToCartBtn.textContent = "Ajoute au panier";
+    });
+
+    addToFavBtn?.addEventListener("click", () => {
+        const isPressed = addToFavBtn.getAttribute("aria-pressed") === "true";
+        addToFavBtn.setAttribute("aria-pressed", String(!isPressed));
     });
 });
 
