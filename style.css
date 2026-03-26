@@ -2113,25 +2113,37 @@ body {
     z-index: 2;
 }
 
-.welcome-baner .baner-deco {
+.philosophie .baner-deco {
     width: 15%;
     position: absolute;
-    top: 58%;
+    top: 0;
     transform: translateY(-50%);
-    max-height: auto;
-    /* adapte la taille de la décoration */
+    height: auto;
     opacity: 0.7;
-    z-index: 1;
+    z-index: 0;
+    pointer-events: none;
 }
 
-.welcome-baner .baner-deco.left {
+.philosophie .baner-deco.left {
     left: 0px;
     /* espace à gauche de la bannière */
 }
 
-.welcome-baner .baner-deco.right {
+.philosophie .baner-deco.right {
     right: 0px;
     /* espace à droite de la bannière */
+}
+
+@media (max-width: 1024px) {
+    .philosophie .baner-deco {
+        width: 10%;
+    }
+}
+
+@media (max-width: 768px) {
+    .philosophie .baner-deco {
+        display: none;
+    }
 }
 
 .concept-store-since-2013 {
@@ -2143,13 +2155,18 @@ body {
     background: #FEFEFE;
     max-width: 3500px;
     margin-bottom: -20px;
-    margin-top: -22px
+    margin-top: -22px;
+    position: relative;
+    z-index: 0;
 }
 
 .concept-store-since-2013 img {
     width: 100%;
     max-width: 850px;
     height: auto;
+    position: relative;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .philosophie {
@@ -2157,7 +2174,8 @@ body {
     padding: 60px 20px;
     text-align: center;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    z-index: 1;
 }
 
 .philosophie::before {
@@ -2179,7 +2197,7 @@ body {
 
 .philosophie-container {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 900px;
     margin: auto;
 }
@@ -2208,6 +2226,7 @@ body {
     width: 260px;
     height: 400px;
     opacity: 0.9;
+    z-index: 2;
 }
 
 .philosophie-side.left {
@@ -3097,8 +3116,8 @@ body.brands-modal-open {
 }
 
 .icon-wrapper[data-panel-trigger="panel-favoris"] .radial-icon {
-    width: 30px !important;
-    height: 30px !important;
+    width: 26px !important;
+    height: 26px !important;
 }
 
 /* CORPS TEXTE */
