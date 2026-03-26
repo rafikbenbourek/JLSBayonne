@@ -527,6 +527,286 @@ window.addEventListener("scroll", () => {
 
 });
 
+// BOUTON FAVORIS CARTE PRODUIT
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".produit-card-fav").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const isActive = btn.classList.toggle("is-active");
+            btn.setAttribute("aria-pressed", isActive);
+        });
+    });
+});
+
+// MODALE PRODUIT (QUICK VIEW CATALOGUE)
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.querySelector("[data-product-modal]");
+    const cards = Array.from(document.querySelectorAll(".catalog-grid .product-card"));
+    if (!modal || cards.length === 0) return;
+
+    const modalImage = modal.querySelector("[data-product-modal-image]");
+    const modalCategory = modal.querySelector("[data-product-modal-category]");
+    const modalTitle = modal.querySelector("[data-product-modal-title]");
+    const modalPrice = modal.querySelector("[data-product-modal-price]");
+    const modalStyle = modal.querySelector("[data-product-modal-style]");
+    const modalBrand = modal.querySelector("[data-product-modal-brand]");
+    const modalDescription = modal.querySelector("[data-product-modal-description]");
+    const modalSku = modal.querySelector("[data-product-modal-sku]");
+    const modalStock = modal.querySelector("[data-product-modal-stock]");
+    const modalHighlights = modal.querySelector("[data-product-modal-highlights]");
+    const modalThumbs = modal.querySelector("[data-product-modal-thumbs]");
+    const modalMainImageWrap = modal.querySelector(".product-modal-main-image-wrap");
+    const qtyInput = modal.querySelector("[data-product-modal-qty-input]");
+    const qtyMinus = modal.querySelector("[data-product-modal-qty-minus]");
+    const qtyPlus = modal.querySelector("[data-product-modal-qty-plus]");
+    const addToCartBtn = modal.querySelector("[data-product-modal-add]");
+    const closeTargets = Array.from(modal.querySelectorAll("[data-product-modal-close]"));
+    let currentGallerySources = [];
+
+    const lightbox = document.createElement("div");
+    lightbox.className = "product-lightbox";
+    lightbox.hidden = true;
+    lightbox.innerHTML = `
+        <div class="product-lightbox-overlay" data-product-lightbox-close></div>
+        <section class="product-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Apercu image produit">
+            <button class="product-lightbox-close" type="button" aria-label="Fermer" data-product-lightbox-close>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div class="product-lightbox-thumbs" data-product-lightbox-thumbs></div>
+            <div class="product-lightbox-main">
+                <img src="" alt="" data-product-lightbox-image>
+            </div>
+        </section>`;
+    document.body.appendChild(lightbox);
+
+    const lightboxImage = lightbox.querySelector("[data-product-lightbox-image]");
+    const lightboxThumbs = lightbox.querySelector("[data-product-lightbox-thumbs]");
+    const lightboxCloseTargets = Array.from(lightbox.querySelectorAll("[data-product-lightbox-close]"));
+
+    const setMainModalImage = (imgData, activeButton = null) => {
+        if (!imgData || !modalImage) return;
+        modalImage.src = imgData.src;
+        modalImage.alt = imgData.alt;
+        if (modalThumbs) {
+            modalThumbs.querySelectorAll(".product-modal-thumb").forEach((el) => {
+                el.classList.remove("is-active");
+            });
+            if (activeButton) activeButton.classList.add("is-active");
+        }
+    };
+
+    const showLightboxImage = (imgData, thumb) => {
+        if (!imgData || !lightboxImage) return;
+        lightboxImage.src = imgData.src;
+        lightboxImage.alt = imgData.alt;
+        lightboxThumbs.querySelectorAll(".product-lightbox-thumb").forEach((el) => {
+            el.classList.remove("is-active");
+        });
+        thumb?.classList.add("is-active");
+    };
+
+    const openLightbox = (startIndex = 0) => {
+        if (!currentGallerySources.length) return;
+        lightboxThumbs.innerHTML = "";
+
+        currentGallerySources.forEach((imgData, index) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "product-lightbox-thumb";
+            btn.innerHTML = `<img src="${imgData.src}" alt="">`;
+            if (index === startIndex) btn.classList.add("is-active");
+            btn.addEventListener("click", () => showLightboxImage(imgData, btn));
+            btn.addEventListener("mouseenter", () => showLightboxImage(imgData, btn));
+            lightboxThumbs.appendChild(btn);
+        });
+
+        showLightboxImage(currentGallerySources[startIndex], lightboxThumbs.children[startIndex]);
+        lightbox.hidden = false;
+        requestAnimationFrame(() => lightbox.classList.add("is-open"));
+    };
+
+    const closeLightbox = () => {
+        lightbox.classList.remove("is-open");
+        window.setTimeout(() => {
+            lightbox.hidden = true;
+        }, 180);
+    };
+
+    const clampQty = (value) => {
+        const n = Number.parseInt(value, 10);
+        if (Number.isNaN(n) || n < 1) return 1;
+        return n;
+    };
+
+    const openModal = (card) => {
+        const productName = card.querySelector("strong")?.textContent?.trim() || "Produit";
+        const detailsText = card.querySelector("span")?.textContent?.trim() || "";
+        const details = detailsText.split("•").map((item) => item.trim()).filter(Boolean);
+        const image = card.querySelector(".product-card-img");
+        const allImages = Array.from(card.querySelectorAll(".product-card-img")).map((img) => ({
+            src: img.currentSrc || img.src,
+            alt: img.alt || productName
+        }));
+
+        const category = details[0] || "Collection";
+        const style = details[1] || "Style signature";
+        const brand = details[2] || "Maison";
+        const price = details[3] || "Prix sur demande";
+        const sku = `SKU-${productName.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8)}`;
+
+        modalTitle.textContent = productName;
+        modalCategory.textContent = category;
+        modalStyle.textContent = style;
+        modalBrand.textContent = brand;
+        modalPrice.textContent = price;
+        modalSku.textContent = sku;
+        modalStock.textContent = "En stock";
+        modalDescription.textContent = `${productName} est une piece selectionnee en boutique pour son equilibre entre confort, coupe et style. Son allure ${style.toLowerCase()} s'adapte aussi bien au quotidien qu'aux occasions speciales.`;
+
+        if (modalHighlights) {
+            const points = [
+                `Categorie: ${category}`,
+                `Style: ${style}`,
+                `Marque: ${brand}`
+            ];
+
+            modalHighlights.innerHTML = "";
+            points.forEach((point) => {
+                const li = document.createElement("li");
+                li.textContent = point;
+                modalHighlights.appendChild(li);
+            });
+        }
+
+        if (image) {
+            modalImage.src = image.currentSrc || image.src;
+            modalImage.alt = image.alt || productName;
+        }
+
+        if (modalThumbs) {
+            const sources = allImages.length > 0 ? allImages : [{ src: modalImage.src, alt: modalImage.alt }];
+            currentGallerySources = sources;
+            modalThumbs.innerHTML = "";
+
+            sources.forEach((imgData, index) => {
+                const thumbBtn = document.createElement("button");
+                thumbBtn.type = "button";
+                thumbBtn.className = "product-modal-thumb";
+                thumbBtn.setAttribute("aria-label", `Afficher photo ${index + 1}`);
+                thumbBtn.innerHTML = `<img src="${imgData.src}" alt="">`;
+
+                if (index === 0) thumbBtn.classList.add("is-active");
+
+                const showThumbImage = () => setMainModalImage(imgData, thumbBtn);
+
+                thumbBtn.addEventListener("click", showThumbImage);
+                thumbBtn.addEventListener("mouseenter", showThumbImage);
+                thumbBtn.addEventListener("focus", showThumbImage);
+
+                modalThumbs.appendChild(thumbBtn);
+            });
+        }
+
+        qtyInput.value = "1";
+        addToCartBtn.textContent = "Ajouter au panier";
+        addToCartBtn.classList.remove("is-added");
+
+        modal.hidden = false;
+        modal.setAttribute("aria-hidden", "false");
+        lockBodyScroll();
+        document.documentElement.classList.add("product-modal-open");
+        document.body.classList.add("product-modal-open");
+        requestAnimationFrame(() => {
+            modal.classList.add("is-open");
+        });
+    };
+
+    const closeModal = () => {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        unlockBodyScroll();
+        document.documentElement.classList.remove("product-modal-open");
+        document.body.classList.remove("product-modal-open");
+        window.setTimeout(() => {
+            modal.hidden = true;
+        }, 200);
+    };
+
+    cards.forEach((card) => {
+        card.tabIndex = 0;
+        card.addEventListener("click", (event) => {
+            if (event.target.closest(".produit-card-fav")) return;
+            openModal(card);
+        });
+
+        card.addEventListener("keydown", (event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            if (event.target.closest(".produit-card-fav")) return;
+            event.preventDefault();
+            openModal(card);
+        });
+    });
+
+    closeTargets.forEach((target) => {
+        target.addEventListener("click", closeModal);
+    });
+
+    lightboxCloseTargets.forEach((target) => {
+        target.addEventListener("click", closeLightbox);
+    });
+
+    modalMainImageWrap?.addEventListener("mousemove", (event) => {
+        if (!modalImage || modal.hidden) return;
+        const rect = modalMainImageWrap.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        modalMainImageWrap.classList.add("is-zooming");
+        modalImage.style.transformOrigin = `${x}% ${y}%`;
+        modalImage.style.transform = "scale(1.72)";
+    });
+
+    modalMainImageWrap?.addEventListener("mouseleave", () => {
+        if (!modalImage) return;
+        modalMainImageWrap.classList.remove("is-zooming");
+        modalImage.style.transformOrigin = "50% 50%";
+        modalImage.style.transform = "scale(1)";
+    });
+
+    modalMainImageWrap?.addEventListener("click", () => {
+        const activeIndex = Array.from(modalThumbs?.children || []).findIndex((el) => el.classList.contains("is-active"));
+        openLightbox(activeIndex >= 0 ? activeIndex : 0);
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !lightbox.hidden) {
+            closeLightbox();
+            return;
+        }
+        if (event.key === "Escape" && !modal.hidden) {
+            closeModal();
+        }
+    });
+
+    qtyMinus?.addEventListener("click", () => {
+        qtyInput.value = String(Math.max(1, clampQty(qtyInput.value) - 1));
+    });
+
+    qtyPlus?.addEventListener("click", () => {
+        qtyInput.value = String(clampQty(qtyInput.value) + 1);
+    });
+
+    qtyInput?.addEventListener("change", () => {
+        qtyInput.value = String(clampQty(qtyInput.value));
+    });
+
+    addToCartBtn?.addEventListener("click", () => {
+        addToCartBtn.classList.add("is-added");
+        addToCartBtn.textContent = "Ajoute au panier";
+    });
+});
+
 // FILTRES CATALOGUE (PAGE NOUVEAUTES)
 document.addEventListener("DOMContentLoaded", () => {
     const catalogPage = document.querySelector(".catalog-page");
