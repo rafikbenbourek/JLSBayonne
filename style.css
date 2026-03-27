@@ -2092,95 +2092,49 @@ body {
 
 }
 
-/* ----------BANNIERE BIENVENUE---------- */
+/* ----------PHILOSOPHIE---------- */
 
-.welcome-baner {
-    max-height: calc(100vh - 70vh);
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #FEFEFE;
-    max-width: 3500px;
-    margin: auto;
-    position: relative;
-}
-
-.welcome-baner img {
-    width: 100%;
-    max-width: 450px;
-    margin-top: 10px;
-    height: auto;
-    display: block;
-}
-
-.welcome-baner .main-baner {
-    max-width: 30%;
-    /* ajuste selon ta mise en page */
-    height: auto;
-    display: block;
-    z-index: 2;
-}
-
-.philosophie .baner-deco {
-    width: 15%;
+.gift-card-content .baner-deco {
+    width: 25%;
     position: absolute;
-    top: 0;
+    top: 25%;
     transform: translateY(-50%);
-    height: auto;
     opacity: 0.7;
     z-index: 0;
     pointer-events: none;
 }
 
-.philosophie .baner-deco.left {
-    left: 0px;
-    /* espace à gauche de la bannière */
+.gift-card-content .baner-deco img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-.philosophie .baner-deco.right {
-    right: 0px;
-    /* espace à droite de la bannière */
+.gift-card-content .baner-deco.left {
+    left: 0;
+    transform: translate(-61%, -50%);
+}
+
+.gift-card-content .baner-deco.right {
+    right: 0;
+    transform: translate(61%, -50%) scaleX(-1);
 }
 
 @media (max-width: 1024px) {
-    .philosophie .baner-deco {
+    .gift-card-content .baner-deco {
         width: 10%;
     }
 }
 
 @media (max-width: 768px) {
-    .philosophie .baner-deco {
+    .gift-card-content .baner-deco {
         display: none;
     }
 }
 
-.concept-store-since-2013 {
-    max-height: calc(100vh - 70vh);
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background: #FEFEFE;
-    max-width: 3500px;
-    margin-bottom: -20px;
-    margin-top: -22px;
-    position: relative;
-    z-index: 0;
-}
-
-.concept-store-since-2013 img {
-    width: 100%;
-    max-width: 850px;
-    height: auto;
-    position: relative;
-    z-index: 0;
-    pointer-events: none;
-}
-
 .philosophie {
     background: #FEFEFE;
-    padding: 60px 20px;
+    padding: 88px 20px 360px;
     text-align: center;
     position: relative;
     overflow: visible;
@@ -2200,6 +2154,19 @@ body {
     background-position: center;
     background-size: auto 100%;
     opacity: 0.06;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.philosophie::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('img/background-philosophie.png');
+    background-repeat: no-repeat;
+    background-position: center top 10px;
+    background-size: 100% auto;
+    opacity: 0.75;
     z-index: 0;
     pointer-events: none;
 }
@@ -2212,11 +2179,12 @@ body {
 }
 
 .philosophie h2 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 36px;
+    font-family: "calibri", serif;
+    font-size: 50px;
     font-weight: 600;
-    margin-bottom: 20px;
-    color: #3A3A3A;
+    margin-top: -28px;
+    margin-bottom: 40px;
+    color: #454545;
 }
 
 .philosophie p {
@@ -2230,8 +2198,8 @@ body {
 /* ----------CAROUSEL PHILOSOPHIE SIDE IMAGES---------- */
 .philosophie-side {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 100%;
+    transform: translateY(-40%);
     width: 260px;
     height: 400px;
     opacity: 0.9;
@@ -2239,11 +2207,11 @@ body {
 }
 
 .philosophie-side.left {
-    left: calc(50% - 920px);
+    left: calc(50% - 890px);
 }
 
 .philosophie-side.right {
-    right: calc(50% - 920px);
+    right: calc(50% - 890px);
 }
 
 .photo-stack {
@@ -2306,19 +2274,19 @@ body {
 }
 
 .philosophie-side.left .photo-card-back {
-    transform: translate(-46px, -40px) rotate(-12deg) scale(0.97);
+    transform: translate(-66px, -60px) rotate(-12deg) scale(0.97);
 }
 
 .philosophie-side.left .photo-card-middle {
-    transform: translate(40px, 42px) rotate(10deg) scale(0.985);
+    transform: translate(60px, 52px) rotate(10deg) scale(0.985);
 }
 
 .philosophie-side.right .photo-card-back {
-    transform: translate(46px, -40px) rotate(12deg) scale(0.97);
+    transform: translate(66px, -60px) rotate(12deg) scale(0.97);
 }
 
 .philosophie-side.right .photo-card-middle {
-    transform: translate(-40px, 42px) rotate(-10deg) scale(0.985);
+    transform: translate(-60px, 52px) rotate(-10deg) scale(0.985);
 }
 
 .photo-slide {
@@ -3350,6 +3318,8 @@ body.brands-modal-open {
     max-width: 920px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    overflow: visible;
     border-radius: 14px;
     background: linear-gradient(140deg, #f7f2ea 0%, #efe2d0 100%);
     border: 1px solid rgba(111, 83, 56, 0.2);
@@ -3358,6 +3328,8 @@ body.brands-modal-open {
 .gift-card-content {
     max-width: 760px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
     text-align: center;
     color: #3a3a3a;
 }
@@ -4102,7 +4074,7 @@ footer {
     position: relative;
     background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
     color: #FEFEFE;
-    padding: 56px 32px 40px;
+    padding: 56px 32px 0;
     overflow: hidden;
 }
 
@@ -4214,13 +4186,13 @@ footer::after {
 }
 
 .footer-center::before {
-    top: -44px;
+    top: -64px;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .footer-center::after {
-    bottom: -44px;
+    bottom: -64px;
     left: 50%;
     right: auto;
     transform: translateX(-50%);
@@ -4340,6 +4312,7 @@ footer::after {
     max-width: 1400px;
     margin: 32px auto 0;
     padding-top: 16px;
+    padding-bottom: 16px;
     border-top: 1px solid rgba(174, 123, 58, 0.2);
     display: flex;
     flex-wrap: wrap;
@@ -4376,7 +4349,7 @@ footer::after {
 
 @media (max-width: 1024px) {
     footer {
-        padding: 44px 24px 32px;
+        padding: 44px 24px 0;
     }
 
     .footer-container {
@@ -4412,6 +4385,7 @@ footer::after {
     .footer-legal {
         margin-top: 22px;
         padding-top: 14px;
+        padding-bottom: 14px;
         gap: 10px 0;
         flex-direction: column;
     }
@@ -4485,6 +4459,15 @@ footer::after {
 
 /* ============= RESPONSIVE ============ */
 @media (max-width:768px) {
+    .philosophie {
+        padding-top: 72px;
+    }
+
+    .philosophie::after {
+        background-size: 230% auto;
+        opacity: 0.2;
+    }
+
     .carousel {
         height: 50vh;
     }
@@ -4732,7 +4715,7 @@ footer::after {
 .product-modal-thumb {
     width: 74px;
     height: 90px;
-    border: 2px solid #f3f3f3;
+    border: 1px solid #f3f3f3;
     background: #fff;
     padding: 0;
     cursor: pointer;
@@ -4748,6 +4731,7 @@ footer::after {
 }
 
 .product-modal-thumb.is-active {
+    border-width: 2px;
     border-color: #212121;
 }
 
@@ -4949,8 +4933,8 @@ footer::after {
 }
 
 .product-modal-fav svg {
-    width: 22px;
-    height: 22px;
+    width: 30px;
+    height: 30px;
 }
 
 .product-modal-fav:hover,
