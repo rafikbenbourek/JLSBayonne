@@ -1,81 +1,180 @@
-let slides = document.querySelectorAll(".carousel-slide");
-let dots = document.querySelectorAll(".dot");
+const slides = document.querySelectorAll(".carousel-slide");
+const dots = document.querySelectorAll(".dot");
+const nextButton = document.querySelector(".next");
+const prevButton = document.querySelector(".prev");
+const carouselContainer = document.querySelector(".carousel-container");
 
-let index = 0;
-let duration = 8000; // 8s
-let timeoutId;
-let zoomInNext = true;
+if (slides.length && dots.length && carouselContainer) {
+    let index = 0;
+    const duration = 8000; // 8s
+    let timeoutId;
+    let zoomInNext = true;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let isPointerDown = false;
+    const swipeThreshold = 44;
+    const mobileTabletQuery = window.matchMedia("(max-width: 1024px)");
 
-function showSlide(i) {
-    const previousSlide = slides[index];
-    if (previousSlide) {
-        const previousImg = previousSlide.querySelector("img");
-        if (previousImg) {
-            // Keep the current visual state while the old slide fades out.
-            const currentTransform = getComputedStyle(previousImg).transform;
-            previousImg.style.transform = currentTransform === "none" ? "scale(1.02)" : currentTransform;
+    const applyMobileTabletSlider = (activeIndex, animate = true) => {
+        slides.forEach((slide, slideIndex) => {
+            const offset = slideIndex - activeIndex;
+            slide.style.transform = `translateX(${offset * 100}%)`;
+            slide.style.opacity = "1";
+            slide.style.transition = animate ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)" : "none";
+        });
+    };
+
+    const clearMobileTabletInlineStyles = () => {
+        slides.forEach((slide) => {
+            slide.style.transform = "";
+            slide.style.opacity = "";
+            slide.style.transition = "";
+        });
+    };
+
+    const showSlide = (i, options = {}) => {
+        const { immediate = false } = options;
+        const isMobileTablet = mobileTabletQuery.matches;
+        const previousSlide = slides[index];
+        if (!isMobileTablet && previousSlide) {
+            const previousImg = previousSlide.querySelector("img");
+            if (previousImg) {
+                // Keep the current visual state while the old slide fades out.
+                const currentTransform = getComputedStyle(previousImg).transform;
+                previousImg.style.transform = currentTransform === "none" ? "scale(1.02)" : currentTransform;
+            }
         }
+
+        slides.forEach((slide) => {
+            slide.classList.remove("active", "zoom-in", "zoom-out");
+        });
+        dots.forEach((dot) => dot.classList.remove("active"));
+
+        slides[i].classList.add("active");
+        if (isMobileTablet) {
+            applyMobileTabletSlider(i, !immediate);
+        } else {
+            clearMobileTabletInlineStyles();
+            slides[i].classList.add(zoomInNext ? "zoom-in" : "zoom-out");
+        }
+
+        if (dots[i]) {
+            dots[i].classList.add("active");
+        }
+
+        index = i;
+        zoomInNext = !zoomInNext;
+
+        // relancer l'autoplay proprement
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            showSlide((index + 1) % slides.length);
+        }, duration);
+    };
+
+    const goNext = () => {
+        showSlide((index + 1) % slides.length);
+    };
+
+    const goPrev = () => {
+        showSlide((index - 1 + slides.length) % slides.length);
+    };
+
+    slides.forEach((slide) => {
+        slide.addEventListener("transitionend", (event) => {
+            if (event.propertyName !== "opacity") return;
+            if (slide.classList.contains("active")) return;
+
+            const img = slide.querySelector("img");
+            if (img) {
+                // Reset once hidden so next activation starts from clean keyframes.
+                img.style.transform = "";
+            }
+        });
+    });
+
+    if (nextButton) {
+        nextButton.onclick = goNext;
     }
 
-    slides.forEach(slide => slide.classList.remove("active", "zoom-in", "zoom-out"));
-    dots.forEach(dot => dot.classList.remove("active"));
+    if (prevButton) {
+        prevButton.onclick = goPrev;
+    }
 
-    slides[i].classList.add("active");
-    slides[i].classList.add(zoomInNext ? "zoom-in" : "zoom-out");
-    dots[i].classList.add("active");
+    // dots
+    dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+            showSlide(i);
+        });
+    });
 
-    index = i;
-    zoomInNext = !zoomInNext;
+    mobileTabletQuery.addEventListener("change", () => {
+        showSlide(index, { immediate: true });
+    });
 
-    // relancer l'autoplay proprement
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-        showSlide((index + 1) % slides.length);
-    }, duration);
-}
+    // swipe tactile
+    carouselContainer.addEventListener("touchstart", (event) => {
+        if (!event.touches.length) return;
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+    }, { passive: true });
 
-slides.forEach((slide) => {
-    slide.addEventListener("transitionend", (event) => {
-        if (event.propertyName !== "opacity") return;
-        if (slide.classList.contains("active")) return;
+    carouselContainer.addEventListener("touchend", (event) => {
+        if (!event.changedTouches.length) return;
 
-        const img = slide.querySelector("img");
-        if (img) {
-            // Reset once hidden so next activation starts from clean keyframes.
-            img.style.transform = "";
+        const deltaX = event.changedTouches[0].clientX - touchStartX;
+        const deltaY = event.changedTouches[0].clientY - touchStartY;
+
+        // Ignore mostly vertical gestures to preserve page scroll.
+        if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
+        if (Math.abs(deltaX) < swipeThreshold) return;
+
+        if (deltaX < 0) {
+            goNext();
+        } else {
+            goPrev();
+        }
+    }, { passive: true });
+
+    // drag souris (desktop/tablette hybride)
+    carouselContainer.addEventListener("pointerdown", (event) => {
+        if (event.pointerType === "touch") return;
+        isPointerDown = true;
+        dragStartX = event.clientX;
+        dragStartY = event.clientY;
+    });
+
+    carouselContainer.addEventListener("pointerup", (event) => {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+
+        const deltaX = event.clientX - dragStartX;
+        const deltaY = event.clientY - dragStartY;
+
+        if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
+        if (Math.abs(deltaX) < swipeThreshold) return;
+
+        if (deltaX < 0) {
+            goNext();
+        } else {
+            goPrev();
         }
     });
-});
 
-// boutons
-document.querySelector(".next").onclick = () => {
-    showSlide((index + 1) % slides.length);
-};
-
-document.querySelector(".prev").onclick = () => {
-    showSlide((index - 1 + slides.length) % slides.length);
-};
-
-// dots
-dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => {
-        showSlide(i);
+    carouselContainer.addEventListener("pointercancel", () => {
+        isPointerDown = false;
     });
-});
 
-// démarrage
-window.addEventListener("load", () => {
+    // démarrage (immédiat) : évite le double trigger visuel de la slide déjà active en HTML
+    slides.forEach((slide) => slide.classList.remove("active", "zoom-in", "zoom-out"));
+    dots.forEach((dot) => dot.classList.remove("active"));
 
-    // retirer toute slide active au départ
-    slides.forEach(slide => slide.classList.remove("active"));
-
-    // forcer le navigateur à recalculer le layout
-    void document.body.offsetHeight;
-
-    // activer la première slide
-    showSlide(0);
-
-});
+    requestAnimationFrame(() => {
+        showSlide(0, { immediate: true });
+    });
+}
 
 // CAROUSEL DE MARQUES (animation continue + pop-up)
 const carousel = document.querySelector('.brands-carousel-vertical');
