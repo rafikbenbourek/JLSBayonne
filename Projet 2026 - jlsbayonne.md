@@ -1,7 +1,7 @@
 Projet 2026 - jlsbayonne.fr
 
-<!-- SEMAINE 1 (STAGE) -->
-<!-- 09/03/26 -->
+=== SEMAINE 1 (STAGE) ===
+=== 09/03/26 ===
 
 -	Étude et analyse du code du site web existant ; utilisation de HTTrack Website Copier pour récupérer l’ensemble des ressources (images, icônes, fichiers HTML, CSS et JavaScript).
 -	Prise de contact avec la gérante afin d’obtenir des logos en meilleure qualité pour une intégration optimale sur le site.
@@ -9,7 +9,7 @@ Projet 2026 - jlsbayonne.fr
 -	Élaboration et amélioration du design global du site (UI/UX).
 
 
-<!-- 10/03/26 -->
+=== 10/03/26 ===
 
 -	Réalisation de la page d’accueil (index.html)
 -	Développement du carrousel principal (hero carousel)
@@ -19,7 +19,7 @@ Projet 2026 - jlsbayonne.fr
 -	Amélioration de la barre de recherche (ergonomie et interaction)
 
 
-<!-- 11/03/26 -->
+=== 11/03/26 ===
 
 -	Réalisation de la page d’accueil
 -	Amélioration du carrousel (fluidité, transitions et ergonomie)
@@ -28,7 +28,7 @@ Projet 2026 - jlsbayonne.fr
 -	Création d’une bannière « Bienvenue chez Le Jardin de Lili & Sam – Concept Store »
 
 
-<!-- 12/03/26 -->
+=== 12/03/26 ===
 
 -	Déplacement chez la gérante afin de faire un point sur l’avancement du projet et obtenir l’accès au back-office
 -	Conversion des images du site du format .jpeg vers .webp, afin d’optimiser les performances et réduire le temps de chargement
@@ -36,7 +36,7 @@ Projet 2026 - jlsbayonne.fr
 -	Création et intégration des icônes du site (compte, panier, favoris, réseaux sociaux, etc.)
 
 
-<!-- 13/03/26 -->
+=== 13/03/26 ===
 
 -	Amélioration et alignement des icônes du header
 -	Création d’une section newsletter avec animations en JavaScript
@@ -45,8 +45,8 @@ Projet 2026 - jlsbayonne.fr
 -	Relecture et correction des erreurs de syntaxe (niveau 1)
 -	Finalisation et création des icônes du site (compte, panier, favoris, réseaux sociaux, etc.)
 
-<!-- SEMAINE 2 (STAGE) -->
-<!-- 16/03/26 -->
+=== SEMAINE 2 (STAGE) ===
+=== 16/03/26 ===
 
 		--- JOURNÉE CONSACRÉE AU DESIGN POUR LE SITE ---
 -	Travail sur les éléments graphiques : images, logo, icônes et fichiers SVG
@@ -55,7 +55,7 @@ Projet 2026 - jlsbayonne.fr
 -	Conversion des images du site du format .jpeg vers .webp, afin d’optimiser la vitesse de chargement (niveau 2)
 
 
-<!-- 17/03/26 -->
+=== 17/03/26 ===
 
 -	Correction du bug lié à l’overlay de recherche
 -	Alignement et amélioration de la bannière de bienvenue (niveau 2)
@@ -69,7 +69,7 @@ Projet 2026 - jlsbayonne.fr
 
 
 
-<!-- 18/03/26 -->
+=== 18/03/26 ===
 
 -	Fixe carrousel au lancement de la page
 -	Ajout effet visuel hover sur les icônes du header
@@ -80,7 +80,7 @@ Projet 2026 - jlsbayonne.fr
 -	Relecture et correction des erreurs de syntaxe (niveau 3)
 
 
-<!-- 19/03/26 -->
+=== 19/03/26 ===
 
 -	Amélioration du carousel des marques + Ajout d'un pop-up pour présenter les marques de la boutique
 - Amélioration du sidebar + debug
@@ -91,7 +91,7 @@ Projet 2026 - jlsbayonne.fr
 -	Relecture et correction des erreurs de syntaxe (niveau 4)
 
 
-<!-- 20/03/26 -->
+=== 20/03/26 ===
 
 -	Ajouts de design sur le header (Slogan + texte hover sur logo)
 -	Intégration des icônes de réseaux sociaux sur le header
@@ -100,8 +100,8 @@ Projet 2026 - jlsbayonne.fr
 -	Remaniement du menu sur le header (niveau 1)
 - Ajout widget contact
 
-<!-- SEMAINE 3 (STAGE) -->
-<!-- 23/03/26 -->
+=== SEMAINE 3 (STAGE) ===
+=== 23/03/26 ===
 
 -	Prise de contact par Email avec le développeur Patrick Garnier pour planifier un rendez-vous:
 														- Pour accès au back-office du site
@@ -116,7 +116,7 @@ Projet 2026 - jlsbayonne.fr
 - Création de la page Evenements
 
 
-<!-- 24/03/26 -->
+=== 24/03/26 ===
 
 - Réponse du développeur Patrick Garnier et accès à la base de données MySQL + création d'un compte admnistrateur
 - Optimisation du submenu
@@ -124,7 +124,7 @@ Projet 2026 - jlsbayonne.fr
 -	Création d’un header dynamique réactif au défilement de la page ---> Big Header -> Mini Header -> height: 50px + logo -> Le Jardin de Lili & Sam (horizontal) ? (NON)
 
 
-<!-- 25/03/26 -->
+=== 25/03/26 ===
 
 - Ajouts d'éléments sur le footer
 -	Intégration d'icônes SVG dans le submenu des catégories
@@ -133,7 +133,7 @@ Projet 2026 - jlsbayonne.fr
 - Responsive des éléments (niveau 1)
 
 
-<!-- 26/03/26 * -->
+=== 26/03/26 * ===
 
 -	Optimisation des balises HTML (niveau 6)*
 -	Vérification de l’absence de doublons dans le code (niveau 5)*
@@ -142,7 +142,7 @@ Projet 2026 - jlsbayonne.fr
 -	Finition des animations de la newsletter*
 
 
-<!-- 27/03/26 * -->
+=== 27/03/26 * ===
 
 -	Déplacement chez la cliente JLS Bayonne pour :
 						- Réalisation d’un shooting photo pour la page d'accueil (niveau 1)*
@@ -155,6 +155,6 @@ Projet 2026 - jlsbayonne.fr
 - Responsive du header (niveau 2)*
 - Responsive des éléments (niveau 2)*
 
-<!-- RENCONTRE AVEC PATRICK GARNIER POUR RÉALISER UNE BASE DE DONNÉES -->
+=== RENCONTRE AVEC PATRICK GARNIER POUR RÉALISER UNE BASE DE DONNÉES ===
 
-<!-- DATE À DÉFINIR -->
+=== DATE À DÉFINIR ===
