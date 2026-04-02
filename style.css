@@ -1996,19 +1996,20 @@ body {
 
 .slide-content h2 {
     font-family: AmaticSC-Bold, "Open Sans", Arial, sans-serif;
-    font-size: 130px;
+    font-size: 140px;
     font-weight: 600;
     margin-bottom: 10px;
     letter-spacing: -7px;
+    word-spacing: 20px; 
     text-shadow:
         -0.7px 0 currentColor,
         -1.3px 0 currentColor;
-    color: #ecececd6;
+    color: #efefefd6;
     filter:
-        drop-shadow(3.5px 0 0 black)
-        drop-shadow(0px 0 0 black)
-        drop-shadow(-1px 2px 0 black)
-        drop-shadow(0px -1px 0 black);
+        drop-shadow(3.5px 0 0 rgb(16, 16, 16))
+        drop-shadow(0px 0 0 rgb(16, 16, 16))
+        drop-shadow(-2px 2px 0 rgb(16, 16, 16))
+        drop-shadow(0px -1px 0 rgb(16, 16, 16));
 }
 
 .slide-content p {
@@ -2071,7 +2072,7 @@ body {
 
 @media (max-width: 1024px) {
     .carousel {
-        height: 56vh;
+        height: 50vh;
     }
 
     .carousel-container {
@@ -2094,13 +2095,15 @@ body {
     }
 
     .slide-content h2 {
-        font-size: clamp(34px, 5.1vw, 52px);
+        font-size: clamp(100px, 5.1vw, 52px);
         margin-bottom: 8px;
-        letter-spacing: 0.5px;
+        letter-spacing: -4px;
+        white-space: nowrap;
+        word-spacing: 10px; 
     }
 
     .slide-content p {
-        font-size: clamp(15px, 1.9vw, 18px);
+        font-size: clamp(18px, 1.9vw, 18px);
         max-width: 82vw;
         line-height: 1.45;
     }
