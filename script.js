@@ -538,6 +538,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// ANIMATION D'ENTREE SECTION PHILOSOPHIE
+document.addEventListener("DOMContentLoaded", () => {
+    if (!document.querySelector(".philosophie")) return;
+    requestAnimationFrame(() => {
+        document.body.classList.add("philosophie-entered");
+    });
+});
+
 // MODALE PRODUIT (QUICK VIEW CATALOGUE)
 document.addEventListener("DOMContentLoaded", () => {
     const modal = document.querySelector("[data-product-modal]");
@@ -811,11 +819,13 @@ document.addEventListener("DOMContentLoaded", () => {
     lightboxMain?.addEventListener("mousemove", (event) => {
         if (!isLightboxZoomed || !lightboxImage) return;
 
-        const rect = lightboxMain.getBoundingClientRect();
+        const rect = lightboxImage.getBoundingClientRect();
         const x = ((event.clientX - rect.left) / rect.width) * 100;
         const y = ((event.clientY - rect.top) / rect.height) * 100;
+        const clampedX = Math.max(0, Math.min(100, x));
+        const clampedY = Math.max(0, Math.min(100, y));
 
-        lightboxImage.style.transformOrigin = `${x}% ${y}%`;
+        lightboxImage.style.transformOrigin = `${clampedX}% ${clampedY}%`;
     });
 
     modalMainImageWrap?.addEventListener("mousemove", (event) => {

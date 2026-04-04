@@ -35,10 +35,11 @@ if (slides.length && dots.length && carouselContainer) {
     };
 
     const showSlide = (i, options = {}) => {
-        const { immediate = false } = options;
+        const { immediate = false, restartImage = false, forceZoomIn = false } = options;
         const isMobileTablet = mobileTabletQuery.matches;
         const previousSlide = slides[index];
-        if (!isMobileTablet && previousSlide) {
+        const isRestartingCurrentSlide = restartImage && i === index;
+        if (!isMobileTablet && previousSlide && !isRestartingCurrentSlide) {
             const previousImg = previousSlide.querySelector("img");
             if (previousImg) {
                 // Keep the current visual state while the old slide fades out.
@@ -57,7 +58,15 @@ if (slides.length && dots.length && carouselContainer) {
             applyMobileTabletSlider(i, !immediate);
         } else {
             clearMobileTabletInlineStyles();
-            slides[i].classList.add(zoomInNext ? "zoom-in" : "zoom-out");
+            if (restartImage) {
+                const targetImg = slides[i].querySelector("img");
+                if (targetImg) {
+                    targetImg.style.transform = "";
+                    void targetImg.offsetWidth;
+                }
+            }
+            const shouldZoomIn = forceZoomIn || zoomInNext;
+            slides[i].classList.add(shouldZoomIn ? "zoom-in" : "zoom-out");
         }
 
         if (dots[i]) {
@@ -106,7 +115,7 @@ if (slides.length && dots.length && carouselContainer) {
     // dots
     dots.forEach((dot, i) => {
         dot.addEventListener("click", () => {
-            showSlide(i);
+            showSlide(i, { restartImage: true, forceZoomIn: true });
         });
     });
 
@@ -215,26 +224,12 @@ if (carousel && track) {
         return [...new Set(allBrands)];
     };
 
-    const lockScrollbar = () => {
-        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-        if (scrollbarWidth > 0) {
-            const currentPadding = window.getComputedStyle(document.body).paddingRight;
-            const basePadding = parseFloat(currentPadding) || 0;
-            document.body.style.paddingRight = `${basePadding + scrollbarWidth}px`;
-        }
-    };
-
-    const unlockScrollbar = () => {
-        document.body.style.paddingRight = '';
-    };
-
     const closeBrandsModal = () => {
         if (!brandsModal || !brandsModal.classList.contains('is-open')) return;
 
         brandsModal.classList.remove('is-open');
         brandsModal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('brands-modal-open');
-        unlockScrollbar();
         window.unlockBodyScroll?.();
 
         if (anim) {
@@ -258,7 +253,6 @@ if (carousel && track) {
         brandsModal.classList.add('is-open');
         brandsModal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('brands-modal-open');
-        lockScrollbar();
         window.lockBodyScroll?.();
 
         if (anim) {
