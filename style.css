@@ -2288,8 +2288,8 @@ body {
 }
 
 .philosophie h2 {
-    font-family: AmaticSC-Bold, "Open Sans", Arial, sans-serif;
-    font-size: 87px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 48px;
     font-weight: 700;
     margin-top: -28px;
     margin-bottom: 40px;
@@ -4904,7 +4904,7 @@ footer::after {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #2c2c2c;
-    background: #efefef;
+    background: #dddddd;
     padding: 6px 10px;
     font-weight: 700;
 }
@@ -4914,7 +4914,7 @@ footer::after {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #2c2c2c;
-    background: #00ff2fa3;
+    background: #00cd26;
     padding: 6px 10px;
     font-weight: 700;
     margin-right: auto;
