@@ -13,6 +13,7 @@ if (slides.length && dots.length && carouselContainer) {
     let touchStartY = 0;
     let dragStartX = 0;
     let dragStartY = 0;
+    let pointerId = null;
     let isPointerDown = false;
     const swipeThreshold = 44;
     const mobileTabletQuery = window.matchMedia("(max-width: 1024px)");
@@ -150,14 +151,16 @@ if (slides.length && dots.length && carouselContainer) {
     // drag souris (desktop/tablette hybride)
     carouselContainer.addEventListener("pointerdown", (event) => {
         if (event.pointerType === "touch") return;
+        pointerId = event.pointerId;
         isPointerDown = true;
         dragStartX = event.clientX;
         dragStartY = event.clientY;
     });
 
-    carouselContainer.addEventListener("pointerup", (event) => {
-        if (!isPointerDown) return;
+    const handlePointerUp = (event) => {
+        if (!isPointerDown || pointerId !== event.pointerId) return;
         isPointerDown = false;
+        pointerId = null;
 
         const deltaX = event.clientX - dragStartX;
         const deltaY = event.clientY - dragStartY;
@@ -170,10 +173,14 @@ if (slides.length && dots.length && carouselContainer) {
         } else {
             goPrev();
         }
-    });
+    };
 
-    carouselContainer.addEventListener("pointercancel", () => {
+    window.addEventListener("pointerup", handlePointerUp);
+
+    window.addEventListener("pointercancel", (event) => {
+        if (pointerId !== event.pointerId) return;
         isPointerDown = false;
+        pointerId = null;
     });
 
     // démarrage (immédiat) : évite le double trigger visuel de la slide déjà active en HTML

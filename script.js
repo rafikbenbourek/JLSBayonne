@@ -1,5 +1,7 @@
 document.addEventListener("dragstart", function (e) {
-    e.preventDefault();
+    if (e.target instanceof HTMLImageElement) {
+        e.preventDefault();
+    }
 });
 
 // MEGA MENU MODE FEMME: titres cliquables vers la page catalogue avec filtre preselectionne
